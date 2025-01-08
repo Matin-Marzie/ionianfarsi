@@ -1,0 +1,938 @@
+-- phpMyAdmin SQL Dump
+-- version 5.2.1
+-- https://www.phpmyadmin.net/
+--
+-- Εξυπηρετητής: localhost
+-- Χρόνος δημιουργίας: 12 Δεκ 2024 στις 23:57:52
+-- Έκδοση διακομιστή: 10.4.32-MariaDB
+-- Έκδοση PHP: 8.2.12
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Βάση δεδομένων: `sql7744894`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Δομή πίνακα για τον πίνακα `Lesson`
+--
+
+CREATE TABLE `Lesson` (
+  `number` int(11) NOT NULL,
+  `functionality` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_persian_ci DEFAULT NULL,
+  `language` varchar(255) DEFAULT NULL,
+  `page_no` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_persian_ci;
+
+--
+-- Άδειασμα δεδομένων του πίνακα `Lesson`
+--
+
+INSERT INTO `Lesson` (`number`, `functionality`, `language`, `page_no`) VALUES
+(1, 'مُعَرّفی خود (۱)\r\nبَیانِ نامِ خود وَ پُرسیدَنِ نامِ دیگَران', NULL, 19),
+(2, 'مُعَرِفیِ خود (۲)، پُرسِش وَ پاسُخ دَربارهٔ مِلّیَت', NULL, 29),
+(3, 'مُعَرِفیِ خود(۳)، پُرسِش وَ پاسُخ دَربارهٔ شُغل', NULL, 39),
+(4, 'مُعَرِفی دیگَران', NULL, 49),
+(5, 'اَحوال پُرسی، آغازِ گُفت و گو', 'ضَمایِر شَخصی وَ حالِ سادهٔ فِعلِ یودَن(۱)', 59),
+(6, 'پایان گُفت و گو(خُداحافِظی)', 'ضَمایِر شَخصی وَ حالِ سادهٔ فِعلِ یودَن(۱)', 69),
+(7, 'پُرسِش دَربارهٔ اَشیاء وَ اَفراد(۱)', 'ضَمایِر اِشارهٔ این وَ آن، پُرسِش واژه چیست؟/کسیت؟\r\nیِک فِعلِ پُرکاربُرد: آمَدَن', 91),
+(8, 'پُرسِش دَربارهٔ اَشیاء وَ اَفراد(۱)', 'پاسُخ واژه هایِ بَله وَ خِیر، مَنفیِ حالِ سادهٔ فِعلِ بودَن\r\nیِک فِعلِ پُرکاربُرد: دیدَن', 101),
+(9, 'پُرسِش دَربارهٔ اَشیاء وَ اَفراد', 'پُرسِش واژه آیا\r\nیِک فِعلِ پُرکاربُرد: خوردَن', 113),
+(10, 'صُحبَت کَردَن دَربارهٔ اَفرادِ خوانِواده', 'ضَمایِر مِلکی جُدا وَ پِیوَسته\r\nیِک فِعلِ پُرکاربُرد: شِنیدَن', 123),
+(11, 'بَیان وَ پُرسِش دَربارهٔ مَکان (کِتاب کُجاست؟)', 'پُرسِش واژهٔ کُجا؟ وَ قِید هایِ سادهٔ مَکان (اینجا، آنجا)\r\nیِک فِعلِ پُرکاربُرد: خواندَن', 135),
+(12, 'بَیان وَ پُرسِش دَربارهٔ مالِکیَّت', 'حالِ سادهٔ وَ مَنفیِ فِعلِ داشتَن\r\nیِک فِعلِ پُر کاربُرد: گُفتَن', 147),
+(13, 'توصیفِ اَشیا یا اَفراد', 'کَسرهٔ اِضافه (دَر تَرکیبِ وَصفی)\r\nیِک فِعلِ پُر کاربُرد: خوابیدَن', 165),
+(14, 'بَیان وَ پُرسِش دَربارهٔ زَمانِ‌ حال', 'پُرسِش واژه کی؟ وَ قِید هایِ ساده زَمانِ حال (اِمروز، اِمشَب)\r\nیِک فِعلِ پُرکاربُرد: رَفتَن', 175),
+(15, 'بَیانِ‌ یِک رویداد دَر زَمانِ‌گُذَشته\r\n(دیروز دانِشگاه بودَم)', 'گُذَشتهٔ ساده وَ قِید هایِ سادهٔ زِمانِ گُذَشته(دیروز، دیشَب)\r\nیِک فِعلِ‌پُرکاربُرد: پوشیدَن', 185),
+(16, 'مُعَرِفیِ خود (۴)\r\nبَیانِ‌سِن وَ پُرسِش دَربارهٔ سِن دیگَران', 'پُرسیدَنِ‌ واژهٔ چَند؟\r\nیِک فِعلِ‌پُرکاربُرد:پوشیدَن', 195),
+(17, 'بَیانِ تَقاضا', 'جُمله هایِ‌ اَمری ساده وَ پُرکاربُرد\r\nیِک فِعلِ پُر کاربُرد: خَریدَن', 205);
+
+-- --------------------------------------------------------
+
+--
+-- Δομή πίνακα για τον πίνακα `Letter`
+--
+
+CREATE TABLE `Letter` (
+  `id` int(11) NOT NULL,
+  `writing_style` varchar(128) NOT NULL,
+  `letter_sign` varchar(32) DEFAULT NULL,
+  `english_example` varchar(16) DEFAULT NULL,
+  `persian_example` varchar(255) NOT NULL,
+  `type` enum('consonant','vowel') NOT NULL,
+  `lesson_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_persian_ci;
+
+--
+-- Άδειασμα δεδομένων του πίνακα `Letter`
+--
+
+INSERT INTO `Letter` (`id`, `writing_style`, `letter_sign`, `english_example`, `persian_example`, `type`, `lesson_id`) VALUES
+(1, 'آ ا', NULL, 'on, God', 'بابا، آب', 'vowel', 1),
+(2, 'ب', NULL, 'book', 'باران', 'consonant', 1),
+(3, 'َ  اَ', NULL, 'cat', 'دَر', 'vowel', 1),
+(4, 'ی ای', NULL, 'happy', 'دیر، ایران', 'vowel', 2),
+(5, 'پ', NULL, 'pen', 'پا', 'consonant', 2),
+(6, 'ت', NULL, 'ten', 'توپ', 'consonant', 2),
+(7, 'اُ  ُ', NULL, 'saw', 'اُردَک، پُر', 'vowel', 3),
+(8, 'س', NULL, 'rice, sad', 'سَبز', 'consonant', 3),
+(9, 'ش', NULL, 'she', 'شیر', 'consonant', 3),
+(10, 'اِ  ِ', NULL, 'get', 'اِستَخر، سه', 'vowel', 4),
+(11, 'ر', NULL, 'red', 'رود', 'consonant', 4),
+(12, 'ز', NULL, 'zoo', 'زَنبور', 'consonant', 4),
+(13, 'او و', NULL, 'good', 'موش، گِردو', 'vowel', 5),
+(14, 'د', NULL, 'do', 'دود', 'consonant', 5),
+(15, 'ن', NULL, 'pen', 'نَمَک', 'consonant', 6),
+(16, 'م', NULL, 'milk', 'میز', 'consonant', 6),
+(17, 'ک', NULL, 'cat, ask', 'کِتاب', 'consonant', 7),
+(18, 'گ', NULL, 'get', 'گُل، سَگ', 'consonant', 7),
+(19, 'ل', NULL, 'ball, let', 'لَب،‌ پُل', 'consonant', 8),
+(20, 'و', NULL, 'very', 'وان', 'consonant', 8),
+(21, 'ُ', NULL, 'saw', '	\r\nاُردَک، پُر', 'vowel', 8),
+(22, 'ح', NULL, 'hit', 'حباب', 'consonant', 9),
+(23, 'ج', NULL, 'job, age', 'جَنگَل', 'consonant', 9),
+(24, 'خ', NULL, NULL, 'خِرس', 'consonant', 10),
+(25, 'چ', NULL, 'cheese', 'چِشم', 'consonant', 10),
+(26, 'خوا', NULL, 'khanacademy', 'خواب', 'consonant', 10),
+(27, 'ف', NULL, 'food', 'فَرش، کَفش', 'consonant', 11),
+(28, 'ق', NULL, '-', 'قِرمِز، غَذا', 'consonant', 11),
+(29, 'ّ', NULL, NULL, 'بَچّه', 'consonant', 11),
+(30, 'ه', NULL, 'hit', 'هِند،‌ حُباب', 'consonant', 12),
+(31, 'ی', NULL, 'yes', 'یَخ', 'consonant', 12),
+(32, 'ی+ی', NULL, NULL, 'خیار،‌ سیاه', 'consonant', 12),
+(33, 'ص', NULL, 'rice, sad', 'صابون', 'consonant', 13),
+(34, 'ض', NULL, 'zoo', 'وضو', 'consonant', 13),
+(35, 'ع', NULL, '-', 'عَسَل، ساعَت', 'consonant', 14),
+(36, 'غ', NULL, '-', 'غَذا', 'consonant', 14),
+(37, 'ط', NULL, 'ten', 'طلا', 'consonant', 15),
+(38, 'ظ', NULL, 'zoo', 'ظرف', 'consonant', 15),
+(39, 'ژ', NULL, 'television', 'ژله، گاراژ', 'consonant', 16),
+(40, 'ذ', NULL, 'zoo', 'غَذا', 'consonant', 16),
+(41, 'ث', NULL, 'rice, sad', 'کَثیف', 'consonant', 17),
+(42, 'ئ أ ؤ', NULL, '-', 'رَئیس', 'consonant', 17);
+
+-- --------------------------------------------------------
+
+--
+-- Δομή πίνακα για τον πίνακα `letter_taught_with`
+--
+
+CREATE TABLE `letter_taught_with` (
+  `letter_id` int(11) NOT NULL,
+  `word_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_persian_ci;
+
+--
+-- Άδειασμα δεδομένων του πίνακα `letter_taught_with`
+--
+
+INSERT INTO `letter_taught_with` (`letter_id`, `word_id`) VALUES
+(1, 1),
+(1, 2),
+(1, 3),
+(1, 4),
+(1, 5),
+(1, 6),
+(1, 7),
+(1, 8),
+(2, 9),
+(2, 10),
+(2, 11),
+(2, 12),
+(2, 13),
+(2, 14),
+(2, 15),
+(2, 16),
+(3, 17),
+(3, 18),
+(3, 19),
+(3, 20),
+(3, 21),
+(3, 22),
+(3, 23),
+(3, 24),
+(4, 25),
+(4, 26),
+(4, 27),
+(4, 28),
+(4, 29),
+(4, 30),
+(4, 31),
+(4, 32),
+(5, 33),
+(5, 34),
+(5, 35),
+(5, 36),
+(5, 37),
+(5, 38),
+(5, 39),
+(5, 40),
+(6, 41),
+(6, 42),
+(6, 43),
+(6, 44),
+(6, 45),
+(6, 46),
+(6, 47),
+(6, 48),
+(7, 49),
+(7, 50),
+(7, 51),
+(7, 52),
+(7, 53),
+(7, 54),
+(7, 55),
+(7, 56),
+(8, 57),
+(8, 58),
+(8, 59),
+(8, 60),
+(8, 61),
+(8, 62),
+(8, 63),
+(8, 64),
+(9, 65),
+(9, 66),
+(9, 67),
+(9, 68),
+(9, 69),
+(9, 70),
+(9, 71),
+(9, 72),
+(10, 73),
+(10, 74),
+(10, 75),
+(10, 76),
+(10, 77),
+(10, 78),
+(10, 79),
+(10, 80),
+(11, 81),
+(11, 82),
+(11, 83),
+(11, 84),
+(11, 85),
+(11, 86),
+(11, 87),
+(11, 88),
+(12, 89),
+(12, 90),
+(12, 91),
+(12, 92),
+(12, 93),
+(12, 94),
+(12, 95),
+(12, 96),
+(13, 97),
+(13, 98),
+(13, 99),
+(13, 100),
+(13, 101),
+(13, 102),
+(13, 103),
+(13, 104),
+(14, 105),
+(14, 106),
+(14, 107),
+(14, 108),
+(14, 109),
+(14, 110),
+(14, 111),
+(14, 112),
+(15, 113),
+(15, 114),
+(15, 115),
+(15, 116),
+(15, 117),
+(15, 118),
+(15, 119),
+(15, 120),
+(16, 121),
+(16, 122),
+(16, 123),
+(16, 124),
+(16, 125),
+(16, 126),
+(16, 127),
+(17, 129),
+(17, 130),
+(17, 131),
+(17, 132),
+(17, 133),
+(17, 134),
+(17, 135),
+(17, 136),
+(18, 137),
+(18, 138),
+(18, 139),
+(18, 140),
+(18, 141),
+(18, 142),
+(18, 143),
+(18, 144),
+(19, 145),
+(19, 146),
+(19, 147),
+(19, 148),
+(19, 149),
+(19, 150),
+(19, 151),
+(19, 152),
+(20, 153),
+(20, 154),
+(20, 155),
+(20, 156),
+(20, 157),
+(20, 158),
+(20, 159),
+(20, 160),
+(21, 161),
+(21, 162),
+(21, 163),
+(21, 164),
+(21, 165),
+(21, 166),
+(21, 167),
+(21, 168),
+(22, 169),
+(22, 170),
+(22, 171),
+(22, 172),
+(22, 173),
+(22, 174),
+(22, 175),
+(22, 176),
+(23, 177),
+(23, 178),
+(23, 179),
+(23, 180),
+(23, 181),
+(23, 182),
+(23, 183),
+(23, 184),
+(24, 185),
+(24, 186),
+(24, 187),
+(24, 188),
+(24, 189),
+(24, 190),
+(24, 191),
+(24, 192),
+(25, 193),
+(25, 194),
+(25, 195),
+(25, 196),
+(25, 197),
+(25, 198),
+(25, 199),
+(25, 200),
+(26, 201),
+(26, 202),
+(26, 203),
+(26, 204),
+(26, 205),
+(26, 206),
+(26, 207),
+(26, 208),
+(27, 209),
+(27, 210),
+(27, 211),
+(27, 212),
+(27, 213),
+(27, 214),
+(27, 215),
+(27, 216),
+(28, 217),
+(28, 218),
+(28, 219),
+(28, 220),
+(28, 221),
+(28, 222),
+(28, 223),
+(28, 224),
+(29, 225),
+(29, 226),
+(29, 227),
+(29, 228),
+(29, 229),
+(29, 230),
+(29, 231),
+(29, 232),
+(30, 233),
+(30, 234),
+(30, 235),
+(30, 236),
+(30, 237),
+(30, 238),
+(30, 239),
+(30, 240),
+(31, 241),
+(31, 242),
+(31, 243),
+(31, 244),
+(31, 245),
+(31, 246),
+(31, 247),
+(31, 248),
+(32, 249),
+(32, 250),
+(32, 251),
+(32, 252),
+(32, 253),
+(32, 254),
+(32, 255),
+(32, 256),
+(33, 257),
+(33, 258),
+(33, 259),
+(33, 260),
+(33, 261),
+(33, 262),
+(33, 263),
+(34, 264),
+(34, 265),
+(34, 266),
+(34, 267),
+(34, 268),
+(34, 269),
+(34, 270),
+(35, 271),
+(35, 272),
+(35, 273),
+(35, 274),
+(35, 275),
+(35, 276),
+(35, 277),
+(35, 278),
+(36, 279),
+(36, 280),
+(36, 281),
+(36, 282),
+(36, 283),
+(36, 284),
+(36, 285),
+(36, 286),
+(37, 287),
+(37, 288),
+(37, 289),
+(37, 290),
+(37, 291),
+(37, 292),
+(37, 293),
+(37, 294),
+(38, 295),
+(38, 296),
+(38, 297),
+(38, 298),
+(38, 299),
+(38, 300),
+(39, 301),
+(39, 302),
+(39, 303),
+(39, 304),
+(39, 305),
+(39, 306),
+(39, 307),
+(39, 308),
+(40, 309),
+(40, 310),
+(40, 311),
+(40, 312),
+(40, 313),
+(40, 314),
+(40, 315),
+(41, 316),
+(41, 317),
+(41, 318),
+(41, 319),
+(41, 320),
+(41, 321),
+(42, 322),
+(42, 323),
+(42, 324),
+(42, 325),
+(42, 326),
+(42, 327);
+
+-- --------------------------------------------------------
+
+--
+-- Δομή πίνακα για τον πίνακα `Word`
+--
+
+CREATE TABLE `Word` (
+  `id` int(11) NOT NULL,
+  `written_form` varchar(255) DEFAULT NULL,
+  `english_equivalent` varchar(255) DEFAULT NULL,
+  `category` varchar(255) CHARACTER SET utf32 COLLATE utf32_persian_ci DEFAULT NULL,
+  `image_url` varchar(255) DEFAULT NULL,
+  `audio_url` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_persian_ci;
+
+--
+-- Άδειασμα δεδομένων του πίνακα `Word`
+--
+
+INSERT INTO `Word` (`id`, `written_form`, `english_equivalent`, `category`, `image_url`, `audio_url`) VALUES
+(1, 'آب', 'water', 'اسم', 'https://ionio-back.onrender.com/images/lesson-1/ab.jpg', 'https://ionio-back.onrender.com/audio/lesson-1/ab.mp3'),
+(2, 'آبی', 'blue', 'نام رنگ، صفت', 'https://ionio-back.onrender.com/images/lesson-1/abi.jpg', 'https://ionio-back.onrender.com/audio/lesson-1/abi.mp3'),
+(3, 'بادام', 'almond', 'اسم', 'https://ionio-back.onrender.com/images/lesson-1/badam.jpg', 'https://ionio-back.onrender.com/audio/lesson-1/badam.mp3'),
+(4, 'پا', 'foot', 'اسم، اعضای بدن', 'https://ionio-back.onrender.com/images/lesson-1/pa.jpg', 'https://ionio-back.onrender.com/audio/lesson-1/pa.mp3'),
+(5, 'باران', 'rain', 'اسم', 'https://ionio-back.onrender.com/images/lesson-1/baran.jpg', 'https://ionio-back.onrender.com/audio/lesson-1/baran.mp3'),
+(6, 'باد', 'wind', 'اسم', 'https://ionio-back.onrender.com/images/lesson-1/bad.jpg', 'https://ionio-back.onrender.com/audio/lesson-1/bad.mp3'),
+(7, 'پاندا', 'panda', 'اسم، حیوان', 'https://ionio-back.onrender.com/images/lesson-1/panda.jpg', 'https://ionio-back.onrender.com/audio/lesson-1/panda.mp3'),
+(8, 'آسِمان', 'sky', 'اسم', 'https://ionio-back.onrender.com/images/lesson-1/aseman.jpg', 'https://ionio-back.onrender.com/audio/lesson-1/aseman.mp3'),
+(9, 'اَبر', 'cloud', 'اسم', 'https://ionio-back.onrender.com/images/lesson-1/abr.jpg', 'https://ionio-back.onrender.com/audio/lesson-1/abr.mp3'),
+(10, 'بَبر', 'tiger', 'اسم، حیوان', 'https://ionio-back.onrender.com/images/lesson-1/babr.jpg', 'https://ionio-back.onrender.com/audio/lesson-1/babr.mp3'),
+(11, 'مُبل', 'sofa', 'اسم', 'https://ionio-back.onrender.com/images/lesson-1/mobl.jpg', 'https://ionio-back.onrender.com/audio/lesson-1/mobl.mp3'),
+(12, 'بازار', 'bazaar', 'اسم', 'https://ionio-back.onrender.com/images/lesson-1/bazar.jpg', 'https://ionio-back.onrender.com/audio/lesson-1/bazar.mp3'),
+(13, 'قاب', 'frame', 'اسم', 'https://ionio-back.onrender.com/images/lesson-1/ghab.jpg', 'https://ionio-back.onrender.com/audio/lesson-1/ghab.mp3'),
+(14, 'کَباب', 'kebab', 'اسم، غذا', 'https://ionio-back.onrender.com/images/lesson-1/kabab.jpg', 'https://ionio-back.onrender.com/audio/lesson-1/kabab.mp3'),
+(15, 'سیب', 'apple', 'اسم، میوه', 'https://ionio-back.onrender.com/images/lesson-1/sib.jpg', 'https://ionio-back.onrender.com/audio/lesson-1/sib.mp3'),
+(16, 'بابا', 'daddy', 'اسم', 'https://ionio-back.onrender.com/images/lesson-1/baba.jpg', 'https://ionio-back.onrender.com/audio/lesson-1/baba.mp3'),
+(17, 'اَسب', 'horse', 'اسم، حیوان', 'https://ionio-back.onrender.com/images/lesson-1/asb.jpg', 'https://ionio-back.onrender.com/audio/lesson-1/asb.mp3'),
+(18, 'اَنگُشت', 'finger', 'اسم، اعضای بدن', 'https://ionio-back.onrender.com/images/lesson-1/angosht.jpg', 'https://ionio-back.onrender.com/audio/lesson-1/angosht.mp3'),
+(19, 'اَبرو', 'eyebrow', 'اسم، اعضای بدن', 'https://ionio-back.onrender.com/images/lesson-1/abru.jpg', 'https://ionio-back.onrender.com/audio/lesson-1/abru.mp3'),
+(20, 'اَنار', 'pomegranate', 'اسم، میوه', 'https://ionio-back.onrender.com/images/lesson-1/anar.jpg', 'https://ionio-back.onrender.com/audio/lesson-1/anar.mp3'),
+(21, 'بَستَنی', 'ice cream', 'اسم', 'https://ionio-back.onrender.com/images/lesson-1/bastani.jpg', 'https://ionio-back.onrender.com/audio/lesson-1/bastani.mp3'),
+(22, 'اَنجیر', 'fig', 'اسم، میوه', 'https://ionio-back.onrender.com/images/lesson-1/anjir.jpg', 'https://ionio-back.onrender.com/audio/lesson-1/anjir.mp3'),
+(23, 'اَنگور', 'grape', 'اسم،‌ میوه', 'https://ionio-back.onrender.com/images/lesson-1/angur.jpg', 'https://ionio-back.onrender.com/audio/lesson-1/angur.mp3'),
+(24, 'سَبَد', 'basket', 'اسم', 'https://ionio-back.onrender.com/images/lesson-1/sabad.jpg', 'https://ionio-back.onrender.com/audio/lesson-1/sabad.mp3'),
+(25, 'ایران', 'Iran', 'اسم، کشور', 'https://ionio-back.onrender.com/images/lesson-2/iran.jpg', 'https://ionio-back.onrender.com/audio/lesson-2/iran.mp3'),
+(26, 'ایتالیا', 'Italy', 'اسم، کشور', 'https://ionio-back.onrender.com/images/lesson-2/italia.jpg', 'https://ionio-back.onrender.com/audio/lesson-2/italia.mp3'),
+(27, 'شیر', 'Iran', 'اسم، حیوان', 'https://ionio-back.onrender.com/images/lesson-2/shir.jpg', 'https://ionio-back.onrender.com/audio/lesson-2/shir.mp3'),
+(28, 'توسی', 'gray', 'اسم، رنگ', 'https://ionio-back.onrender.com/images/lesson-2/tusi.jpg', 'https://ionio-back.onrender.com/audio/lesson-2/tusi.mp3'),
+(29, 'قَهوه ای', 'brown', 'اسم، رنگ', 'https://ionio-back.onrender.com/images/lesson-2/ghahvei.jpg', 'https://ionio-back.onrender.com/audio/lesson-2/ghahvei.mp3'),
+(30, 'لیوان', 'mug', 'اسم', 'https://ionio-back.onrender.com/images/lesson-2/livan.jpg', 'https://ionio-back.onrender.com/audio/lesson-2/livan.mp3'),
+(31, 'روسَری', 'scarf', 'اسم، لباس', 'https://ionio-back.onrender.com/images/lesson-2/rusari.jpg', 'https://ionio-back.onrender.com/audio/lesson-2/rusari.mp3'),
+(32, 'سُرمه ای', 'navy blue', 'اسم، رنگ', 'https://ionio-back.onrender.com/images/lesson-2/sormei.jpg', 'https://ionio-back.onrender.com/audio/lesson-2/sormei.mp3'),
+(33, 'پَر', 'feather', 'اسم', 'https://ionio-back.onrender.com/images/lesson-2/par.jpg', 'https://ionio-back.onrender.com/audio/lesson-2/par.mp3'),
+(34, 'پاپ', 'Pope', 'اسم، شغل', 'https://ionio-back.onrender.com/images/lesson-2/pap.jpg', 'https://ionio-back.onrender.com/audio/lesson-2/pap.mp3'),
+(35, 'ژاپُن', 'Japan', 'اسم، کشور', 'https://ionio-back.onrender.com/images/lesson-2/zhapon.jpg', 'https://ionio-back.onrender.com/audio/lesson-2/zhapon.mp3'),
+(36, 'آشپَز', 'cook', 'اسم، شغل', 'https://ionio-back.onrender.com/images/lesson-2/ashpaz.jpg', 'https://ionio-back.onrender.com/audio/lesson-2/ashpaz.mp3'),
+(37, 'زیپ', 'zipper', 'اسم', 'https://ionio-back.onrender.com/images/lesson-2/zip.jpg', 'https://ionio-back.onrender.com/audio/lesson-2/zip.mp3'),
+(38, 'هَواپِیما', 'airplane', 'اسم، حمل و نقل', 'https://ionio-back.onrender.com/images/lesson-2/havapeyma.jpg', 'https://ionio-back.onrender.com/audio/lesson-2/havapeyma.mp3'),
+(39, 'شامپو', 'shampoo', 'اسم', 'https://ionio-back.onrender.com/images/lesson-2/shampu.jpg', 'https://ionio-back.onrender.com/audio/lesson-2/shampu.mp3'),
+(40, 'سوپ', 'soup', 'اسم، غذا', 'https://ionio-back.onrender.com/images/lesson-2/sup.jpg', 'https://ionio-back.onrender.com/audio/lesson-2/sup.mp3'),
+(41, 'تاب', 'swing', 'اسم', 'https://ionio-back.onrender.com/images/lesson-2/tab.jpg', 'https://ionio-back.onrender.com/audio/lesson-2/tab.mp3'),
+(42, 'توپ', 'ball', 'اسم', 'https://ionio-back.onrender.com/images/lesson-2/tup.jpg', 'https://ionio-back.onrender.com/audio/lesson-2/tup.mp3'),
+(43, 'آتَش', 'fire', 'اسم', 'https://ionio-back.onrender.com/images/lesson-2/atash.jpg', 'https://ionio-back.onrender.com/audio/lesson-2/atash.mp3'),
+(44, 'دُختَر', 'girl', 'اسم', 'https://ionio-back.onrender.com/images/lesson-2/dokhtar.jpg', 'https://ionio-back.onrender.com/audio/lesson-2/dokhtar.mp3'),
+(45, 'دَست', 'hand', 'اسم، اعضای بدن', 'https://ionio-back.onrender.com/images/lesson-2/dast.jpg', 'https://ionio-back.onrender.com/audio/lesson-2/dast.mp3'),
+(46, 'اُتاق', 'room', 'اسم', 'https://ionio-back.onrender.com/images/lesson-2/otagh.jpg', 'https://ionio-back.onrender.com/audio/lesson-2/otagh.mp3'),
+(47, 'کِتری', 'kettle', 'اسم', 'https://ionio-back.onrender.com/images/lesson-2/ketri.jpg', 'https://ionio-back.onrender.com/audio/lesson-2/ketri.mp3'),
+(48, 'سوت', 'whistle', 'اسم', 'https://ionio-back.onrender.com/images/lesson-2/sut.jpg', 'https://ionio-back.onrender.com/audio/lesson-2/sut.mp3'),
+(49, 'اُردَک', 'duck', 'اسم، حیوان', 'https://ionio-back.onrender.com/images/lesson-3/ordak.jpg', 'https://ionio-back.onrender.com/audio/lesson-3/ordak.mp3'),
+(50, 'اُتاق', 'room', 'اسم', 'https://ionio-back.onrender.com/images/lesson-3/otagh.jpg', 'https://ionio-back.onrender.com/audio/lesson-3/otagh.mp3'),
+(51, 'گُل', 'flower', 'اسم', 'https://ionio-back.onrender.com/images/lesson-3/gol.jpg', 'https://ionio-back.onrender.com/audio/lesson-3/gol.mp3'),
+(52, 'اُتو', 'iron', 'اسم', 'https://ionio-back.onrender.com/images/lesson-3/utu.jpg', 'https://ionio-back.onrender.com/audio/lesson-3/utu.mp3'),
+(53, 'رُز', 'rose', 'اسم', 'https://ionio-back.onrender.com/images/lesson-3/roz.jpg', 'https://ionio-back.onrender.com/audio/lesson-3/roz.mp3'),
+(54, 'بُز', 'goat', 'اسم، حیوان', 'https://ionio-back.onrender.com/images/lesson-3/boz.jpg', 'https://ionio-back.onrender.com/audio/lesson-3/boz.mp3'),
+(55, 'اُروپا', 'Europe', 'اسم، قاره', 'https://ionio-back.onrender.com/images/lesson-3/urupa.jpg', 'https://ionio-back.onrender.com/audio/lesson-3/urupa.mp3'),
+(56, 'شُتُر', 'camel', 'اسم، حیوان', 'https://ionio-back.onrender.com/images/lesson-3/shotor.jpg', 'https://ionio-back.onrender.com/audio/lesson-3/shotor.mp3'),
+(57, 'سَر', 'head', 'اسم، اعضای بدن', 'https://ionio-back.onrender.com/images/lesson-3/sar.jpg', 'https://ionio-back.onrender.com/audio/lesson-3/sar.mp3'),
+(58, 'سَبز', 'green', 'اسم، رنگ', 'https://ionio-back.onrender.com/images/lesson-3/sabz.jpg', 'https://ionio-back.onrender.com/audio/lesson-3/sabz.mp3'),
+(59, 'دَستمال', 'tissue', 'اسم', 'https://ionio-back.onrender.com/images/lesson-3/dastmal.jpg', 'https://ionio-back.onrender.com/audio/lesson-3/dastmal.mp3'),
+(60, 'مِسواک', 'toothbrush', 'اسم', 'https://ionio-back.onrender.com/images/lesson-3/mesvak.jpg', 'https://ionio-back.onrender.com/audio/lesson-3/mesvak.mp3'),
+(61, 'پُلیس', 'police', 'اسم، شغل', 'https://ionio-back.onrender.com/images/lesson-3/polis.jpg', 'https://ionio-back.onrender.com/audio/lesson-3/polis.mp3'),
+(62, 'سُرسُره', 'slide', 'اسم', 'https://ionio-back.onrender.com/images/lesson-3/sorsore.jpg', 'https://ionio-back.onrender.com/audio/lesson-3/sorsore.mp3'),
+(63, 'پِسَر', 'boy', 'اسم', 'https://ionio-back.onrender.com/images/lesson-3/pesar.jpg', 'https://ionio-back.onrender.com/audio/lesson-3/pesar.mp3'),
+(64, 'کِلاس', 'class', 'اسم', 'https://ionio-back.onrender.com/images/lesson-3/kelas.jpg', 'https://ionio-back.onrender.com/audio/lesson-3/kelas.mp3'),
+(65, 'شَب', 'night', 'اسم', 'https://ionio-back.onrender.com/images/lesson-3/shab.jpg', 'https://ionio-back.onrender.com/audio/lesson-3/shab.mp3'),
+(66, 'شیر', 'milk', 'اسم، نوشیدنی', 'https://ionio-back.onrender.com/images/lesson-3/shir.jpg', 'https://ionio-back.onrender.com/audio/lesson-3/shir.mp3'),
+(67, 'ماشین', 'car', 'اسم، حمل و نقل', 'https://ionio-back.onrender.com/images/lesson-3/mashin.jpg', 'https://ionio-back.onrender.com/audio/lesson-3/mashin.mp3'),
+(68, 'کِشتی', 'ship', 'اسم، حمل و نقل', 'https://ionio-back.onrender.com/images/lesson-3/keshti.jpg', 'https://ionio-back.onrender.com/audio/lesson-3/keshti.mp3'),
+(69, 'ریش', 'beard', 'اسم، اعضای بدن', 'https://ionio-back.onrender.com/images/lesson-3/rish.jpg', 'https://ionio-back.onrender.com/audio/lesson-3/rish.mp3'),
+(70, 'قاشُق', 'spoon', 'اسم', 'https://ionio-back.onrender.com/images/lesson-3/ghashogh.jpg', 'https://ionio-back.onrender.com/audio/lesson-3/ghashogh.mp3'),
+(71, 'نَقشه', 'map', 'اسم', 'https://ionio-back.onrender.com/images/lesson-3/naghshe.jpg', 'https://ionio-back.onrender.com/audio/lesson-3/naghshe.mp3'),
+(72, 'تَراش', 'sharpener', 'اسم', 'https://ionio-back.onrender.com/images/lesson-3/tarash.jpg', 'https://ionio-back.onrender.com/audio/lesson-3/tarash.mp3'),
+(73, 'اِستَخر', 'swimming pool', 'اسم', 'https://ionio-back.onrender.com/images/lesson-4/estakhr.jpg', 'https://ionio-back.onrender.com/audio/lesson-4/estakhr.mp3'),
+(74, 'اِستِکان', 'glass', 'اسم', 'https://ionio-back.onrender.com/images/lesson-4/estekan.jpg', 'https://ionio-back.onrender.com/audio/lesson-4/estekan.mp3'),
+(75, 'مِداد', 'pencil', 'اسم', 'https://ionio-back.onrender.com/images/lesson-4/medad.jpg', 'https://ionio-back.onrender.com/audio/lesson-4/medad.mp3'),
+(76, 'بَسته', 'pack', 'اسم', 'https://ionio-back.onrender.com/images/lesson-4/baste.jpg', 'https://ionio-back.onrender.com/audio/lesson-4/baste.mp3'),
+(77, 'پَرَنده', 'bird', 'اسم، حیوان', 'https://ionio-back.onrender.com/images/lesson-4/parande.jpg', 'https://ionio-back.onrender.com/audio/lesson-4/parande.mp3'),
+(78, 'پِسته', 'pistachio', 'اسم، آجیل', 'https://ionio-back.onrender.com/images/lesson-4/peste.jpg', 'https://ionio-back.onrender.com/audio/lesson-4/peste.mp3'),
+(79, 'روزنامه', 'newspaper', 'اسم', 'https://ionio-back.onrender.com/images/lesson-4/ruzname.jpg', 'https://ionio-back.onrender.com/audio/lesson-4/ruzname.mp3'),
+(80, 'پَرده', 'curtain', 'اسم', 'https://ionio-back.onrender.com/images/lesson-4/parde.jpg', 'https://ionio-back.onrender.com/audio/lesson-4/parde.mp3'),
+(81, 'روستا', 'village', 'اسم', 'https://ionio-back.onrender.com/images/lesson-4/rusta.jpg', 'https://ionio-back.onrender.com/audio/lesson-4/rusta.mp3'),
+(82, 'رود', 'river', 'اسم', 'https://ionio-back.onrender.com/images/lesson-4/rud.jpg', 'https://ionio-back.onrender.com/audio/lesson-4/rud.mp3'),
+(83, 'پارو', 'oar', 'اسم', 'https://ionio-back.onrender.com/images/lesson-4/paru.jpg', 'https://ionio-back.onrender.com/audio/lesson-4/paru.mp3'),
+(84, 'مَرد', 'man', 'اسم', 'https://ionio-back.onrender.com/images/lesson-4/mard.jpg', 'https://ionio-back.onrender.com/audio/lesson-4/mard.mp3'),
+(85, 'سیر', 'garlic', 'اسم، گیاه', 'https://ionio-back.onrender.com/images/lesson-4/sir.jpg', 'https://ionio-back.onrender.com/audio/lesson-4/sir.mp3'),
+(86, 'جارو', 'sweep', 'اسم', 'https://ionio-back.onrender.com/images/lesson-4/jaru.jpg', 'https://ionio-back.onrender.com/audio/lesson-4/jaru.mp3'),
+(87, 'مُرغ', 'hen', 'اسم، حیوان', 'https://ionio-back.onrender.com/images/lesson-4/morgh.jpg', 'https://ionio-back.onrender.com/audio/lesson-4/morgh.mp3'),
+(88, 'زَنبور', 'bee', 'اسم، حشره', 'https://ionio-back.onrender.com/images/lesson-4/zanbur.jpg', 'https://ionio-back.onrender.com/audio/lesson-4/zanbur.mp3'),
+(89, 'زَبان', 'tongue', 'اسم، اعضای بدن', 'https://ionio-back.onrender.com/images/lesson-4/zaban.jpg', 'https://ionio-back.onrender.com/audio/lesson-4/zaban.mp3'),
+(90, 'زَن', 'woman', 'اسم', 'https://ionio-back.onrender.com/images/lesson-4/zan.jpg', 'https://ionio-back.onrender.com/audio/lesson-4/zan.mp3'),
+(91, 'وَرزِش', 'sport', 'اسم', 'https://ionio-back.onrender.com/images/lesson-4/varzesh.jpg', 'https://ionio-back.onrender.com/audio/lesson-4/varzesh.mp3'),
+(92, 'مَزرَعه', 'farm', 'اسم', 'https://ionio-back.onrender.com/images/lesson-4/mazrae.jpg', 'https://ionio-back.onrender.com/audio/lesson-4/mazrae.mp3'),
+(93, 'میز', 'table', 'اسم', 'https://ionio-back.onrender.com/images/lesson-4/miz.jpg', 'https://ionio-back.onrender.com/audio/lesson-4/miz.mp3'),
+(94, 'بازو', 'arm', 'اسم، اعضای بدن', 'https://ionio-back.onrender.com/images/lesson-4/bazu.jpg', 'https://ionio-back.onrender.com/audio/lesson-4/bazu.mp3'),
+(95, 'پِزِشک', 'doctor of medicine', 'اسم، شغل', 'https://ionio-back.onrender.com/images/lesson-4/pezeshk.jpg', 'https://ionio-back.onrender.com/audio/lesson-4/pezeshk.mp3'),
+(96, 'روز', 'day', 'اسم', 'https://ionio-back.onrender.com/images/lesson-4/ruz.jpg', 'https://ionio-back.onrender.com/audio/lesson-4/ruz.mp3'),
+(97, 'او', 'he or she', 'اسم', 'https://ionio-back.onrender.com/images/lesson-5/u.jpg', 'https://ionio-back.onrender.com/audio/lesson-5/u.mp3'),
+(98, 'اوکراین', 'Ukraine', 'اسم، کشور', 'https://ionio-back.onrender.com/images/lesson-5/ukrain.jpg', 'https://ionio-back.onrender.com/audio/lesson-5/ukrain.mp3'),
+(99, 'دود', 'smoke', 'اسم', 'https://ionio-back.onrender.com/images/lesson-5/dud.jpg', 'https://ionio-back.onrender.com/audio/lesson-5/dud.mp3'),
+(100, 'کَبوتَر', 'pigeon', 'اسم، حیوان', 'https://ionio-back.onrender.com/images/lesson-5/kabutar.jpg', 'https://ionio-back.onrender.com/audio/lesson-5/kabutar.mp3'),
+(101, 'مو', 'hair', 'اسم، اعضای بدن', 'https://ionio-back.onrender.com/images/lesson-5/mu.jpg', 'https://ionio-back.onrender.com/audio/lesson-5/mu.mp3'),
+(102, 'رود', 'river', 'اسم', 'https://ionio-back.onrender.com/images/lesson-5/rud.jpg', 'https://ionio-back.onrender.com/audio/lesson-5/rud.mp3'),
+(103, 'تور', 'net', 'اسم', 'https://ionio-back.onrender.com/images/lesson-5/tur.jpg', 'https://ionio-back.onrender.com/audio/lesson-5/tur.mp3'),
+(104, 'گِردو', 'walnut', 'اسم، آجیل، خوردنی', 'https://ionio-back.onrender.com/images/lesson-5/gerdu.jpg', 'https://ionio-back.onrender.com/audio/lesson-5/gerdu.mp3'),
+(105, 'دَر', 'door', 'اسم', 'https://ionio-back.onrender.com/images/lesson-5/dar.jpg', 'https://ionio-back.onrender.com/audio/lesson-5/dar.mp3'),
+(106, 'دَست', 'hand', 'اسم، اعضای بدن', 'https://ionio-back.onrender.com/images/lesson-5/dast.jpg', 'https://ionio-back.onrender.com/audio/lesson-5/dast.mp3'),
+(107, 'مادَر', 'mother', 'اسم، اعضای خانواده', 'https://ionio-back.onrender.com/images/lesson-5/madar.jpg', 'https://ionio-back.onrender.com/audio/lesson-5/madar.mp3'),
+(108, 'پِدَر', 'father', 'اسم، اعضای خوانواده', 'https://ionio-back.onrender.com/images/lesson-5/pedar.jpg', 'https://ionio-back.onrender.com/audio/lesson-5/pedar.mp3'),
+(109, 'سِفید', 'white', 'اسم، رنگ', 'https://ionio-back.onrender.com/images/lesson-5/sefid.jpg', 'https://ionio-back.onrender.com/audio/lesson-5/sefid.mp3'),
+(110, 'اِداره', 'office', 'اسم، مکان', 'https://ionio-back.onrender.com/images/lesson-5/edare.jpg', 'https://ionio-back.onrender.com/audio/lesson-5/edare.mp3'),
+(111, 'مِداد', 'pencil', 'اسم', 'https://ionio-back.onrender.com/images/lesson-5/medad.jpg', 'https://ionio-back.onrender.com/audio/lesson-5/medad.mp3'),
+(112, 'زَرد', 'yellow', 'اسم، رنگ، صفت', 'https://ionio-back.onrender.com/images/lesson-5/zard.jpg', 'https://ionio-back.onrender.com/audio/lesson-5/zard.mp3'),
+(113, 'نُت', 'music note', 'اسم', 'https://ionio-back.onrender.com/images/lesson-6/not.jpg', 'https://ionio-back.onrender.com/audio/lesson-6/not.mp3'),
+(114, 'نوشابه', 'soft drink', 'اسم، نوشیدنی', 'https://ionio-back.onrender.com/images/lesson-6/nushabe.jpg', 'https://ionio-back.onrender.com/audio/lesson-6/nushabe.mp3'),
+(115, 'دَندان', 'tooth', 'اسم، اعضای بدن', 'https://ionio-back.onrender.com/images/lesson-6/dandan.jpg', 'https://ionio-back.onrender.com/audio/lesson-6/dandan.mp3'),
+(116, 'بینی', 'nose', 'اسم، اعضای بدن', 'https://ionio-back.onrender.com/images/lesson-6/bini.jpg', 'https://ionio-back.onrender.com/audio/lesson-6/bini.mp3'),
+(117, 'دوربین', 'camera', 'اسم', 'https://ionio-back.onrender.com/images/lesson-6/durbin.jpg', 'https://ionio-back.onrender.com/audio/lesson-6/durbin.mp3'),
+(118, 'بانک', 'bank', 'اسم،‌ مکان', 'https://ionio-back.onrender.com/images/lesson-6/bank.jpg', 'https://ionio-back.onrender.com/audio/lesson-6/bank.mp3'),
+(119, 'بَستَنی', 'ice cream', 'اسم، خوردنی', 'https://ionio-back.onrender.com/images/lesson-6/bastani.jpg', 'https://ionio-back.onrender.com/audio/lesson-6/bastani.mp3'),
+(120, 'نان', 'bread', 'اسم، خوردنی', 'https://ionio-back.onrender.com/images/lesson-6/nan.jpg', 'https://ionio-back.onrender.com/audio/lesson-6/nan.mp3'),
+(121, 'مِداد', 'pencil', 'اسم', 'https://ionio-back.onrender.com/images/lesson-6/medad.jpg', 'https://ionio-back.onrender.com/audio/lesson-6/medad.mp3'),
+(122, 'مَرد', 'man', 'اسم', 'https://ionio-back.onrender.com/images/lesson-6/mard.jpg', 'https://ionio-back.onrender.com/audio/lesson-6/mard.mp3'),
+(123, 'دامَن', 'skirt', 'اسم، لباس', 'https://ionio-back.onrender.com/images/lesson-6/daman.jpg', 'https://ionio-back.onrender.com/audio/lesson-6/daman.mp3'),
+(124, 'آسِمان', 'sky', 'اسم', 'https://ionio-back.onrender.com/images/lesson-6/aseman.jpg', 'https://ionio-back.onrender.com/audio/lesson-6/aseman.mp3'),
+(125, 'تیم', 'team', 'اسم', 'https://ionio-back.onrender.com/images/lesson-6/tim.jpg', 'https://ionio-back.onrender.com/audio/lesson-6/tim.mp3'),
+(126, 'نامه', 'letter', 'اسم', 'https://ionio-back.onrender.com/images/lesson-6/name.jpg', 'https://ionio-back.onrender.com/audio/lesson-6/name.mp3'),
+(127, 'بیمار', 'patient', 'اسم، صفت', 'https://ionio-back.onrender.com/images/lesson-6/bimar.jpg', 'https://ionio-back.onrender.com/audio/lesson-6/bimar.mp3'),
+(128, 'بادام', 'almond', 'اسم، آجیل', 'https://ionio-back.onrender.com/images/lesson-6/badam.jpg', 'https://ionio-back.onrender.com/audio/lesson-6/badam.mp3'),
+(129, 'کِتاب', 'book', 'اسم', 'https://ionio-back.onrender.com/images/lesson-7/ketab.jpg', 'https://ionio-back.onrender.com/audio/lesson-7/ketab.mp3'),
+(130, 'کُمُد', 'closet', 'اسم', 'https://ionio-back.onrender.com/images/lesson-7/komod.jpg', 'https://ionio-back.onrender.com/audio/lesson-7/komod.mp3'),
+(131, 'دُکمه', 'button', 'اسم', 'https://ionio-back.onrender.com/images/lesson-7/dokme.jpg', 'https://ionio-back.onrender.com/audio/lesson-7/dokme.mp3'),
+(132, 'شِکَر', 'sugar', 'اسم', 'https://ionio-back.onrender.com/images/lesson-7/shekar.jpg', 'https://ionio-back.onrender.com/audio/lesson-7/shekar.mp3'),
+(133, 'نَمَک', 'salt', 'اسم، خوردنی', 'https://ionio-back.onrender.com/images/lesson-7/namak.jpg', 'https://ionio-back.onrender.com/audio/lesson-7/namak.mp3'),
+(134, 'تاکسی', 'taxi', 'اسم، حمل و نقل', 'https://ionio-back.onrender.com/images/lesson-7/taksi.jpg', 'https://ionio-back.onrender.com/audio/lesson-7/taksi.mp3'),
+(135, 'دَستکِش', 'gloves', 'اسم،‌ لباس', 'https://ionio-back.onrender.com/images/lesson-7/dastkesh.jpg', 'https://ionio-back.onrender.com/audio/lesson-7/dastkesh.mp3'),
+(136, 'پارک', 'park', 'اسم، مکان', 'https://ionio-back.onrender.com/images/lesson-7/park.jpg', 'https://ionio-back.onrender.com/audio/lesson-7/park.mp3'),
+(137, 'گوش', 'ear', 'اسم، اعضای بدن', 'https://ionio-back.onrender.com/images/lesson-7/gush.jpg', 'https://ionio-back.onrender.com/audio/lesson-7/gush.mp3'),
+(138, 'گُربه', 'cat', 'اسم، حیوان', 'https://ionio-back.onrender.com/images/lesson-7/gorbe.jpg', 'https://ionio-back.onrender.com/audio/lesson-7/gorbe.mp3'),
+(139, 'کیلوگِرَم', 'kilogram', 'اسم', 'https://ionio-back.onrender.com/images/lesson-7/kilugeram.jpg', 'https://ionio-back.onrender.com/audio/lesson-7/kilugeram.mp3'),
+(140, 'مَگَس', 'fly', 'اسم، حشره', 'https://ionio-back.onrender.com/images/lesson-7/magas.jpg', 'https://ionio-back.onrender.com/audio/lesson-7/magas.mp3'),
+(141, 'سَگ', 'dog', 'اسم، حیوان', 'https://ionio-back.onrender.com/images/lesson-7/sag.jpg', 'https://ionio-back.onrender.com/audio/lesson-7/sag.mp3'),
+(142, 'کارگَر', 'worker', 'اسم، شغل', 'https://ionio-back.onrender.com/images/lesson-7/kargar.jpg', 'https://ionio-back.onrender.com/audio/lesson-7/kargar.mp3'),
+(143, 'اَنگُشت', 'finger', 'اسم، اعضای بدن', 'https://ionio-back.onrender.com/images/lesson-7/angosht.jpg', 'https://ionio-back.onrender.com/audio/lesson-7/angosht.mp3'),
+(144, 'گُرگ', 'wolf', 'اسم، حیوان', 'https://ionio-back.onrender.com/images/lesson-7/gorg.jpg', 'https://ionio-back.onrender.com/audio/lesson-7/gorg.mp3'),
+(145, 'لَب', 'lip', 'اسم، اعضای بدن', 'https://ionio-back.onrender.com/images/lesson-8/lab.jpg', 'https://ionio-back.onrender.com/audio/lesson-8/lab.mp3'),
+(146, 'لیوان', 'mug', 'اسم', 'https://ionio-back.onrender.com/images/lesson-8/livan.jpg', 'https://ionio-back.onrender.com/audio/lesson-8/livan.mp3'),
+(147, 'آلمان', 'Germany', 'اسم، کشور', 'https://ionio-back.onrender.com/images/lesson-8/alman.jpg', 'https://ionio-back.onrender.com/audio/lesson-8/alman.mp3'),
+(148, 'پُلیس', 'police', 'اسم، شغل', 'https://ionio-back.onrender.com/images/lesson-8/polis.jpg', 'https://ionio-back.onrender.com/audio/lesson-8/polis.mp3'),
+(149, 'پُل', 'bridge', 'اسم', 'https://ionio-back.onrender.com/images/lesson-8/pol.jpg', 'https://ionio-back.onrender.com/audio/lesson-8/pol.mp3'),
+(150, 'سالاد', 'salad', 'اسم، خوردنی', 'https://ionio-back.onrender.com/images/lesson-8/salad.jpg', 'https://ionio-back.onrender.com/audio/lesson-8/salad.mp3'),
+(151, 'گُلدان', 'vase', 'اسم', 'https://ionio-back.onrender.com/images/lesson-8/goldan.jpg', 'https://ionio-back.onrender.com/audio/lesson-8/goldan.mp3'),
+(152, 'پول', 'money', 'اسم', 'https://ionio-back.onrender.com/images/lesson-8/pul.jpg', 'https://ionio-back.onrender.com/audio/lesson-8/pul.mp3'),
+(153, 'وان', 'bathtub', 'اسم', 'https://ionio-back.onrender.com/images/lesson-8/van.jpg', 'https://ionio-back.onrender.com/audio/lesson-8/van.mp3'),
+(154, 'والیبال', 'volleyball', 'اسم، ورزش', 'https://ionio-back.onrender.com/images/lesson-8/valibal.jpg', 'https://ionio-back.onrender.com/audio/lesson-8/valibal.mp3'),
+(155, 'داوَر', 'referee', 'اسم، شغل', 'https://ionio-back.onrender.com/images/lesson-8/davar.jpg', 'https://ionio-back.onrender.com/audio/lesson-8/davar.mp3'),
+(156, 'مِسواک', 'toothbrush', 'اسم', 'https://ionio-back.onrender.com/images/lesson-8/mesvak.jpg', 'https://ionio-back.onrender.com/audio/lesson-8/mesvak.mp3'),
+(157, 'نِگاتیو', 'negative', 'اسم', 'https://ionio-back.onrender.com/images/lesson-8/negativ.jpg', 'https://ionio-back.onrender.com/audio/lesson-8/negativ.mp3'),
+(158, 'پَروانه', 'butterfly', 'اسم، حشره', 'https://ionio-back.onrender.com/images/lesson-8/parvane.jpg', 'https://ionio-back.onrender.com/audio/lesson-8/parvane.mp3'),
+(159, 'میوه', 'fruit', 'اسم، میوه', 'https://ionio-back.onrender.com/images/lesson-8/mive.jpg', 'https://ionio-back.onrender.com/audio/lesson-8/mive.mp3'),
+(160, 'ناو', 'cruiser', 'اسم', 'https://ionio-back.onrender.com/images/lesson-8/nav.jpg', 'https://ionio-back.onrender.com/audio/lesson-8/nav.mp3'),
+(161, 'خودکار', 'pen', 'اسم', 'https://ionio-back.onrender.com/images/lesson-8/khodkar.jpg', 'https://ionio-back.onrender.com/audio/lesson-8/khodkar.mp3'),
+(162, 'نوزاد', 'baby', 'اسم', 'https://ionio-back.onrender.com/images/lesson-8/nozad.jpg', 'https://ionio-back.onrender.com/audio/lesson-8/nozad.mp3'),
+(163, 'اُتوبوس', 'bus', 'اسم،‌ حمل و نقل', 'https://ionio-back.onrender.com/images/lesson-8/otobus.jpg', 'https://ionio-back.onrender.com/audio/lesson-8/otobus.mp3'),
+(164, 'موبایل', 'mobile', 'اسم', 'https://ionio-back.onrender.com/images/lesson-8/mobayl.jpg', 'https://ionio-back.onrender.com/audio/lesson-8/mobayl.mp3'),
+(165, 'خورشید', 'sun', 'اسم', 'https://ionio-back.onrender.com/images/lesson-8/khorshid.jpg', 'https://ionio-back.onrender.com/audio/lesson-8/khorshid.mp3'),
+(166, 'خوشحال', 'happy', 'اسم', 'https://ionio-back.onrender.com/images/lesson-8/khoshhal.jpg', 'https://ionio-back.onrender.com/audio/lesson-8/khoshhal.mp3'),
+(167, 'آسانسور', 'elevator', 'اسم', 'https://ionio-back.onrender.com/images/lesson-8/asansor.jpg', 'https://ionio-back.onrender.com/audio/lesson-8/asansor.mp3'),
+(168, 'موتور', 'motorcycle', 'اسم، حمل و نقل', 'https://ionio-back.onrender.com/images/lesson-8/motor.jpg', 'https://ionio-back.onrender.com/audio/lesson-8/motor.mp3'),
+(169, 'حُباب', 'bubble', 'اسم', 'https://ionio-back.onrender.com/images/lesson-9/hobab.jpg', 'https://ionio-back.onrender.com/audio/lesson-9/hobab.mp3'),
+(170, 'حوله', 'towel', 'اسم', 'https://ionio-back.onrender.com/images/lesson-9/hole.jpg', 'https://ionio-back.onrender.com/audio/lesson-9/hole.mp3'),
+(171, 'ساحِل', 'beach', 'اسم', 'https://ionio-back.onrender.com/images/lesson-9/sahel.jpg', 'https://ionio-back.onrender.com/audio/lesson-9/sahel.mp3'),
+(172, 'صَحرا', 'desert', 'اسم', 'https://ionio-back.onrender.com/images/lesson-9/sahra.jpg', 'https://ionio-back.onrender.com/audio/lesson-9/sahra.mp3'),
+(173, 'صُبح', 'morning', 'اسم', 'https://ionio-back.onrender.com/images/lesson-9/sobh.jpg', 'https://ionio-back.onrender.com/audio/lesson-9/sobh.mp3'),
+(174, 'ماشن حِساب', 'calculator', 'اسم', 'https://ionio-back.onrender.com/images/lesson-9/mashinhesab.jpg', 'https://ionio-back.onrender.com/audio/lesson-9/mashinhesab.mp3'),
+(175, 'بَحرِین', 'Bahrain', 'اسم، کشور', 'https://ionio-back.onrender.com/images/lesson-9/bahreyn.jpg', 'https://ionio-back.onrender.com/audio/lesson-9/bahreyn.mp3'),
+(176, 'تِمساح', 'alligator', 'اسم، حیوان', 'https://ionio-back.onrender.com/images/lesson-9/temsah.jpg', 'https://ionio-back.onrender.com/audio/lesson-9/temsah.mp3'),
+(177, 'جَنگَل', 'forest', 'اسم', 'https://ionio-back.onrender.com/images/lesson-9/jangal.jpg', 'https://ionio-back.onrender.com/audio/lesson-9/jangal.mp3'),
+(178, 'جامِدادی', 'pencil case', 'اسم', 'https://ionio-back.onrender.com/images/lesson-9/jamedadi.jpg', 'https://ionio-back.onrender.com/audio/lesson-9/jamedadi.mp3'),
+(179, 'گوجه فَرَنگی', 'tomato', 'اسم، گیاه', 'https://ionio-back.onrender.com/images/lesson-9/gojefarangi.jpg', 'https://ionio-back.onrender.com/audio/lesson-9/gojefarangi.mp3'),
+(180, 'مَسجِد', 'mosque', 'اسم، مکان', 'https://ionio-back.onrender.com/images/lesson-9/masjed.jpg', 'https://ionio-back.onrender.com/audio/lesson-9/masjed.mp3'),
+(181, 'گَنج', 'treasure', 'اسم', 'https://ionio-back.onrender.com/images/lesson-9/ganj.jpg', 'https://ionio-back.onrender.com/audio/lesson-9/ganj.mp3'),
+(182, 'جوجه', 'chicken', 'اسم، حیوان', 'https://ionio-back.onrender.com/images/lesson-9/juje.jpg', 'https://ionio-back.onrender.com/audio/lesson-9/juje.mp3'),
+(183, 'پَنجَره', 'window', 'اسم', 'https://ionio-back.onrender.com/images/lesson-9/panjare.jpg', 'https://ionio-back.onrender.com/audio/lesson-9/panjare.mp3'),
+(184, 'تاج', 'crown', 'اسم', 'https://ionio-back.onrender.com/images/lesson-9/taj.jpg', 'https://ionio-back.onrender.com/audio/lesson-9/taj.mp3'),
+(185, 'خِرس', 'bear', 'اسم،‌ حیوان', 'https://ionio-back.onrender.com/images/lesson-10/khers.jpg', 'https://ionio-back.onrender.com/audio/lesson-10/khers.mp3'),
+(186, 'خانه', 'house', 'اسم، مکان', 'https://ionio-back.onrender.com/images/lesson-10/khane.jpg', 'https://ionio-back.onrender.com/audio/lesson-10/khane.mp3'),
+(187, 'کِتاب خانه', 'library', 'اسم، مکان', 'https://ionio-back.onrender.com/images/lesson-10/ketabkhane.jpg', 'https://ionio-back.onrender.com/audio/lesson-10/ketabkhane.mp3'),
+(188, 'تَخت', 'bed', 'اسم', 'https://ionio-back.onrender.com/images/lesson-10/takht.jpg', 'https://ionio-back.onrender.com/audio/lesson-10/takht.mp3'),
+(189, 'نَخ', 'thread', 'اسم', 'https://ionio-back.onrender.com/images/lesson-10/nakh.jpg', 'https://ionio-back.onrender.com/audio/lesson-10/nakh.mp3'),
+(190, 'دِرَخت', 'tree', 'اسم', 'https://ionio-back.onrender.com/images/lesson-10/derakht.jpg', 'https://ionio-back.onrender.com/audio/lesson-10/derakht.mp3'),
+(191, 'تَخته سیاه', 'blackboard', 'اسم', 'https://ionio-back.onrender.com/images/lesson-10/takhtesiah.jpg', 'https://ionio-back.onrender.com/audio/lesson-10/takhtesiah.mp3'),
+(192, 'کاخ', 'castle', 'اسم، مکان', 'https://ionio-back.onrender.com/images/lesson-10/kakh.jpg', 'https://ionio-back.onrender.com/audio/lesson-10/kakh.mp3'),
+(193, 'چَتر', 'umbrella', 'اسم', 'https://ionio-back.onrender.com/images/lesson-10/chatr.jpg', 'https://ionio-back.onrender.com/audio/lesson-10/chatr.mp3'),
+(194, 'چِشم', 'eye', 'اسم، اعضای بدن', 'https://ionio-back.onrender.com/images/lesson-10/cheshm.jpg', 'https://ionio-back.onrender.com/audio/lesson-10/cheshm.mp3'),
+(195, 'پَرچَم', 'flag', 'اسم', 'https://ionio-back.onrender.com/images/lesson-10/parcham.jpg', 'https://ionio-back.onrender.com/audio/lesson-10/parcham.mp3'),
+(196, 'باغچه', 'garden', 'اسم، مکان', 'https://ionio-back.onrender.com/images/lesson-10/baghche.jpg', 'https://ionio-back.onrender.com/audio/lesson-10/baghche.mp3'),
+(197, 'ساندِویچ', 'sandwich', 'اسم،‌ غذا، خوردنی', 'https://ionio-back.onrender.com/images/lesson-10/sandevich.jpg', 'https://ionio-back.onrender.com/audio/lesson-10/sandevich.mp3'),
+(198, 'پارچه', 'cloth', 'اسم', 'https://ionio-back.onrender.com/images/lesson-10/parche.jpg', 'https://ionio-back.onrender.com/audio/lesson-10/parche.mp3'),
+(199, 'پُستچی', 'postman', 'اسم، شغل', 'https://ionio-back.onrender.com/images/lesson-10/postchi.jpg', 'https://ionio-back.onrender.com/audio/lesson-10/postchi.mp3'),
+(200, 'پارچ', 'pitcher', 'اسم', 'https://ionio-back.onrender.com/images/lesson-10/parch.jpg', 'https://ionio-back.onrender.com/audio/lesson-10/parch.mp3'),
+(201, 'خواب', 'sleep', 'اسم', 'https://ionio-back.onrender.com/images/lesson-10/khab.jpg', 'https://ionio-back.onrender.com/audio/lesson-10/khab.mp3'),
+(202, 'خواهَر', 'sister', 'اسم، اعضای خوانواده', 'https://ionio-back.onrender.com/images/lesson-10/khahar.jpg', 'https://ionio-back.onrender.com/audio/lesson-10/khahar.mp3'),
+(203, 'خوانَنده', 'singer', 'اسم، شغل', 'https://ionio-back.onrender.com/images/lesson-10/khanande.jpg', 'https://ionio-back.onrender.com/audio/lesson-10/khanande.mp3'),
+(204, 'کارت خوان', 'POS', 'اسم', 'https://ionio-back.onrender.com/images/lesson-10/kartkhan.jpg', 'https://ionio-back.onrender.com/audio/lesson-10/kartkhan.mp3'),
+(205, 'تَختِ خواب', 'bed', 'اسم', 'https://ionio-back.onrender.com/images/lesson-10/takhtekhab.jpg', 'https://ionio-back.onrender.com/audio/lesson-10/takhtekhab.mp3'),
+(206, 'خواندَن', 'to read', 'اسم، فعل', 'https://ionio-back.onrender.com/images/lesson-10/khandan.jpg', 'https://ionio-back.onrender.com/audio/lesson-10/khandan.mp3'),
+(207, 'چِراغ خواب', 'night light', 'اسم', 'https://ionio-back.onrender.com/images/lesson-10/cheraghkhab.jpg', 'https://ionio-back.onrender.com/audio/lesson-10/cheraghkhab.mp3'),
+(208, 'اُستُخوان', 'bone', 'اسم، اعضای بدن', 'https://ionio-back.onrender.com/images/lesson-10/ostokhan.jpg', 'https://ionio-back.onrender.com/audio/lesson-10/ostokhan.mp3'),
+(209, 'فَرش', 'carpet', 'اسم، وسایل خانه', 'https://ionio-back.onrender.com/images/lesson-11/farsh.jpg', 'https://ionio-back.onrender.com/audio/lesson-11/farsh.mp3'),
+(210, 'فوتبال', 'football', 'اسم، ورزش', 'https://ionio-back.onrender.com/images/lesson-11/futbal.jpg', 'https://ionio-back.onrender.com/audio/lesson-11/futbal.mp3'),
+(211, 'دَفتَر', 'notebook', 'اسم', 'https://ionio-back.onrender.com/images/lesson-11/daftar.jpg', 'https://ionio-back.onrender.com/audio/lesson-11/daftar.mp3'),
+(212, 'کَفش', 'shoes', 'اسم، لباس', 'https://ionio-back.onrender.com/images/lesson-11/kafsh.jpg', 'https://ionio-back.onrender.com/audio/lesson-11/kafsh.mp3'),
+(213, 'کیف', 'bag', 'اسم', 'https://ionio-back.onrender.com/images/lesson-11/kif.jpg', 'https://ionio-back.onrender.com/audio/lesson-11/kif.mp3'),
+(214, 'دَفتَرچه', 'notebook', 'اسم', 'https://ionio-back.onrender.com/images/lesson-11/daftarche.jpg', 'https://ionio-back.onrender.com/audio/lesson-11/daftarche.mp3'),
+(215, 'تِلِفُن', 'phone', 'اسم', 'https://ionio-back.onrender.com/images/lesson-11/telefon.jpg', 'https://ionio-back.onrender.com/audio/lesson-11/telefon.mp3'),
+(216, 'بَرف', 'snow', 'اسم', 'https://ionio-back.onrender.com/images/lesson-11/barf.jpg', 'https://ionio-back.onrender.com/audio/lesson-11/barf.mp3'),
+(217, 'قَند', 'sugar cube', 'اسم، خوردنی', 'https://ionio-back.onrender.com/images/lesson-11/ghand.jpg', 'https://ionio-back.onrender.com/audio/lesson-11/ghand.mp3'),
+(218, 'قِرمِز', 'red', 'اسم، رنگ، صفت', 'https://ionio-back.onrender.com/images/lesson-11/ghermez.jpg', 'https://ionio-back.onrender.com/audio/lesson-11/ghermez.mp3'),
+(219, 'چاقو', 'knife', 'اسم، وسایل آشپزخانه', 'https://ionio-back.onrender.com/images/lesson-11/chaghu.jpg', 'https://ionio-back.onrender.com/audio/lesson-11/chaghu.mp3'),
+(220, 'آفریقا', 'Africa', 'اسم، قاره', 'https://ionio-back.onrender.com/images/lesson-11/afrigha.jpg', 'https://ionio-back.onrender.com/audio/lesson-11/afrigha.mp3'),
+(221, 'قایِق', 'boat', 'اسم، حمل و نقل', 'https://ionio-back.onrender.com/images/lesson-11/ghayegh.jpg', 'https://ionio-back.onrender.com/audio/lesson-11/ghayegh.mp3'),
+(222, 'پُرتِقال', 'orange', 'اسم، میوه، خوردنی', 'https://ionio-back.onrender.com/images/lesson-11/porteghal.jpg', 'https://ionio-back.onrender.com/audio/lesson-11/porteghal.mp3'),
+(223, 'بُشقاب', 'plate', 'اسم، وسایل آشپزخانه', 'https://ionio-back.onrender.com/images/lesson-11/boshghab.jpg', 'https://ionio-back.onrender.com/audio/lesson-11/boshghab.mp3'),
+(224, 'فَندُق', 'hazelnut', 'اسم، خوردنی، آجیل', 'https://ionio-back.onrender.com/images/lesson-11/fandogh.jpg', 'https://ionio-back.onrender.com/audio/lesson-11/fandogh.mp3'),
+(225, 'بَچّه', 'child', 'اسم', 'https://ionio-back.onrender.com/images/lesson-11/bache.jpg', 'https://ionio-back.onrender.com/audio/lesson-11/bache.mp3'),
+(226, 'نَقّاش', 'painter', 'اسم، شغل', 'https://ionio-back.onrender.com/images/lesson-11/naghash.jpg', 'https://ionio-back.onrender.com/audio/lesson-11/naghash.mp3'),
+(227, 'پِلّه', 'step', 'اسم', 'https://ionio-back.onrender.com/images/lesson-11/pele.jpg', 'https://ionio-back.onrender.com/audio/lesson-11/pele.mp3'),
+(228, 'اَرّه', 'saw', 'اسم', 'https://ionio-back.onrender.com/images/lesson-11/are.jpg', 'https://ionio-back.onrender.com/audio/lesson-11/are.mp3'),
+(229, 'لَکّه', 'stain', 'اسم', 'https://ionio-back.onrender.com/images/lesson-11/lake.jpg', 'https://ionio-back.onrender.com/audio/lesson-11/lake.mp3'),
+(230, 'بَرّه', 'lamb', 'اسم، حیوان', 'https://ionio-back.onrender.com/images/lesson-11/bare.jpg', 'https://ionio-back.onrender.com/audio/lesson-11/bare.mp3'),
+(231, 'تَپّه', 'hill', 'اسم', 'https://ionio-back.onrender.com/images/lesson-11/tape.jpg', 'https://ionio-back.onrender.com/audio/lesson-11/tape.mp3'),
+(232, 'کَفّاش', 'shoemaker', 'اسم، شغل', 'https://ionio-back.onrender.com/images/lesson-11/kafash.jpg', 'https://ionio-back.onrender.com/audio/lesson-11/kafash.mp3'),
+(233, 'هُلو', 'peach', 'اسم، میوه، خوردنی', 'https://ionio-back.onrender.com/images/lesson-12/peach.jpg', 'https://ionio-back.onrender.com/audio/lesson-12/peach.mp3'),
+(234, 'هِند', 'India', 'اسم، کشور در آسیا', 'https://ionio-back.onrender.com/images/lesson-12/India.jpg', 'https://ionio-back.onrender.com/audio/lesson-12/India.mp3'),
+(235, 'آهو', 'deer done', 'اسم، حیوان اهلی', 'https://ionio-back.onrender.com/images/lesson-12/deer-doe.jpg', 'https://ionio-back.onrender.com/audio/lesson-12/deer-doe.mp3'),
+(236, 'شَهر', 'city', 'اسم', 'https://ionio-back.onrender.com/images/lesson-12/city.jpg', 'https://ionio-back.onrender.com/audio/lesson-12/city.mp3'),
+(237, 'مِه', 'fog', 'اسم', 'https://ionio-back.onrender.com/images/lesson-12/fog.jpg', 'https://ionio-back.onrender.com/audio/lesson-12/fog.mp3'),
+(238, 'ماهی', 'fish', 'اسم، حیوان', 'https://ionio-back.onrender.com/images/lesson-12/fish.jpg', 'https://ionio-back.onrender.com/audio/lesson-12/fish.mp3'),
+(239, 'بَهار', 'spring', 'اسم', 'https://ionio-back.onrender.com/images/lesson-12/spring.jpg', 'https://ionio-back.onrender.com/audio/lesson-12/spring.mp3'),
+(240, 'ماه', 'moon', 'اسم', 'https://ionio-back.onrender.com/images/lesson-12/moon.jpg', 'https://ionio-back.onrender.com/audio/lesson-12/moon.mp3'),
+(241, 'یَخ', 'ice', 'اسم', 'https://ionio-back.onrender.com/images/lesson-12/ice.jpg', 'https://ionio-back.onrender.com/audio/lesson-12/ice.mp3'),
+(242, 'یَقه', 'collar', 'اسم، لباس', 'https://ionio-back.onrender.com/images/lesson-12/collar.jpg', 'https://ionio-back.onrender.com/audio/lesson-12/collar.mp3'),
+(243, 'دَریا', 'sea', 'اسم', 'https://ionio-back.onrender.com/images/lesson-12/sea.jpg', 'https://ionio-back.onrender.com/audio/lesson-12/sea.mp3'),
+(244, 'قِیچی', 'scissor', 'اسم', 'https://ionio-back.onrender.com/images/lesson-12/scissor.jpg', 'https://ionio-back.onrender.com/audio/lesson-12/scissor.mp3'),
+(245, 'نِی', 'straw', 'اسم', 'https://ionio-back.onrender.com/images/lesson-12/straw.jpg', 'https://ionio-back.onrender.com/audio/lesson-12/straw.mp3'),
+(246, 'آینه', 'mirror', 'اسم', 'https://ionio-back.onrender.com/images/lesson-12/mirror.jpg', 'https://ionio-back.onrender.com/audio/lesson-12/mirror.mp3'),
+(247, 'هَواپِیما', 'airplane', 'اسم، حمل و نقل', 'https://ionio-back.onrender.com/images/lesson-12/airplane.jpg', 'https://ionio-back.onrender.com/audio/lesson-12/airplane.mp3'),
+(248, 'چای', 'tea', 'اسم، نوشیدنی', 'https://ionio-back.onrender.com/images/lesson-12/tea.jpg', 'https://ionio-back.onrender.com/audio/lesson-12/tea.mp3'),
+(249, 'پیاز', 'onion', 'اسم، گیاه', 'https://ionio-back.onrender.com/images/lesson-12/onion.jpg', 'https://ionio-back.onrender.com/audio/lesson-12/onion.mp3'),
+(250, 'سیاه', 'black', 'اسم، رنگ، صفت', 'https://ionio-back.onrender.com/images/lesson-12/black.jpg', 'https://ionio-back.onrender.com/audio/lesson-12/black.mp3'),
+(251, 'خیار', 'cucumber', 'اسم، گیاه', 'https://ionio-back.onrender.com/images/lesson-12/cucumber.jpg', 'https://ionio-back.onrender.com/audio/lesson-12/cucumber.mp3'),
+(252, 'خیابان', 'street', 'اسم', 'https://ionio-back.onrender.com/images/lesson-12/street.jpg', 'https://ionio-back.onrender.com/audio/lesson-12/street.mp3'),
+(253, 'بیابان', 'desert', 'اسم', 'https://ionio-back.onrender.com/images/lesson-12/desert.jpg', 'https://ionio-back.onrender.com/audio/lesson-12/desert.mp3'),
+(254, 'آسیا', 'Asia', 'اسم، قاره', 'https://ionio-back.onrender.com/images/lesson-12/Asia.jpg', 'https://ionio-back.onrender.com/audio/lesson-12/Asia.mp3'),
+(255, 'ایتالیا', 'Italy', 'اسم، کشور در اروپا', 'https://ionio-back.onrender.com/images/lesson-12/Italy.jpg', 'https://ionio-back.onrender.com/audio/lesson-12/Italy.mp3'),
+(256, 'پیاده رو', 'sidewalk', 'اسم', 'https://ionio-back.onrender.com/images/lesson-12/sidewalk.jpg', 'https://ionio-back.onrender.com/audio/lesson-12/sidewalk.mp3'),
+(257, 'صابون', 'soap', 'اسم', 'https://ionio-back.onrender.com/images/lesson-13/soap.jpg', 'https://ionio-back.onrender.com/audio/lesson-13/soap.mp3'),
+(258, 'صورَت', 'face', 'اسم، اعضای بدن', 'https://ionio-back.onrender.com/images/lesson-13/face.jpg', 'https://ionio-back.onrender.com/audio/lesson-13/face.mp3'),
+(259, 'اِصفِهان', 'Isfahan', 'اسم', 'https://ionio-back.onrender.com/images/lesson-13/Isfahan.jpg', 'https://ionio-back.onrender.com/audio/lesson-13/Isfahan.mp3'),
+(260, 'عَصا', 'walking stick', 'اسم', 'https://ionio-back.onrender.com/images/lesson-13/walking-stick.jpg', 'https://ionio-back.onrender.com/audio/lesson-13/walking-stick.mp3'),
+(261, 'رَصَدخانه', 'observatory', 'اسم، مکان', 'https://ionio-back.onrender.com/images/lesson-13/observatory.jpg', 'https://ionio-back.onrender.com/audio/lesson-13/observatory.mp3'),
+(262, 'قَصّاب', 'butcher', 'اسم، شغل', 'https://ionio-back.onrender.com/images/lesson-13/butcher.jpg', 'https://ionio-back.onrender.com/audio/lesson-13/butcher.mp3'),
+(263, 'قُرص', 'tablet', 'اسم', 'https://ionio-back.onrender.com/images/lesson-13/tablet.jpg', 'https://ionio-back.onrender.com/audio/lesson-13/tablet.mp3'),
+(264, 'ضَعیف', 'weak', 'صفت', 'https://ionio-back.onrender.com/images/lesson-13/weak.jpg', 'https://ionio-back.onrender.com/audio/lesson-13/weak.mp3'),
+(265, 'ظَبطِ صوت', 'tape recorder', 'اسم', 'https://ionio-back.onrender.com/images/lesson-13/tape-recorder.jpg', 'https://ionio-back.onrender.com/audio/lesson-13/tape-recorder.mp3'),
+(266, 'فَضا', 'space', 'اسم', 'https://ionio-back.onrender.com/images/lesson-13/space.jpg', 'https://ionio-back.onrender.com/audio/lesson-13/space.mp3'),
+(267, 'مَریض', 'ill', 'صفت', 'https://ionio-back.onrender.com/images/lesson-13/ill.jpg', 'https://ionio-back.onrender.com/audio/lesson-13/ill.mp3'),
+(268, 'ریاضی', 'mathematics', 'اسم', 'https://ionio-back.onrender.com/images/lesson-13/mathematics.jpg', 'https://ionio-back.onrender.com/audio/lesson-13/mathematics.mp3'),
+(269, 'فَضانَوَرد', 'astronaut', 'اسم، شغل', 'https://ionio-back.onrender.com/images/lesson-13/astronaut.jpg', 'https://ionio-back.onrender.com/audio/lesson-13/astronaut.mp3'),
+(270, 'حوض', 'pond', 'اسم', 'https://ionio-back.onrender.com/images/lesson-13/pond.jpg', 'https://ionio-back.onrender.com/audio/lesson-13/pond.mp3'),
+(271, 'عِینَک', 'glasses', 'اسم', 'https://ionio-back.onrender.com/images/lesson-14/glasses.jpg', 'https://ionio-back.onrender.com/audio/lesson-14/glasses.mp3'),
+(272, 'عَسَل', 'honey', 'اسم، خوردنی', 'https://ionio-back.onrender.com/images/lesson-14/honey.jpg', 'https://ionio-back.onrender.com/audio/lesson-14/honey.mp3'),
+(273, 'ساعَت', 'watch', 'اسم', 'https://ionio-back.onrender.com/images/lesson-14/watch.jpg', 'https://ionio-back.onrender.com/audio/lesson-14/watch.mp3'),
+(274, 'جَعبه', 'box', 'اسم', 'https://ionio-back.onrender.com/images/lesson-14/box.jpg', 'https://ionio-back.onrender.com/audio/lesson-14/box.mp3'),
+(275, 'شَمع', 'candle', 'اسم', 'https://ionio-back.onrender.com/images/lesson-14/candle.jpg', 'https://ionio-back.onrender.com/audio/lesson-14/candle.mp3'),
+(276, 'رَعدوبَرق', 'thunder-light', 'اسم', 'https://ionio-back.onrender.com/images/lesson-14/thunder-light.jpg', 'https://ionio-back.onrender.com/audio/lesson-14/thunder-light.mp3'),
+(277, 'مُعَلّم', 'teacher', 'اسم، شغل', 'https://ionio-back.onrender.com/images/lesson-14/teacher.jpg', 'https://ionio-back.onrender.com/audio/lesson-14/teacher.mp3'),
+(278, 'شُروع', 'start', 'اسم', 'https://ionio-back.onrender.com/images/lesson-14/start.jpg', 'https://ionio-back.onrender.com/audio/lesson-14/start.mp3'),
+(279, 'غَذا', 'food', 'اسم', 'https://ionio-back.onrender.com/images/lesson-14/food.jpg', 'https://ionio-back.onrender.com/audio/lesson-14/food.mp3'),
+(280, 'غُروب', 'sunset', 'اسم', 'https://ionio-back.onrender.com/images/lesson-14/sunset.jpg', 'https://ionio-back.onrender.com/audio/lesson-14/sunset.mp3'),
+(281, 'کاغَذ', 'paper', 'اسم', 'https://ionio-back.onrender.com/images/lesson-14/paper.jpg', 'https://ionio-back.onrender.com/audio/lesson-14/paper.mp3'),
+(282, 'مَغز', 'brain', 'اسم، اعضای بدن', 'https://ionio-back.onrender.com/images/lesson-14/brain.jpg', 'https://ionio-back.onrender.com/audio/lesson-14/brain.mp3'),
+(283, 'تیغ', 'blade', 'اسم', 'https://ionio-back.onrender.com/images/lesson-14/blade.jpg', 'https://ionio-back.onrender.com/audio/lesson-14/blade.mp3'),
+(284, 'قورباغه', 'frog', 'اسم، حیوان', 'https://ionio-back.onrender.com/images/lesson-14/frog.jpg', 'https://ionio-back.onrender.com/audio/lesson-14/frog.mp3'),
+(285, 'مَغازه', 'shop', 'اسم، مکان', 'https://ionio-back.onrender.com/images/lesson-14/shop.jpg', 'https://ionio-back.onrender.com/audio/lesson-14/shop.mp3'),
+(286, 'مُرغ', 'hen', 'اسم، حیوان', 'https://ionio-back.onrender.com/images/lesson-14/hen.jpg', 'https://ionio-back.onrender.com/audio/lesson-14/hen.mp3'),
+(287, 'طَلا', 'gold', 'اسم', 'https://ionio-back.onrender.com/images/lesson-15/gold.jpg', 'https://ionio-back.onrender.com/audio/lesson-15/gold.mp3'),
+(288, 'طَناب', 'rope', 'اسم', 'https://ionio-back.onrender.com/images/lesson-15/rope.jpg', 'https://ionio-back.onrender.com/audio/lesson-15/rope.mp3'),
+(289, 'قوطی', 'can', 'اسم', 'https://ionio-back.onrender.com/images/lesson-15/can.jpg', 'https://ionio-back.onrender.com/audio/lesson-15/can.mp3'),
+(290, 'سَطل', 'bucket', 'اسم', 'https://ionio-back.onrender.com/images/lesson-15/bucket.jpg', 'https://ionio-back.onrender.com/audio/lesson-15/bucket.mp3'),
+(291, 'خَط', 'line', 'اسم', 'https://ionio-back.onrender.com/images/lesson-15/line.jpg', 'https://ionio-back.onrender.com/audio/lesson-15/line.mp3'),
+(292, 'طوطی', 'parrot', 'اسم، حیوان', 'https://ionio-back.onrender.com/images/lesson-15/parrot.jpg', 'https://ionio-back.onrender.com/audio/lesson-15/parrot.mp3'),
+(293, 'قَطار', 'train', 'اسم، حمل و نقل', 'https://ionio-back.onrender.com/images/lesson-15/train.jpg', 'https://ionio-back.onrender.com/audio/lesson-15/train.mp3'),
+(294, 'حَیاط', 'yard', 'اسم، مکان', 'https://ionio-back.onrender.com/images/lesson-15/yard.jpg', 'https://ionio-back.onrender.com/audio/lesson-15/yard.mp3'),
+(295, 'ظَرف', 'container', 'اسم، وسایل آشپزخانه', 'https://ionio-back.onrender.com/images/lesson-15/container.jpg', 'https://ionio-back.onrender.com/audio/lesson-15/container.mp3'),
+(296, 'ظُهر', 'noon', 'اسم', 'https://ionio-back.onrender.com/images/lesson-15/noon.jpg', 'https://ionio-back.onrender.com/audio/lesson-15/noon.mp3'),
+(297, 'نِظافَت چی', 'cleaner', 'اسم، شغل', 'https://ionio-back.onrender.com/images/lesson-15/cleaner.jpg', 'https://ionio-back.onrender.com/audio/lesson-15/cleaner.mp3'),
+(298, 'مُحافِظ', 'budyguard', 'اسم، شغل', 'https://ionio-back.onrender.com/images/lesson-15/bodyguard.jpg', 'https://ionio-back.onrender.com/audio/lesson-15/bodyguard.mp3'),
+(299, 'ماشینِ ظَرفشویی', 'dishwasher', 'اسم، وسایل آشپزخانه', 'https://ionio-back.onrender.com/images/lesson-15/dishwasher.jpg', 'https://ionio-back.onrender.com/audio/lesson-15/dishwasher.mp3'),
+(300, 'خُداحافِظ', 'goodbye', 'شبه جمله', 'https://ionio-back.onrender.com/images/lesson-15/goodbye.jpg', 'https://ionio-back.onrender.com/audio/lesson-15/goodbye.mp3'),
+(301, 'ژِله', 'jelly', 'اسم، خوردنی', 'https://ionio-back.onrender.com/images/lesson-16/jelly.jpg', 'https://ionio-back.onrender.com/audio/lesson-16/jelly.mp3'),
+(302, 'ژاکَت', 'jacket', 'اسم، لباس', 'https://ionio-back.onrender.com/images/lesson-16/jacket.jpg', 'https://ionio-back.onrender.com/audio/lesson-16/jacket.mp3'),
+(303, 'ماژیک', 'marker', 'اسم', 'https://ionio-back.onrender.com/images/lesson-16/marker.jpg', 'https://ionio-back.onrender.com/audio/lesson-16/marker.mp3'),
+(304, 'بِلژیک', '‌Belgium', 'اسم، کشور در اروپا', 'https://ionio-back.onrender.com/images/lesson-16/Belgium.jpg', 'https://ionio-back.onrender.com/audio/lesson-16/Belgium.mp3'),
+(305, 'بِژ', 'beige', 'اسم، رنگ', 'https://ionio-back.onrender.com/images/lesson-16/beige.jpg', 'https://ionio-back.onrender.com/audio/lesson-16/beige.mp3'),
+(306, 'اِژدِها', 'dragon', 'اسم', 'https://ionio-back.onrender.com/images/lesson-16/dragon.jpg', 'https://ionio-back.onrender.com/audio/lesson-16/dragon.mp3'),
+(307, 'مُژه', 'eyelash', 'اسم، اعضای بدن', 'https://ionio-back.onrender.com/images/lesson-16/eyelash.jpg', 'https://ionio-back.onrender.com/audio/lesson-16/eyelash.mp3'),
+(308, 'دِژ', 'stronghold', 'اسم', 'https://ionio-back.onrender.com/images/lesson-16/stronghold.jpg', 'https://ionio-back.onrender.com/audio/lesson-16/stronghold.mp3'),
+(309, 'ذُرَّت', 'corn', 'اسم، خوردنی، گیاه', 'https://ionio-back.onrender.com/images/lesson-16/corn.jpg', 'https://ionio-back.onrender.com/audio/lesson-16/corn.mp3'),
+(310, 'ذَرّه بین', 'magnifier', 'اسم', 'https://ionio-back.onrender.com/images/lesson-16/magnifier.jpg', 'https://ionio-back.onrender.com/audio/lesson-16/magnifier.mp3'),
+(311, 'آذَربایجان', 'Azerbaijan', 'اسم، کشور در آسیا', 'https://ionio-back.onrender.com/images/lesson-16/Azerbaijan.jpg', 'https://ionio-back.onrender.com/audio/lesson-16/Azerbaijan.mp3'),
+(312, 'غَذا', 'food', 'اسم', 'https://ionio-back.onrender.com/images/lesson-16/food.jpg', 'https://ionio-back.onrender.com/audio/lesson-16/food.mp3'),
+(313, 'آذَر', 'persian month', 'اسم', 'https://ionio-back.onrender.com/images/lesson-16/persian-month.jpg', 'https://ionio-back.onrender.com/audio/lesson-16/persian-month.mp3'),
+(314, 'گُذَرنامه', 'passport', 'اسم', 'https://ionio-back.onrender.com/images/lesson-16/passport.jpg', 'https://ionio-back.onrender.com/audio/lesson-16/passport.mp3'),
+(315, 'کاغَذ', 'paper', 'اسم', 'https://ionio-back.onrender.com/images/lesson-16/paper.jpg', 'https://ionio-back.onrender.com/audio/lesson-16/paper.mp3'),
+(316, 'ثانیه', 'second', 'اسم', 'https://ionio-back.onrender.com/images/lesson-17/second.jpg', 'https://ionio-back.onrender.com/audio/lesson-17/second.mp3'),
+(317, 'ثِروَتمَند', 'wealthy', 'صفت', 'https://ionio-back.onrender.com/images/lesson-17/wealthy.jpg', 'https://ionio-back.onrender.com/audio/lesson-17/wealthy.mp3');
+INSERT INTO `Word` (`id`, `written_form`, `english_equivalent`, `category`, `image_url`, `audio_url`) VALUES
+(318, 'لَثه', 'gum', 'اسم، اعضای بدن', 'https://ionio-back.onrender.com/images/lesson-17/gum.jpg', 'https://ionio-back.onrender.com/audio/lesson-17/gum.mp3'),
+(319, 'مُثَلَّث', 'triangle', 'اسم', 'https://ionio-back.onrender.com/images/lesson-17/triangle.jpg', 'https://ionio-back.onrender.com/audio/lesson-17/triangle.mp3'),
+(320, 'کَثیف', 'dirty', 'صفت', 'https://ionio-back.onrender.com/images/lesson-17/dirty.jpg', 'https://ionio-back.onrender.com/audio/lesson-17/dirty.mp3'),
+(321, 'اَثاث', 'furniture', 'اسم، وسایل خانه', 'https://ionio-back.onrender.com/images/lesson-17/furniture.jpg', 'https://ionio-back.onrender.com/audio/lesson-17/furniture.mp3'),
+(322, 'پَنگوئَن', 'panguin', 'اسم، حیوان', 'https://ionio-back.onrender.com/images/lesson-17/penguin.jpg', 'https://ionio-back.onrender.com/audio/lesson-17/penguin.mp3'),
+(323, 'رَئیس', 'head', 'اسم', 'https://ionio-back.onrender.com/images/lesson-17/head.jpg', 'https://ionio-back.onrender.com/audio/lesson-17/head.mp3'),
+(324, 'مُتَأَهّل', 'married', 'صفت', 'https://ionio-back.onrender.com/images/lesson-17/married.jpg', 'https://ionio-back.onrender.com/audio/lesson-17/married.mp3'),
+(325, 'سُؤال', 'question', 'اسم', 'https://ionio-back.onrender.com/images/lesson-17/question.jpg', 'https://ionio-back.onrender.com/audio/lesson-17/question.mp3'),
+(326, 'رَأی', 'vote', 'اسم', 'https://ionio-back.onrender.com/images/lesson-17/vote.jpg', 'https://ionio-back.onrender.com/audio/lesson-17/vote.mp3'),
+(327, 'مُؤَسّسه', 'institute', 'اسم', 'https://ionio-back.onrender.com/images/lesson-17/institute.jpg', 'https://ionio-back.onrender.com/audio/lesson-17/institute.mp3');
+
+-- --------------------------------------------------------
+
+--
+-- Δομή πίνακα για τον πίνακα `word_exists`
+--
+
+CREATE TABLE `word_exists` (
+  `word_id` int(11) NOT NULL,
+  `lesson_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_persian_ci;
+
+--
+-- Άδειασμα δεδομένων του πίνακα `word_exists`
+--
+
+INSERT INTO `word_exists` (`word_id`, `lesson_id`) VALUES
+(1, 1),
+(2, 1),
+(3, 1),
+(4, 1),
+(5, 1),
+(6, 1),
+(7, 1),
+(8, 1),
+(9, 1),
+(10, 1),
+(11, 1),
+(12, 1),
+(13, 1),
+(14, 1),
+(15, 1),
+(16, 1),
+(17, 1),
+(18, 1),
+(19, 1),
+(20, 1),
+(21, 1),
+(22, 1),
+(23, 1),
+(24, 1);
+
+--
+-- Ευρετήρια για άχρηστους πίνακες
+--
+
+--
+-- Ευρετήρια για πίνακα `Lesson`
+--
+ALTER TABLE `Lesson`
+  ADD PRIMARY KEY (`number`);
+
+--
+-- Ευρετήρια για πίνακα `Letter`
+--
+ALTER TABLE `Letter`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `writing_style` (`writing_style`),
+  ADD KEY `Is_taught_in` (`lesson_id`);
+
+--
+-- Ευρετήρια για πίνακα `letter_taught_with`
+--
+ALTER TABLE `letter_taught_with`
+  ADD PRIMARY KEY (`letter_id`,`word_id`),
+  ADD KEY `word_being_taught` (`word_id`);
+
+--
+-- Ευρετήρια για πίνακα `Word`
+--
+ALTER TABLE `Word`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Ευρετήρια για πίνακα `word_exists`
+--
+ALTER TABLE `word_exists`
+  ADD PRIMARY KEY (`word_id`,`lesson_id`),
+  ADD KEY `in_lesson` (`lesson_id`);
+
+--
+-- AUTO_INCREMENT για άχρηστους πίνακες
+--
+
+--
+-- AUTO_INCREMENT για πίνακα `Letter`
+--
+ALTER TABLE `Letter`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
+
+--
+-- AUTO_INCREMENT για πίνακα `Word`
+--
+ALTER TABLE `Word`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=328;
+
+--
+-- Περιορισμοί για άχρηστους πίνακες
+--
+
+--
+-- Περιορισμοί για πίνακα `Letter`
+--
+ALTER TABLE `Letter`
+  ADD CONSTRAINT `Is_taught_in` FOREIGN KEY (`lesson_id`) REFERENCES `Lesson` (`number`) ON UPDATE CASCADE;
+
+--
+-- Περιορισμοί για πίνακα `letter_taught_with`
+--
+ALTER TABLE `letter_taught_with`
+  ADD CONSTRAINT `letter_taught_word` FOREIGN KEY (`letter_id`) REFERENCES `Letter` (`id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `word_being_taught` FOREIGN KEY (`word_id`) REFERENCES `Word` (`id`) ON UPDATE CASCADE;
+
+--
+-- Περιορισμοί για πίνακα `word_exists`
+--
+ALTER TABLE `word_exists`
+  ADD CONSTRAINT `Word_exists` FOREIGN KEY (`word_id`) REFERENCES `Word` (`id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `in_lesson` FOREIGN KEY (`lesson_id`) REFERENCES `Lesson` (`number`) ON UPDATE CASCADE;
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
