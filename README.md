@@ -41,5 +41,3 @@ IonianFarsi is a multimedia online extracurricular application designed for the 
    - API: [Render](https://render.com/)
 
 ---
-
-Feel free to copy and paste this into your GitHub README file. Let me know if you need any modifications!
