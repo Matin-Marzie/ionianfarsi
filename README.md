@@ -1,4 +1,5 @@
-# IonianFarsi - Polyphonic Application  
+# IonianFarsi - آیونیون فارسی
+https://github.com/Matin-Marzie/ionianfarsi/blob/main/frontend/public/IonianFarsiLogo.jpg
 
 ## Abstract  
 IonianFarsi is a multimedia online extracurricular application designed for the learning and reinforcement of the Persian language. Utilizing the 1stStep book layout—words, lessons (17 lessons), and book images—the application will implement sections “Lessons” and “Exercises.” For audio files, speechgen.io will be utilized.
