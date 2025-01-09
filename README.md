@@ -1,4 +1,4 @@
-# IonianFarsi - آیونیون فارسی
+# IonianFarsi - آیونیان فارسی
 [http://ionianfarsi.gr/](http://ionianfarsi.gr/)
 [![ionianFarsi logo](frontend/public/IonianFarsiLogo.jpg)](http://ionianfarsi.gr/)
 
