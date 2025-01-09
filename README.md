@@ -1,8 +1,9 @@
 # IonianFarsi - آیونیون فارسی
-![Uploading IonianFarsiLogo.jpg…]()
+[http://ionianfarsi.gr/](http://ionianfarsi.gr/)
+[![ionianFarsi logo](frontend/public/IonianFarsiLogo.jpg)](http://ionianfarsi.gr/)
 ## Abstract  
 
-IonianFarsi is a multimedia online extracurricular application designed for the learning and reinforcement of the Persian language. Utilizing the 1stStep book layout—words, lessons (17 lessons), and book images—the application will implement sections “Lessons” and “Exercises.” For audio files, speechgen.io will be utilized.
+IonianFarsi is a multimedia online extracurricular application designed for the learning and reinforcement of the Persian language. Utilizing the [1st Step](https://books.saadifoundation.ir/books/en1ststep) book.
 
 ---
 
