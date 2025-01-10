@@ -24,7 +24,7 @@ IonianFarsi is a multimedia online extracurricular application designed for the 
 
 ## Deliverables  
 1. Source code of the application (component-based), API, and Database with comments, hosted on [GitHub](https://github.com/Matin-Marzie/IonianFarsi).
-2. [Public YouTube video demonstrating](https://youtube.com/):  
+2. [Public YouTube video demonstrating](https://youtu.be/ascpUVPeSLw):  
    - Application features  
    - User documentation  
 3. Online hosted application:  
