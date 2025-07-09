@@ -1,0 +1,422 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+/* -----|| Logo colors ----- */
+
+/* rgb(188, 169, 139) background-color*/
+/* rgb(14, 45, 64) border color */
+/* rgb(203, 135, 70) dark yellow*/
+/* rgb(243, 194, 120) light yellow*/
+/* rgb(15, 134, 144) sea color*/
+
+/* --------------------|| VARIABLES -------------------- */
+:root {
+  --sea-color: rgb(15, 134, 144);
+  --border-color: rgb(14, 45, 64);
+  --navigation-bg-color: rgb(15, 134, 144);
+  --navigation-inner-bg-color: #fff;
+  --navigation-color: black;
+  --navigation-FaBook-color: rgb(15, 134, 144);
+  --navigation-LuBrainCircuit-color: rgb(15, 134, 144);
+  --navigation-CgProfile-color: rgb(15, 134, 144);
+  --navigation-BsThreeDots: rgb(15, 134, 144);
+}
+/* --------------------|| CSS RESET -------------------- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  scrollbar-width: none;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img {
+  display: block;
+  width: 100%;
+}
+
+.io-button {
+  box-shadow: #094c66 4px 4px 0 0;
+  transition: transform 200ms, box-shadow 200ms;
+  border-radius: 18px;
+}
+
+.io-button:active {
+  transform: translateY(4px) translateX(4px);
+  box-shadow: #094c66 0px 0px 0px 0px;
+}
+
+.io-selected {
+  background-color: rgba(15, 134, 144, 0.5);
+}
+.io-selected-img {
+  border: 3px solid rgba(15, 134, 144, 0.5);
+  opacity: 0.8;
+}
+
+
+
+
+/* --------------------|| APPLICATION --------------------*/
+
+.main-content {
+  max-width: 768px;
+  margin: auto;
+  flex-grow: 1;
+  display: flex;
+  overflow-y: auto;
+  scrollbar-width: none;
+  height: 100vh;
+  background-color: whitesmoke;
+}
+
+/* --------------------|| NAVIGATION-BAR --------------------*/
+.navigation-li {
+  @apply text-xl w-full text-bluesea bg-white font-bold md:rounded-xl
+}
+
+.navigation-li:hover,
+.navigation-li:focus {
+  @apply text-white bg-bluesea
+}
+
+.selected-li {
+  @apply text-white bg-bluesea
+}
+
+
+/* --------------------|| PRACTICE-LESSON --------------------*/
+.io-drop {
+  border-radius: 0 50% 50% 50%;
+  transform: rotate(45deg);
+  width: 200px;
+  height: 200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-shadow: #094c66 4px 4px 0 0;
+  transition: transform 200ms, box-shadow 200ms;
+  animation: io-drop-float 2s ease-in-out infinite;
+}
+@keyframes io-drop-float {
+  50% {
+    transform: translateY(15px) rotate(45deg);
+  }
+}
+.io-drop:active {
+  transform: rotate(45deg) translateY(4px) translateX(4px);
+  box-shadow: #094c66 0px 0px 0px 0px;
+}
+.io-drop-content {
+  transform: rotate(-45deg);
+}
+.io-drop-shadow {
+  position: absolute;
+  width: 80%;
+  height: 20px;
+  top: 115%;
+  left: 50%;
+  background-color: rgba(0, 0, 0, 0.4);
+  border-radius: 50%;
+  filter: blur(3px);
+  transform: translate(-50%, -50%);
+  animation: io-drop-shadow-shrink 2s ease-in-out infinite;
+}
+@keyframes io-drop-shadow-shrink {
+0%{
+  width: 70%;
+}50%{
+width: 30%;
+}
+100%{
+  width: 70%;
+}
+}
+
+
+/* ||----------Vocabulary--------- */
+.vocabulary-container {
+  width: 100%;
+  padding: 2%;
+  display: flex;
+  flex-direction: column;
+}
+
+.vocabulary-container .choose-lesson a {
+  position: fixed;
+  padding: 1rem;
+  border-radius: 15px;
+  background-color: var(--sea-color);
+  color: white;
+  text-decoration: none;
+  display: block;
+  z-index: 10;
+  width: 200px;
+}
+
+.vocabulary-container-words {
+  display: flex;
+  flex-grow: 1;
+}
+
+/* ||--------Choose-Lesson---------- */
+.lesson-navigator {
+  text-align: center;
+}
+
+.lessons-container {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.lessons-container .lesson-nav-card {
+  display: flex;
+  flex-basis: 40%;
+  border-radius: 18px;
+  min-width: 45%;
+  font-size: 1.5rem;
+  text-decoration: none;
+  color: #333;
+  padding-bottom: 4rem;
+  background-color: var(--sea-color);
+}
+
+/* ----------WoRDs---------- */
+.word-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.card-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  row-gap: 1rem;
+  perspective: 1000px;
+  flex-grow: 1;
+  margin-bottom: 0.5rem;
+}
+.card {
+  position: relative;
+  width: 45vw;
+  height: auto;
+  transform-style: preserve-3d;
+  transition: transform 0.6s;
+  font-size: 1.5rem;
+  background-color: inherit;
+}
+.back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  overflow: hidden;
+  border-radius: 18px;
+  top:  0;
+  left: 0;
+}
+.front {
+  transform: rotateY(0deg);
+}
+.back {
+  background-color: var(--sea-color);
+  transform: rotateY(180deg);
+  display: flex;
+}
+.card-flipped-true {
+  transform: rotateY(180deg);
+}
+.card .flip-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  color: var(--sea-color);
+  border-radius: 50%;
+  background-color: rgba(245, 245, 245, 0.5);
+  font-size: 1.5rem;
+  width: 40px;
+}
+.card button {
+  border-radius: inherit;
+  border: none;
+}
+.card .svg {
+  color: var(--sea-color);
+  font-size: 2rem;
+}
+.card button .img {
+  border-radius: inherit;
+}
+.card .description {
+  padding: 1vh;
+}
+
+/* --------------------|| EXERCISE PAGE -------------------- */
+
+.practice-container {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.practice-header-container {
+  display: flex;
+  flex-grow: 1;
+  justify-content: space-evenly;
+  gap: 1rem;
+  margin: 2vh;
+  max-height: 20px;
+}
+
+.percentage {
+  flex-grow: 1;
+  background-color: white;
+  border: 1px black solid;
+  display: flex;
+  border-radius: 18px;
+}
+.percentage .percentage-filled {
+  width: 20%;
+  background-color: var(--sea-color);
+  border-radius: 18px;
+  caret-color: transparent;
+  transition: width 0.5s ease-in;
+}
+
+/* ---------Match-Picture----------- */
+.Match-container {
+  display: flex;
+  flex-grow: 1;
+  max-height: calc(100vh - (2vh + 18px) - 56px);
+  font-size: 1.5rem;
+}
+.Match-container {
+  border: none;
+  border-radius: 18px;
+}
+.Match-container button {
+  border-radius: 19px;
+}
+.Match-container ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-basis: 50%;
+  padding: 0;
+}
+.Match-container .left-col {
+  display: flex;
+  justify-content: space-around;
+}
+.Match-container .right-col {
+  display: flex;
+  justify-content: space-around;
+}
+
+.Match-container .left-col img {
+  border: none;
+  border-radius: 18px;
+  max-height: 20vh;
+  max-width: auto;
+}
+.Match-container .match-word {
+  padding: 2vh 0rem;
+  width: 80%;
+}
+/* ----------Continue-button---------- */
+.continue-container {
+  background-color: rgba(75, 181, 67, 0.6);
+  position: fixed;
+  bottom: -56px;
+  z-index: 1;
+  height: 0;
+  width: 100%;
+  display: none;
+  animation: showContinue 1s ease-in forwards;
+}
+.continue-container a {
+  background-color: #0ca00c;
+  color: white;
+  text-decoration: none;
+  width: 90%;
+  display: block;
+  margin: auto;
+  border-radius: 18px;
+  margin-top: 5vh;
+  padding: 1vh;
+}
+
+@keyframes showContinue {
+  0% {
+    height: 0px;
+  }
+  50% {
+    height: 35vh;
+  }
+  100% {
+    height: 30vh;
+  }
+}
+
+/* --------------------|| RESPONSIVE LAYOUT -------------------- */
+@media (max-width: 768px) {
+  /* -----Navigation-as-a-bottom-bar-on-mobile----- */
+  .navigation-bar {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    max-width: none;
+    display: flex;
+    justify-content: space-around;
+    border-top: 2px solid gray;
+    padding: 0;
+  }
+
+  .navigation-bar .nav-list {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+  }
+
+  .navigation-bar .nav-list li a {
+    flex-direction: column;
+    margin: 0;
+    border-radius: 0;
+  }
+
+  .navigation-bar .nav-list li a .svg {
+    padding: 0;
+    margin: 0;
+  }
+}
+
+
+
+@media (min-width: 481px) {
+  .card {
+    width: 32%;
+  }
+}
+@media (min-width: 768px) {
+  .Match-container {
+    max-height: none;
+  }
+  /* Practice */
+  .practice-header-container {
+    max-height: 24px;
+  }
+  .continue-container {
+    bottom: 0;
+  }
+}
