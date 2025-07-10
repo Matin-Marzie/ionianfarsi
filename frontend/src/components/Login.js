@@ -15,7 +15,7 @@ const Login = () => {
   // When there are errors, we will focus on them so it can be announced by a screen reader for accessibility
   const errRef = useRef();
 
-  // const API_HOST_NAME = process.env.REACT_APP_BACKEND_API_HOSTNAME || 'http://localhost:8081';
+  const API_HOST_NAME = process.env.REACT_APP_BACKEND_API_HOSTNAME || 'http://localhost:8081';
 
   const navigator = useNavigate();
 
@@ -49,7 +49,7 @@ const Login = () => {
 
     try {
       const response = await axios.post(
-        `${process.env.REACT_APP_BACKEND_API_HOSTNAME}/auth`,
+        `${API_HOST_NAME}/auth`,
         JSON.stringify({ username, password }),
         {
           headers: { "Content-Type": "application/json" },

@@ -17,8 +17,7 @@ function Registration() {
 
     // const navigate = useNavigate();
 
-    // const API_HOST_NAME = process.env.REACT_APP_BACKEND_API_HOSTNAME || 'http://localhost:3500';
-    const API_HOST_NAME = 'http://localhost:3500'
+    const API_HOST_NAME = process.env.REACT_APP_BACKEND_API_HOSTNAME || 'http://localhost:3500';
 
     const [name, setName] = useState('');
     const [validName, setValidName] = useState(false);
