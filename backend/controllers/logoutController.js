@@ -1,57 +1,37 @@
-import users from '../models/users.json' assert {type: "json"}
-import jwt from 'jsonwebtoken';
-import dotenv from 'dotenv'
-dotenv.config();
-
-// tmp
-import fsPromises from 'fs/promises'
-import path from 'path'
-
-const usersDB = {
-    users: users,
-    setUsers(newUsers) {
-        this.users = newUsers;
-    }
-}
+import { findUserByRefreshToken, clearRefreshToken } from '../models/UserModel.js';
 
 const handleLogout = async (req, res) => {
-    // On client, also delete accessToken
+  const cookies = req.cookies;
+  if (!cookies?.jwt) return res.sendStatus(204); // No Content
 
-    const cookies = req.cookies
-    if (!cookies?.jwt) return res.sendStatus(204); //No content to send back
+  const refreshToken = cookies.jwt;
 
-    const refreshToken = cookies.jwt;
+  try {
+    const foundUser = await findUserByRefreshToken(refreshToken);
 
-    // If refresh token in DB
-    const foundUser = usersDB.users.find(person => person.refreshToken === refreshToken);
     if (!foundUser) {
-        res.clearCookie(
-            'jwt', {
-            httpOnly: true,
-            // secure:  true,
-            maxAge: 14 * (1000 * 60 * 60 * 24)
-        })
+      // Token not found in DB but still clear cookie
+      res.clearCookie('jwt', {
+        httpOnly: true,
+        sameSite: 'None',
+        secure: true,
+      });
+      return res.sendStatus(204);
+    }
 
-        return res.sendStatus(204);
-    };
-
-    // Delete the refreshToken in DB
-    const otherUsers = usersDB.users.filter(person => person.refreshToken !== foundUser.refreshToken);
-    const currentUser = { ...foundUser, refreshToken: '' };
-    usersDB.setUsers([...otherUsers, currentUser]);
-    await fsPromises.writeFile(
-        path.join(process.cwd(), 'models', 'users.json'),
-        JSON.stringify(usersDB.users)
-    );
+    // Clear refresh token from DB
+    await clearRefreshToken(foundUser.username);
 
     res.clearCookie('jwt', {
-        httpOnly: true,
-        secure: true,
-        sameSite: 'None'
+      httpOnly: true,
+      sameSite: 'None',
+      secure: true,
     });
     res.sendStatus(204);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: err.message });
+  }
+};
 
-}
-
-export default { handleLogout }
-// On client, also delete accessToke
+export default { handleLogout };
