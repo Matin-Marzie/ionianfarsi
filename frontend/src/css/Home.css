@@ -2,9 +2,10 @@
 
 /* Background Images: 
 Source: https://talktravelapp.com/destination-travel-guides/beautiful-mosques-iran/
+        https://itto.org/iran/attraction/nasirolmolk-pink-mosque-shiraz/
 
 Desktop: https://talktravelapp.com/wp-content/uploads/Shiraz-in-Iran.jpg
-Mobile: https://talktravelapp.com/wp-content/uploads/Nasir-al-Mulk-Mosque-Iran.jpg
+Mobile: https://itto.org/iran/image-bin/nasir-ol-molk-mosque-2024.jpg
 */
 
 body, html {
@@ -87,6 +88,6 @@ body, html {
   
   @media (max-width: 768px) {
     .home-container {
-      background-image: url('https://talktravelapp.com/wp-content/uploads/Nasir-al-Mulk-Mosque-Iran.jpg');
+      background-image: url('https://itto.org/iran/image-bin/nasir-ol-molk-mosque-2024.jpg');
     }
   }

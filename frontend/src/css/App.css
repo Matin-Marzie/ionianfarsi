@@ -43,6 +43,7 @@ img {
   box-shadow: #094c66 4px 4px 0 0;
   transition: transform 200ms, box-shadow 200ms;
   border-radius: 18px;
+  caret-color: transparent;
 }
 
 .io-button:active {

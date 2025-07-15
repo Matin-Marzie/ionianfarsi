@@ -12,12 +12,13 @@ function Registration() {
 
     // When component loads, focus will be on user Input
     const nameRef = useRef();
+    const usernameRef = useRef();
     // When there are errors, we will focus on them so it can be announced by a screen reader for accessibility
     const errRef = useRef();
 
     // const navigate = useNavigate();
 
-    const API_HOST_NAME = process.env.REACT_APP_BACKEND_API_HOSTNAME || 'http://localhost:3500';
+    const API_HOST_NAME = process.env.REACT_APP_BACKEND_API_HOSTNAME;
 
     const [name, setName] = useState('');
     const [validName, setValidName] = useState(false);
@@ -77,34 +78,34 @@ function Registration() {
         }
 
         try {
-            console.log(`${API_HOST_NAME}/register`)
             const response = await axios.post(
                 `${API_HOST_NAME}/register`,
-                JSON.stringify({ username: username, password: password }),
+                JSON.stringify({ name: name, username: username, password: password }),
                 {
                     headers: { "Content-Type": "application/json" },
                     withCredentials: true
                 }
             );
 
-            console.log(response.data)
-            console.log(response.accessToken)
-            console.log(JSON.stringify(response))
+            if (response?.status === 201) {
+                setSuccess(true);
 
-            setSuccess(true);
-
-            setName('');
-            setUsername('');
-            setPassword('');
-            setMatchPassword('');
+                setName('');
+                setUsername('');
+                setPassword('');
+                setMatchPassword('');
+            }
 
         } catch (err) {
             // ex. we lost internet connection
-            if (!err?.response){
+            if (!err?.response) {
                 setErrorMsg("No server Response");
-            }else if(err.response?.status === 409){
+            } else if (err.response?.status === 409) {
                 setErrorMsg('Username Taken')
-            }else {
+                usernameRef.current.focus();
+            } else if (err.response?.status === 400) {
+                setErrorMsg('Invalid credentials')
+            } else {
                 setErrorMsg('Registration Failed')
             }
             errRef.current.focus();
@@ -112,37 +113,38 @@ function Registration() {
     };
 
     return (
-        <div className="bg-[url('https://talktravelapp.com/wp-content/uploads/Shiraz-in-Iran.jpg')] bg-cover bg-center w-full h-full flex justify-center items-center">
+        <div className="bg-[url('https://itto.org/iran/image-bin/nasir-ol-molk-mosque-2024.jpg')] md:bg-[url('https://talktravelapp.com/wp-content/uploads/Shiraz-in-Iran.jpg')] bg-cover bg-center w-full flex items-center justify-center p-4">
             {success ? (
-                <section className="bg-bluesea p-4" style={{ maxWidth: '400px', width: '100%' }}>
-                    <h1>Success!</h1>
-                    <p className="flex flex-col text-center mt-3 mb-0">
-                        <Link to="/login" className="text-decoration-none">Login</Link>
-                    </p>
+                <section className="bg-bluesea max-w-sm w-full rounded-2xl p-8 bg-opacity-85 flex flex-col justify-evenly min-h-[300px]">
+                    <h1 className='text-success bg-green-100 border border-success rounded p-2 text-center'>
+                        Account created successfully!
+                    </h1>
+                    <Link to="/login" className="io-button w-100 border w-full py-2 text-center">Sign in</Link>
                 </section>
             ) : (
-                <section className="bg-bluesea p-4" style={{ maxWidth: '400px', width: '100%' }}>
+                <section className="bg-bluesea max-w-sm w-full rounded-2xl p-8 bg-opacity-85">
+                    <h1 className="text-3xl font-bold text-center text-gray-800 mb-6">Create an Account</h1>
                     <p
                         ref={errRef}
-                        className={`${errorMsg ? 'text-red-700' : 'absolute -left-[9999px]'}`}
+                        className={`${errorMsg ? 'text-red-600 mb-4 text-center' : 'absolute -left-[9999px]'}`}
                         aria-live="assertive">
                         {errorMsg}
                     </p>
-                    <h1 className="text-center mb-4">Create an Account</h1>
                     <form onSubmit={handleSubmit}>
 
+                        {/* Name */}
                         <div className="mb-3">
-                            <label htmlFor="name" className="form-label flex">
+                            <label htmlFor="name" className="flex items-center gap-1">
                                 Name:
                                 <span className={validName ? '' : 'hidden'}><FaCheck className={'color: green'} /></span>
-                                <span className={validName || !name ? 'hidden' : ''}><FaTimes className={'color: red'} /></span>
+                                <span className={validName || !name ? 'hidden' : ''}><FaTimes /></span>
                             </label>
                             <input
-                                className="form-control"
+                                className="mt-1 block w-full rounded-md px-3 py-2"
                                 type="text"
                                 id="name"
                                 value={name}
-                                onChange={(e) => setName(e.target.value)}
+                                onChange={(e) => setName(e.target.value.toLowerCase())}
                                 autoComplete="off"
                                 required
                                 ref={nameRef}
@@ -151,7 +153,7 @@ function Registration() {
                                 onFocus={() => setNameFocus(true)} // When user focus on the field
                                 onBlur={() => setNameFocus(false)} // When user leaves the input field
                             />
-                            <p id="namenote" className={nameFocus && name && !validName ? 'bg-gray-500' : 'absolute -left-[9999px]'}>
+                            <p id="namenote" className={nameFocus && name && !validName ? 'mt-2 text-white bg-gray-500 p-2 rounded-md shadow-lg' : 'absolute -left-[9999px]'}>
                                 <FaInfoCircle />
                                 3 to 35 characters.
                                 Must begin with a letter.
@@ -159,26 +161,28 @@ function Registration() {
                             </p>
                         </div>
 
+                        {/* Username */}
                         <div className="mb-3">
-                            <label htmlFor="username" className="form-label flex">
+                            <label htmlFor="username" className="flex gap-1">
                                 Username:
                                 <span className={validUsername ? '' : 'hidden'}><FaCheck className={'color: green'} /></span>
-                                <span className={validUsername || !username ? 'hidden' : ''}><FaTimes className={'color: red'} /></span>
+                                <span className={validUsername || !username ? 'hidden' : ''}><FaTimes /></span>
                             </label>
                             <input
-                                className="form-control"
+                                className="mt-1 block w-full rounded-md px-3 py-2"
                                 type="text"
                                 id="username"
                                 value={username}
-                                onChange={(e) => setUsername(e.target.value)}
+                                onChange={(e) => setUsername(e.target.value.toLowerCase())}
                                 autoComplete="off"
                                 required
+                                ref={usernameRef}
                                 aria-invalid={validUsername ? 'false' : 'true'}
                                 aria-describedby='usernamenote'
                                 onFocus={() => setUsernameFocus(true)}
                                 onBlur={() => setUsernameFocus(false)}
                             />
-                            <p id="usernamenote" className={usernameFocus && username && !validUsername ? 'bg-gray-500' : 'absolute -left-[9999px]'}>
+                            <p id="usernamenote" className={usernameFocus && username && !validUsername ? 'mt-2 text-white bg-gray-500 p-2 rounded-md shadow-lg' : 'absolute -left-[9999px]'}>
                                 <FaInfoCircle />
                                 4 to 24 characters.<br />
                                 Must begin with a letter. <br />
@@ -186,15 +190,16 @@ function Registration() {
                             </p>
                         </div>
 
+                        {/* Password */}
                         <div className="mb-3">
-                            <label htmlFor="password" className="form-label flex">
+                            <label htmlFor="password" className="flex gap-1">
                                 Password:
                                 <span className={validPassword ? '' : 'hidden'}><FaCheck className={'color: green'} /></span>
-                                <span className={validPassword || !password ? 'hidden' : ''}><FaTimes className={'color: red'} /></span>
+                                <span className={validPassword || !password ? 'hidden' : ''}><FaTimes /></span>
                             </label>
                             <input
                                 type="password"
-                                className="form-control"
+                                className="mt-1 block w-full rounded-md px-3 py-2"
                                 id="password"
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
@@ -205,7 +210,7 @@ function Registration() {
                                 onFocus={() => setPasswordFocus(true)}
                                 onBlur={() => setPasswordFocus(false)}
                             />
-                            <p id="passwordnote" className={passwordFocus && password && !validPassword ? 'bg-gray-500' : 'absolute -left-[9999px]'}>
+                            <p id="passwordnote" className={passwordFocus && password && !validPassword ? 'mt-2 text-white bg-gray-500 p-2 rounded-md shadow-lg' : 'absolute -left-[9999px]'}>
                                 <FaInfoCircle />
                                 8 to 24 characters. <br />
                                 Must include uppercase and lowercase letter,a number and one special character: <span aria-label='exclamation mark'>!</span><span aria-label='at symbol'>@</span><span aria-label='hashtag'>#</span><span aria-label='dollar sign'>$</span><span aria-label='percent'>%</span>
@@ -213,15 +218,16 @@ function Registration() {
                             </p>
                         </div>
 
+                        {/* Match password */}
                         <div className="mb-3">
-                            <label htmlFor="confirm-password" className="form-label flex">
+                            <label htmlFor="confirm-password" className="flex gap-1">
                                 Confirm Password:
                                 <span className={validPassword && validMatch ? '' : 'hidden'}><FaCheck className={'color: green'} /></span>
-                                <span className={validMatch || !matchPassword ? 'hidden' : ''}><FaTimes className={'color: red'} /></span>
+                                <span className={validMatch || !matchPassword ? 'hidden' : ''}><FaTimes /></span>
                             </label>
                             <input
                                 type="password"
-                                className="form-control"
+                                className="mt-1 block w-full rounded-md px-3 py-2"
                                 id="confirm-password"
                                 value={matchPassword}
                                 onChange={(e) => setMatchPassword(e.target.value)}
@@ -232,16 +238,16 @@ function Registration() {
                                 onFocus={() => setMatchFocus(true)}
                                 onBlur={() => setMatchFocus(false)}
                             />
-                            <p id="confirmnote" className={matchFocus && matchPassword && !validMatch ? 'bg-gray-500' : 'absolute -left-[9999px]'}>
+                            <p id="confirmnote" className={matchFocus && matchPassword && !validMatch ? 'mt-2 text-white bg-gray-500 p-2 rounded-md shadow-lg' : 'absolute -left-[9999px]'}>
                                 <FaInfoCircle />
                                 Must match the first password input field
                             </p>
                         </div>
 
-                        <button disabled={!validName || !validUsername || !validPassword || !validMatch} type="submit" className="w-100 mt-3 border px-6 py-2">Register</button>
+                        <button disabled={!validName || !validUsername || !validPassword || !validMatch} type="submit" className="w-100 mt-3 border w-full py-2 io-button">Register</button>
                     </form>
-                    <p className="flex flex-col text-center mt-3 mb-0">
-                        Already have an account? <Link to="/login" className="text-decoration-none">Login</Link>
+                    <p className="mt-6 text-center">
+                        Already have an account? {' '} <Link to="/login" className="font-medium text-blue-900 hover:text-blue-700 underline">Login</Link>
                     </p>
                 </section>
             )}</div >

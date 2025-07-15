@@ -1,9 +1,12 @@
 import bcrypt from 'bcrypt';
 import { createUser, findUserByUsername } from '../models/UserModel.js';
+import { RegistrationSchema } from '../validation/RegistrationSchema.js';
 
 const handleNewUser = async (req, res) => {
-  const { username, password } = req.body;
-  if (!username || !password) return res.status(400).json({ message: 'Username and password are required.' });
+  const { error } = RegistrationSchema.validate(req.body);
+  if (error) return res.status(400).json({ message: error.details[0].message });
+
+  const { name, username, password } = req.body;
 
   try {
     // Έλεγχος αν υπάρχει ήδη χρήστης
@@ -14,7 +17,7 @@ const handleNewUser = async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, 10);
 
     // Δημιουργία χρήστη
-    const userId = await createUser(username, hashedPassword);
+    const userId = await createUser(name, username, hashedPassword);
 
     res.status(201).json({ success: `New user ${username} created with id ${userId}` });
   } catch (err) {

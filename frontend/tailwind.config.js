@@ -7,6 +7,7 @@ module.exports = {
     extend: {
       colors: {
         bluesea: "#0f8690",
+        success: "#28a745",
       },
 
       keyframes: {
@@ -20,6 +21,11 @@ module.exports = {
       animation: {
         displayContinue: 'DisplayContinue 0.2s ease-out forwards',
       },
+
+      screens: {
+        'xs': '480px',
+      },
+      
     },
   },
   plugins: [],

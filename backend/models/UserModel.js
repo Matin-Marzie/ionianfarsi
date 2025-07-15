@@ -10,10 +10,10 @@ export const updateRefreshToken = async (username, refreshToken) => {
   await db.execute('UPDATE users SET refresh_token = ? WHERE username = ?', [refreshToken, username]);
 };
 
-export const createUser = async (username, passwordHash) => {
+export const createUser = async (name, username, passwordHash) => {
   const [result] = await db.execute(
-    'INSERT INTO users (username, password) VALUES (?, ?)',
-    [username, passwordHash]
+    'INSERT INTO users (name, username, password) VALUES (?, ?, ?)',
+    [name, username, passwordHash]
   );
   return result.insertId;
 };
