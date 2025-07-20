@@ -1,14 +1,17 @@
-import { Link, useNavigate } from 'react-router-dom';
-import React, { useState, useRef, useEffect, useContext } from 'react';
-import AuthContext from '../context/AuthProvider.js'
+import { Link, useNavigate, useLocation } from 'react-router-dom';
+import React, { useState, useRef, useEffect} from 'react';
 import axios from '../api/api.js'
+import useAuth from '../hooks/UseAuth.js'
 
 const USERNAME_REGEX = /^[a-zA-Z][a-zA-Z0-9-_]{3,23}$/;
 const PASSWORD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
 
 const Login = () => {
 
-  const { setAuth } = useContext(AuthContext);
+  const { setAuth } = useAuth();
+  const location = useLocation();
+  // Will redirect to the previous_route_location
+  const previous_route_location = location.state?.from?.pathname || '/';
 
   // When component loads, focus will be on username Input
   const usernameRef = useRef();
@@ -18,7 +21,7 @@ const Login = () => {
 
   const API_HOST_NAME = process.env.REACT_APP_BACKEND_API_HOSTNAME;
 
-  const navigator = useNavigate();
+  const navigate = useNavigate();
 
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -59,12 +62,13 @@ const Login = () => {
       );
 
       const accessToken = response?.data?.accessToken;
-      setAuth({ username, password, accessToken })
+      setAuth({ username, accessToken })
       setUsername('')
       setPassword('')
       setErrorMsg('')
 
-      navigator('/practice')
+      navigate(previous_route_location, {replace: true})
+
     } catch (err) {
       if (!err?.response) {
         setErrorMsg('No server response')

@@ -6,6 +6,10 @@ import LessonNavigate from './components/Vocabulary/LessonNavigator.js';
 import Register from './components/Register.js'
 import Login from './components/Login.js';
 
+// tmp
+import ReelsFeed from './ReelsFeed.js'
+import RequireAuth from './components/RequireAuth.js'
+
 import Vocabulary from './components/Vocabulary/Vocabulary.js';
 
 import Practice from './components/Practice/Practice.js';
@@ -30,6 +34,7 @@ function App() {
         <Routes>
           <Route element={<Layout />}>
 
+            {/* ||--------------------PUBLIC ROUTES--------------------|| */}
             {/*         Redirect '/' to 'practice'         */}
             <Route path="/" element={<Navigate to="practice" replace />} />
 
@@ -38,24 +43,33 @@ function App() {
             <Route path="register" element={<Register />} />
             <Route path="login" element={<Login />} />
 
-
-            <Route path='vocabulary'>
-              <Route index element={<Vocabulary BACKEND_API_HOSTNAME={BACKEND_API_HOSTNAME} />} />
-              <Route path='choose-lesson' element={<LessonNavigate BACKEND_API_HOSTNAME={BACKEND_API_HOSTNAME} />} />
-            </Route>
+            <Route path='test' element={<ReelsFeed />} />
 
             <Route path='practice'>
-              <Route index element={<Practice />}/>
-              <Route path='sections' element={<Sections/>} />
-              <Route path='lesson' element={<Lesson />}/>
+              <Route index element={<Practice />} />
+              <Route path='sections' element={<Sections />} />
+              <Route path='lesson' element={//protected Route
+                <RequireAuth>
+                  <Lesson />
+                </RequireAuth>
+              } />
             </Route>
 
-            <Route path='exercise'>
-              <Route index element={<Exercise BACKEND_API_HOSTNAME={BACKEND_API_HOSTNAME} />} />
-              <Route path='practice' element={<ExercisePractice BACKEND_API_HOSTNAME={BACKEND_API_HOSTNAME} />} />
+            {/* -----Protected-Routes----- */}
+            <Route element={<RequireAuth />}>
+              <Route path='vocabulary'>
+                <Route index element={<Vocabulary BACKEND_API_HOSTNAME={BACKEND_API_HOSTNAME} />} />
+                <Route path='choose-lesson' element={<LessonNavigate BACKEND_API_HOSTNAME={BACKEND_API_HOSTNAME} />} />
+              </Route>
+
+              <Route path='exercise'>
+                <Route index element={<Exercise BACKEND_API_HOSTNAME={BACKEND_API_HOSTNAME} />} />
+                <Route path='practice' element={<ExercisePractice BACKEND_API_HOSTNAME={BACKEND_API_HOSTNAME} />} />
+              </Route>
+
+              <Route path="profile" element={<Profile />} />
             </Route>
 
-            <Route path="profile" element={<Profile />} />
             <Route path="more" element={<More />} />
           </Route>
 

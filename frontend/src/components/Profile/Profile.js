@@ -1,9 +1,8 @@
-import React from 'react'
-import StillWorkingOn from '../StillWorkingOn'
+import Leaderboard from "./Leaderboard"
 
-function Profile() {
+const Profile = () => {
   return (
-    <StillWorkingOn />
+    <Leaderboard />
   )
 }
 

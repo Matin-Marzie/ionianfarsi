@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import axios from 'axios';
+import useAxiosPrivate from '../../hooks/useAxiosPrivate';
 import Words from './Words';
 
 function Vocabulary({ BACKEND_API_HOSTNAME }) {
+
+  const axiosPrivate = useAxiosPrivate();
 
   const [vocabularyData, setVocabularyData] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -19,12 +21,18 @@ function Vocabulary({ BACKEND_API_HOSTNAME }) {
 
   // Fetch Lesson Data
   useEffect(() => {
+    let isMounted = true;
+    const controller = new AbortController();
+
     const fetchVocabulary = async () => {
       try {
         setLoading(true);
-        const response = await axios.get(`${BACKEND_API_HOSTNAME}/vocabulary?id=${currentLesson}`);
-        setVocabularyData(response.data);
-      } catch (err) {
+        const response = await axiosPrivate.get(`${BACKEND_API_HOSTNAME}/vocabulary?id=${currentLesson}`,
+          { signal: controller.signal }
+        );
+        isMounted && setVocabularyData(response.data);
+      }
+      catch (err) {
         setError("Failed to fetch vocabulary data");
         console.error(err);
       } finally {
@@ -32,7 +40,11 @@ function Vocabulary({ BACKEND_API_HOSTNAME }) {
       }
     };
     fetchVocabulary();
-  }, [currentLesson, BACKEND_API_HOSTNAME]);
+    return () => {
+      isMounted = false;
+      controller.abort();
+    }
+  }, [currentLesson, BACKEND_API_HOSTNAME, axiosPrivate]);
 
 
   if (loading) return <span className='flex align-bottom'>Loading Words...<br />you may need to wait up to 50 seconds in first load</span>;

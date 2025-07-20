@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 
-import api from '../../../api/api'
+import useAxiosPrivate from '../../../hooks/useAxiosPrivate.js';
 
 import lessonCompletedSound from './sounds/fanfare.mp3';
 import nextChallengeSound from './sounds/short-fanfare.wav';
@@ -16,6 +16,7 @@ import ChallengeSelect from './Challenges/Challenge_select'
 import ChallengeSort from './Challenges/Challenge_sort.js'
 
 function Lesson() {
+  const axiosPrivate = useAxiosPrivate();
   const location = useLocation();
   const currentLesson = location?.state?.currentLesson || 1;
   const lesson_order = location?.state?.lesson_order;
@@ -74,12 +75,15 @@ function Lesson() {
 
   // ----------------------Fetch-Lesson-Data(challenges)----------------------
   useEffect(() => {
+    let isMounted = true;
+    const controller = new AbortController();
+
     const fetchChanllenges = async () => {
       try {
         setLoading(true);
-        const response = await api.get(`/lesson?lesson_id=${currentLesson}`);
-        setChallenges(response.data);
-        setChallenge(response.data[0]);
+        const response = await axiosPrivate.get(`/lesson?lesson_id=${currentLesson}`, { signal: controller.signal });
+        isMounted && setChallenges(response.data);
+        isMounted && setChallenge(response.data[0]);
       } catch (err) {
         setError("Failed to fetch challenges.");
         console.error(err);
@@ -87,8 +91,15 @@ function Lesson() {
         setLoading(false);
       }
     };
+
     fetchChanllenges();
-  }, [currentLesson]);
+
+    return () => {
+      isMounted = false;
+      controller.abort();
+    }
+
+  }, [currentLesson, axiosPrivate]);
 
 
   // --------------------Handle-when-current-challenge-finish--------------------

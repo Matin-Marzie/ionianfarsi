@@ -48,17 +48,105 @@ app.use('/auth', authRouter)
 app.use('/refresh', refreshRouter)
 app.use('/logout', logoutRouter)
 
-// app.use(verifyJWT);
 
 
-// ######################################--UNCHANGED--IONIANFARSI--#######################################################
-
+// ##########################################--IONIANFARSI--#######################################################
 // // joi: Validates api parameters
 import Joi from 'joi';
-// import { resolve } from 'path';
 
 
-// // ||-------------------------------------------------------REST-API-------------------------------------------------------||
+// // ||--------------------Lessons-----------------||
+// // Returns all information about lessons exists in firststep book
+app.get('/firststep/lessons', async (req, res) => {
+    console.log('GET /firststep/lessons');
+
+    const sql_query = 'SELECT * FROM firststep_lesson';
+
+    try {
+        const [results] = await db.execute(sql_query);
+        res.json(results);
+    } catch (err) {
+        console.error("Error fetching lessons:", err);
+        res.status(500).json({ error: "Error fetching lessons" });
+    }
+});
+
+
+
+// // ||--------------------Sections-----------------||
+// // Returns all sections
+app.get('/sections', async (req, res) => {
+    console.log('GET /sections');
+
+    const sql_query = 'SELECT * FROM section';
+
+    try {
+        const [results] = await db.execute(sql_query);
+        res.json(results);
+    } catch (err) {
+        console.error("Error fetching sections:", err);
+        res.status(500).json({ error: "Error fetching sections" });
+    }
+});
+
+
+
+// // ||-------------------Lessons---------------------||
+// // Input: section id
+app.get('/lessons', async (req, res) => {
+    console.log(`GET /lessons?section_id=${req.query.section_id}`);
+
+    const schema = Joi.object({
+        section_id: Joi.number().integer().min(1).max(100).required()
+    });
+
+    const joi_validation_result = schema.validate({ section_id: req.query.section_id });
+
+    if (joi_validation_result.error) {
+        res.status(400).send(joi_validation_result.error.details[0].message);
+        return;
+    }
+
+    const query_parameters = [req.query.section_id];
+    const sql_query = `
+        SELECT lesson.*, unit.title as unit_title, unit.unit_order
+        FROM lesson
+        JOIN unit ON lesson.unit_id = unit.id
+        WHERE unit.section_id = ?
+        ORDER BY lesson.unit_id, lesson.lesson_order;
+    `;
+
+    try {
+        const [lessons] = await db.execute(sql_query, query_parameters);
+        res.json(lessons);
+    } catch (err) {
+        console.error("Error fetching Lessons: ", err);
+        res.status(500).json({ error: "Error fetching lessons" });
+    }
+});
+
+
+
+// -----------NEED-AUTHENTICATION---------------
+app.use(verifyJWT);
+
+
+
+// ||-----------------users----------||
+// get all users
+app.get("/users", async (req, res) => {
+    console.log('GET /users');
+
+    const sql_query = `SELECT * FROM users`;
+
+    try {
+        const [results] = await db.execute(sql_query);
+        res.json(results);
+    } catch (err) {
+        console.error("Error fetching users:", err);
+        res.status(500).json({ error: "Error fetching users" });
+    }
+});
 
 // ||-----------------letters----------||
 // get letter sounds
@@ -72,7 +160,7 @@ app.get("/letters/pronounciation", async (req, res) => {
         res.json(results);
     } catch (err) {
         console.error("Error fetching letters:", err);
-        res.status(500).json({ error: "Error fetching lessons" });
+        res.status(500).json({ error: "Error fetching letters" });
     }
 });
 
@@ -133,24 +221,6 @@ app.get("/vocabulary", async (req, res) => {
 });
 
 
-// // ||--------------------Lessons-----------------||
-// // Returns all information about lessons exists in firststep book
-app.get('/firststep/lessons', async (req, res) => {
-    console.log('GET /firststep/lessons');
-
-    const sql_query = 'SELECT * FROM firststep_lesson';
-
-    try {
-        const [results] = await db.execute(sql_query);
-        res.json(results);
-    } catch (err) {
-        console.error("Error fetching lessons:", err);
-        res.status(500).json({ error: "Error fetching lessons" });
-    }
-});
-
-
-
 
 // // ||-------------------Exercise-page------------------||
 // // Returns 6 random words from the given lesson_id of firststep book.
@@ -181,58 +251,6 @@ app.post('/six-random-words', async (req, res) => {
     }
 });
 
-
-
-// // ||--------------------Sections-----------------||
-// // Returns all sections
-app.get('/sections', async (req, res) => {
-    console.log('GET /sections');
-
-    const sql_query = 'SELECT * FROM section';
-
-    try {
-        const [results] = await db.execute(sql_query);
-        res.json(results);
-    } catch (err) {
-        console.error("Error fetching sections:", err);
-        res.status(500).json({ error: "Error fetching sections" });
-    }
-});
-
-
-// // ||-------------------Lessons---------------------||
-// // Input: section id
-app.get('/lessons', async (req, res) => {
-    console.log(`GET /lessons?section_id=${req.query.section_id}`);
-
-    const schema = Joi.object({
-        section_id: Joi.number().integer().min(1).max(100).required()
-    });
-
-    const joi_validation_result = schema.validate({ section_id: req.query.section_id });
-
-    if (joi_validation_result.error) {
-        res.status(400).send(joi_validation_result.error.details[0].message);
-        return;
-    }
-
-    const query_parameters = [req.query.section_id];
-    const sql_query = `
-        SELECT lesson.*, unit.title as unit_title, unit.unit_order
-        FROM lesson
-        JOIN unit ON lesson.unit_id = unit.id
-        WHERE unit.section_id = ?
-        ORDER BY lesson.unit_id, lesson.lesson_order;
-    `;
-
-    try {
-        const [lessons] = await db.execute(sql_query, query_parameters);
-        res.json(lessons);
-    } catch (err) {
-        console.error("Error fetching Lessons: ", err);
-        res.status(500).json({ error: "Error fetching lessons" });
-    }
-});
 
 
 
