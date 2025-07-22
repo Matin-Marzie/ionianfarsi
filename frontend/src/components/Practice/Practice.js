@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import api from '../../api/api';
 
@@ -66,7 +66,7 @@ const Practice = () => {
           <div className='flex min-h-[50vh] items-center overflow-scroll justify-evenly space-x-16'>
             {unit.lessons.map((lesson) => (
               <div key={`${unit.id}-${lesson.id}`} className="relative">
-                <Link className="io-drop bg-bluesea" to="./lesson" state={{ currentLesson: lesson.id, lesson_order: lesson.lesson_order, currentSection }}>
+                <Link className="io-drop bg-bluesea" to={`/practice/lesson/${lesson.id}`}>
                   <div className="io-drop-content">Lesson {lesson.lesson_order}</div>
                 </Link>
                 <span className="io-drop-shadow"></span>

@@ -33,6 +33,7 @@ function Vocabulary({ BACKEND_API_HOSTNAME }) {
         isMounted && setVocabularyData(response.data);
       }
       catch (err) {
+        if (err.code === "ERR_CANCELED") return; // ignore abort errors
         setError("Failed to fetch vocabulary data");
         console.error(err);
       } finally {
@@ -62,7 +63,7 @@ function Vocabulary({ BACKEND_API_HOSTNAME }) {
       </h2>
       {vocabularyData.length > 0 ? (
         vocabularyData.map(({ letter_id, words }, i) => (
-          <div key={i} className='vocabulary-container-words'>
+          <div key={`${letter_id}-${i}`} className='vocabulary-container-words'>
             <Words letter_id={letter_id} words={words} />
           </div>
         ))

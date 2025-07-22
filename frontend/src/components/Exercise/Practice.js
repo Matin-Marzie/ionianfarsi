@@ -1,4 +1,3 @@
-import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { useLocation } from 'react-router-dom';
 
@@ -12,6 +11,7 @@ import MatchSoundToWritten_form from './ExerciseKinds/MatchSoundToWritten_form';
 import SuccessSound from './sounds/fanfare.mp3';
 import shortSuccessSound from './sounds/short-fanfare.wav';
 import wrongAnswer from './sounds/wrong-answer.wav';
+import useAxiosPrivate from '../../hooks/useAxiosPrivate';
 
 
 function Practice({ BACKEND_API_HOSTNAME }) {
@@ -76,19 +76,30 @@ function Practice({ BACKEND_API_HOSTNAME }) {
         ChoosenLesson = location.state.ChoosenLesson;
     }
 
+    const axiosPrivate = useAxiosPrivate();
+
     // Fetch 6 random words from lesson
     useEffect(() => {
+        let isMounted = true;
+        const controller = new AbortController();
+
         const fetchWords = async () => {
             try {
                 setLoading(true);
-                const response = await axios.post(`${BACKEND_API_HOSTNAME}/six-random-words`, { lesson_id: ChoosenLesson });
+                const response = await axiosPrivate.post(
+                    `${BACKEND_API_HOSTNAME}/six-random-words`,
+                    { lesson_id: ChoosenLesson },
+                    { signal: controller.signal }
+                );
+
                 // Add disabled words property here, Need it when we display it as button
                 const wordsWithDisabled = response.data.map(word => ({ ...word, disabled: false }));
-                setWords(wordsWithDisabled);
-                setShuffledWords([...wordsWithDisabled].sort(() => Math.random() - 0.5));
+                isMounted && setWords(wordsWithDisabled);
+                isMounted && setShuffledWords([...wordsWithDisabled].sort(() => Math.random() - 0.5));
                 setError(null);
             }
             catch (error) {
+                if (error.code === "ERR_CANCELED") return; // ignore abort errors
                 console.log('Error Fetching words');
                 setError(error);
             }
@@ -96,8 +107,13 @@ function Practice({ BACKEND_API_HOSTNAME }) {
                 setLoading(false);
             }
         }
+
         fetchWords();
-    }, [ChoosenLesson, BACKEND_API_HOSTNAME]);
+        return () => {
+            isMounted = false;
+            controller.abort();
+        };
+    }, [ChoosenLesson, BACKEND_API_HOSTNAME, axiosPrivate]);
 
 
     // Shuffle words when we go to the next exercise

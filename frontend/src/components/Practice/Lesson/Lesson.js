@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 import useAxiosPrivate from '../../../hooks/useAxiosPrivate.js';
 
@@ -17,11 +17,9 @@ import ChallengeSort from './Challenges/Challenge_sort.js'
 
 function Lesson() {
   const axiosPrivate = useAxiosPrivate();
-  const location = useLocation();
-  const currentLesson = location?.state?.currentLesson || 1;
-  const lesson_order = location?.state?.lesson_order;
-  const currentSection = location?.state?.currentSection;
+  const { id } = useParams();
 
+  
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [correctAnswer, setCorrectAnswer] = useState(null);
@@ -81,10 +79,11 @@ function Lesson() {
     const fetchChanllenges = async () => {
       try {
         setLoading(true);
-        const response = await axiosPrivate.get(`/lesson?lesson_id=${currentLesson}`, { signal: controller.signal });
+        const response = await axiosPrivate.get(`/lesson?lesson_id=${id}`, { signal: controller.signal });
         isMounted && setChallenges(response.data);
         isMounted && setChallenge(response.data[0]);
       } catch (err) {
+        if (err.code === "ERR_CANCELED") return; // ignore abort errors
         setError("Failed to fetch challenges.");
         console.error(err);
       } finally {
@@ -99,7 +98,7 @@ function Lesson() {
       controller.abort();
     }
 
-  }, [currentLesson, axiosPrivate]);
+  }, [id, axiosPrivate]);
 
 
   // --------------------Handle-when-current-challenge-finish--------------------
@@ -151,7 +150,7 @@ function Lesson() {
           setCorrectAnswer={setCorrectAnswer}
         />
         :
-        <EndOfLesson lesson_order={lesson_order} currentSection={currentSection} />}
+        <EndOfLesson />}
 
       <Continue
         handleContinue={handleContinue}

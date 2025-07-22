@@ -1,8 +1,7 @@
-import React from 'react'
 import '../../../css/car.css'
 import { Link } from 'react-router-dom'
 
-const EndOfLesson = ({ currentSection }) => {
+const EndOfLesson = () => {
   const congratulationsMessages = [
     "🎉 Great job! You just unlocked a new level of Persian skills! 🚀",
     "👏 عالی! (Ali!) – That means 'Great!' in Persian, just like your progress! 🤩",
@@ -44,7 +43,7 @@ const EndOfLesson = ({ currentSection }) => {
       </p>
 
       {/* Button to Lessons */}
-      <Link to="/practice" className='io-button w-11/12 p-2 bg-[#0ca00c] mx-auto mb-6' state={{currentSection}}>
+      <Link to="/practice" className='io-button w-11/12 p-2 bg-[#0ca00c] mx-auto mb-6' state={{currentSection:1}}>
         Go to Lessons
       </Link>
     </div>

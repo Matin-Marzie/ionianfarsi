@@ -10,7 +10,7 @@ function Header({ percentage, exercise_count }) {
     e.preventDefault();
     const confirmed = window.confirm('Are you sure to end the Session?');
     if (confirmed) {
-      navigate('./..');
+      navigate('./../..');
     }
   };
 

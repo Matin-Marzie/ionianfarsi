@@ -1,6 +1,6 @@
-import React, { useState } from 'react'
-import api from '../../../../../api/api';
-import { useEffect } from 'react';
+import { useState } from "react";
+import useAxiosPrivate from "../../../../../hooks/useAxiosPrivate";
+import { useEffect } from "react";
 
 const OriginDestinationContainer = ({
   handleDragOver,
@@ -12,25 +12,33 @@ const OriginDestinationContainer = ({
   challenge,
   playSound,
 }) => {
-
-
+  const axiosPrivate = useAxiosPrivate();
   const [fetched_letters_pronounciation, setlettersAudio] = useState([]);
-    // ----------------------Fetch-Letter-pronounciations----------------------
-    useEffect(() => {
-      const fetchChanllenges = async () => {
-        try {
-          const response = await api.get(`/letters/pronounciation`);
-          setlettersAudio(response.data);
-        } catch (err) {
-        }
-      };
-      fetchChanllenges();
-    }, [challenge]);
+  // ----------------------Fetch-Letter-pronounciations----------------------
+  useEffect(() => {
+    let isMounted = true;
+    const controller = new AbortController();
 
+    const fetchChanllenges = async () => {
+      try {
+        const response = await axiosPrivate.get(`/letters/pronounciation`, {
+          signal: controller.signal,
+        });
+        isMounted && setlettersAudio(response.data);
+      } catch (err) {
+        if (err.code === "ERR_CANCELED") return; // ignore abort errors
+      }
+    };
 
+    fetchChanllenges();
+    return () => {
+      isMounted = false;
+      controller.abort();
+    };
+  }, [challenge, axiosPrivate]);
 
   return (
-    <div className='w-full'>
+    <div className="w-full">
       {/* Destination Container */}
       <div
         className="min-h-[20dvh] border-2 border-dashed border-gray-500 p-2 rounded mb-4 flex gap-2 justify-center items-start flex-wrap flex-row-reverse"
@@ -44,26 +52,26 @@ const OriginDestinationContainer = ({
             draggable
             onDragStart={(e) => handleDragStart(e, item, "destination")}
             onClick={() => {
-
-              const word_pronounciation = challenge.sentence_words?.find((word) => {
-                return word.audio_url && word.written_form === item.content;
-              })
-              if(word_pronounciation){
-                playSound(word_pronounciation.audio_url)
+              const word_pronounciation = challenge.sentence_words?.find(
+                (word) => {
+                  return word.audio_url && word.written_form === item.content;
+                }
+              );
+              if (word_pronounciation) {
+                playSound(word_pronounciation.audio_url);
               }
 
-
-              const letter_pronounciation = fetched_letters_pronounciation?.find((letter) => {
-                return letter.written_form === item.content;
-              })
-              if(letter_pronounciation){
-                playSound(letter_pronounciation.audio_url)
-                console.log(letter_pronounciation)
+              const letter_pronounciation =
+                fetched_letters_pronounciation?.find((letter) => {
+                  return letter.written_form === item.content;
+                });
+              if (letter_pronounciation) {
+                playSound(letter_pronounciation.audio_url);
+                console.log(letter_pronounciation);
               }
 
-              handleItemClick(item)
-            }
-            }
+              handleItemClick(item);
+            }}
           >
             {item.content}
           </div>
@@ -81,32 +89,32 @@ const OriginDestinationContainer = ({
             draggable
             onDragStart={(e) => handleDragStart(e, item, "origin")}
             onClick={() => {
-
-              const word_pronounciation = challenge.sentence_words?.find((word) => {
-                return word.audio_url && word.written_form === item.content;
-              })
-              if(word_pronounciation){
-                playSound(word_pronounciation.audio_url)
+              const word_pronounciation = challenge.sentence_words?.find(
+                (word) => {
+                  return word.audio_url && word.written_form === item.content;
+                }
+              );
+              if (word_pronounciation) {
+                playSound(word_pronounciation.audio_url);
               }
 
-
-              const letter_pronounciation = fetched_letters_pronounciation?.find((letter) => {
-                return letter.written_form === item.content;
-              })
-              if(letter_pronounciation){
-                playSound(letter_pronounciation.audio_url)
+              const letter_pronounciation =
+                fetched_letters_pronounciation?.find((letter) => {
+                  return letter.written_form === item.content;
+                });
+              if (letter_pronounciation) {
+                playSound(letter_pronounciation.audio_url);
               }
 
-              handleItemClick(item)
-            }
-            }
+              handleItemClick(item);
+            }}
           >
             {item.content}
           </div>
         ))}
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default OriginDestinationContainer
+export default OriginDestinationContainer;

@@ -48,11 +48,10 @@ function App() {
             <Route path='practice'>
               <Route index element={<Practice />} />
               <Route path='sections' element={<Sections />} />
-              <Route path='lesson' element={//protected Route
-                <RequireAuth>
-                  <Lesson />
-                </RequireAuth>
-              } />
+              {/* Protected Route */}
+              <Route element={<RequireAuth />}>
+                <Route path="lesson/:id" element={<Lesson />} />
+              </Route>
             </Route>
 
             {/* -----Protected-Routes----- */}
@@ -62,12 +61,15 @@ function App() {
                 <Route path='choose-lesson' element={<LessonNavigate BACKEND_API_HOSTNAME={BACKEND_API_HOSTNAME} />} />
               </Route>
 
-              <Route path='exercise'>
-                <Route index element={<Exercise BACKEND_API_HOSTNAME={BACKEND_API_HOSTNAME} />} />
+              <Route path="profile" element={<Profile />} />
+            </Route>
+
+            <Route path='exercise'>
+              <Route index element={<Exercise BACKEND_API_HOSTNAME={BACKEND_API_HOSTNAME} />} />
+
+              <Route element={<RequireAuth />}>
                 <Route path='practice' element={<ExercisePractice BACKEND_API_HOSTNAME={BACKEND_API_HOSTNAME} />} />
               </Route>
-
-              <Route path="profile" element={<Profile />} />
             </Route>
 
             <Route path="more" element={<More />} />
