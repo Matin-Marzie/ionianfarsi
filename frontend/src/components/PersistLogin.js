@@ -29,6 +29,7 @@ const PersistLogin = () => {
     } else {
       setIsLoading(false);
     }
+  // eslint-disable-next-line
   }, []);
 
   if (isLoading) return <p>Loading...</p>; // or a spinner
