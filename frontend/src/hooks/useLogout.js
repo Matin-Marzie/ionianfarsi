@@ -8,6 +8,7 @@ const useLogout = () => {
         setAuth({});
         try {
             const response = await api.get('/logout', {withCredentials: true})
+            console.log(response.status)
         }
         catch(err){
             console.error(err);
