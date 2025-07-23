@@ -1,10 +1,9 @@
-import React from 'react';
 import { Link, useLocation } from "react-router-dom";
 
 import { FaBook } from 'react-icons/fa';
 import { LuBrainCircuit } from "react-icons/lu";
-// import { CgProfile } from 'react-icons/cg'
-// import { BsThreeDots } from "react-icons/bs";
+import { CgProfile } from 'react-icons/cg'
+import { BsThreeDots } from "react-icons/bs";
 
 import IonianFarsiLogo from '../images/IonianFarsiLogo.png';
 
@@ -43,7 +42,7 @@ const selected_button = (pathToButton.find(({ key }) => currentPath.startsWith(k
               <LuBrainCircuit className='text-4xl md:text-3xl mr-4'/><h5 className='hidden md:block flex-grow'> EXERCISE</h5>
             </Link>
           </li>
-          {/* <li className={`navigation-li ${selected_button === 'profile' ? 'selected-li' : null}`}>
+          <li className={`navigation-li ${selected_button === 'profile' ? 'selected-li' : null}`}>
             <Link className='flex justify-center md:justify-between md:px-3 focus:text-white focus:bg-bluesea py-3 rounded-xl ' to='/profile'>
               <CgProfile className='text-4xl md:text-3xl mr-4'/><h5 className='hidden md:block flex-grow'> PROFILE</h5>
             </Link>
@@ -52,7 +51,7 @@ const selected_button = (pathToButton.find(({ key }) => currentPath.startsWith(k
             <Link className='flex justify-center md:justify-between md:px-3 focus:text-white focus:bg-bluesea py-3 rounded-xl ' to='/more'>
               <BsThreeDots className='text-4xl md:text-3xl mr-4'/><h5 className='hidden md:block flex-grow'> MORE</h5>
             </Link>
-          </li> */}
+          </li>
         </ul>
       </div>
   );

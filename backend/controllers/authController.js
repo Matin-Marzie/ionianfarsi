@@ -17,21 +17,21 @@ const handleLogin = async (req, res) => {
   const accessToken = jwt.sign(
     { username: foundUser.username },
     process.env.ACCESS_TOKEN_SECRET,
-    { expiresIn: '30m' }
+    { expiresIn: '1h' }
   );
   const refreshToken = jwt.sign(
     { username: foundUser.username },
     process.env.REFRESH_TOKEN_SECRET,
-    { expiresIn: '14d' }
+    { expiresIn: '30d' }
   );
 
   await updateRefreshToken(foundUser.username, refreshToken);
 
   res.cookie('jwt', refreshToken, {
     httpOnly: true,
-    // secure: true, // uncomment on production with HTTPS
+    secure: true, // required if sameSite=None
     sameSite: 'None',
-    maxAge: 14 * 24 * 60 * 60 * 1000 // 14 days
+    maxAge:  30 * 24*60*60*1000 // 30 days
   });
 
   res.json({ accessToken });

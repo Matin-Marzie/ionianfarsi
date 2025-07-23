@@ -5,6 +5,7 @@ import Home from './components/Home.js';
 import LessonNavigate from './components/Vocabulary/LessonNavigator.js';
 import Register from './components/Register.js'
 import Login from './components/Login.js';
+import PersisLogin from './components/PersistLogin.js';
 
 // tmp
 import ReelsFeed from './ReelsFeed.js'
@@ -24,6 +25,7 @@ import More from './components/More/More.js';
 import Missing from './components/Missing.js';
 
 function App() {
+  console.log('render')
 
   const BACKEND_API_HOSTNAME = process.env.REACT_APP_BACKEND_API_HOSTNAME;
 
@@ -49,26 +51,33 @@ function App() {
               <Route index element={<Practice />} />
               <Route path='sections' element={<Sections />} />
               {/* Protected Route */}
-              <Route element={<RequireAuth />}>
-                <Route path="lesson/:id" element={<Lesson />} />
+              <Route element={<PersisLogin />}>
+                <Route element={<RequireAuth />}>
+                  <Route path="lesson/:id" element={<Lesson />} />
+                </Route>
               </Route>
             </Route>
 
             {/* -----Protected-Routes----- */}
-            <Route element={<RequireAuth />}>
-              <Route path='vocabulary'>
-                <Route index element={<Vocabulary BACKEND_API_HOSTNAME={BACKEND_API_HOSTNAME} />} />
-                <Route path='choose-lesson' element={<LessonNavigate BACKEND_API_HOSTNAME={BACKEND_API_HOSTNAME} />} />
-              </Route>
+            <Route element={<PersisLogin />}>
+              <Route element={<RequireAuth />}>
+                <Route path='vocabulary'>
+                  <Route index element={<Vocabulary BACKEND_API_HOSTNAME={BACKEND_API_HOSTNAME} />} />
+                  <Route path='choose-lesson' element={<LessonNavigate BACKEND_API_HOSTNAME={BACKEND_API_HOSTNAME} />} />
+                </Route>
 
-              <Route path="profile" element={<Profile />} />
+                <Route path="profile" element={<Profile />} />
+              </Route>
             </Route>
 
             <Route path='exercise'>
               <Route index element={<Exercise BACKEND_API_HOSTNAME={BACKEND_API_HOSTNAME} />} />
 
-              <Route element={<RequireAuth />}>
-                <Route path='practice' element={<ExercisePractice BACKEND_API_HOSTNAME={BACKEND_API_HOSTNAME} />} />
+              {/* Protected Route */}
+              <Route element={<PersisLogin />}>
+                <Route element={<RequireAuth />}>
+                  <Route path='practice' element={<ExercisePractice BACKEND_API_HOSTNAME={BACKEND_API_HOSTNAME} />} />
+                </Route>
               </Route>
             </Route>
 
