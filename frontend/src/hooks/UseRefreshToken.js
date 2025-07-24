@@ -17,10 +17,9 @@ const UseRefreshToken = () => {
       return response.data.accessToken;
 
     } catch (err) {
-      if (err.response?.status === 403) {
+      if (err.response?.status === 401 || err.response?.status === 403) {
         // Refresh token expired or invalid — logout needed
-        console.log(' refresh 403')
-        // setAuth({});
+        setAuth({});
         throw err;  // important: throw to notify useAxiosPrivate
       }
       throw err; // rethrow other errors

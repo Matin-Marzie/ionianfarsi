@@ -1,7 +1,9 @@
 import useLogout from "../../hooks/useLogout";
 import { useNavigate, Link } from "react-router-dom"
+import useAuth from "../../hooks/UseAuth";
 
-function More() {  
+function More() {
+  const { auth } = useAuth();
   const logout = useLogout();
   const navigate = useNavigate();
 
@@ -11,10 +13,19 @@ function More() {
   }
 
   return (
-    <section className="w-full h-full max-w-md m-auto bg-white text-center flex flex-col items-center justify-start p-2 gap-3">
-      <Link to="/register" className="w-11/12 border py-2 io-button bg-bluesea">Sign Up</Link>
-      <Link to="/auth" className="w-11/12 border py-2 io-button bg-bluesea">Sign In</Link>
-      <button onClick={SignOut}             className={`w-11/12 border py-2 io-button bg-bluesea`}>Sign Out</button>
+    <section className="w-full h-full max-w-md m-auto bg-white text-center flex flex-col items-center justify-end py-3 gap-3">
+      {auth?.accessToken
+
+        ?
+        (<button onClick={SignOut} className={`w-11/12 border py-2 io-button bg-bluesea`}>Sign Out</button>)
+        :
+        (<div className="w-11/12 flex gap-x-2">
+          <Link to="/login" className="w-11/12 border py-2 io-button bg-bluesea">Sign In</Link>
+          <Link to="/register" className="w-11/12 border py-2 io-button bg-bluesea">Create Account</Link>
+        </div>)
+      }
+
+
     </section>
   )
 }

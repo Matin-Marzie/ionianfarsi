@@ -13,8 +13,8 @@ const handleLogout = async (req, res) => {
       // Token not found in DB but still clear cookie
       res.clearCookie('jwt', {
         httpOnly: true,
-        sameSite: 'None',
         secure: true,
+        sameSite: 'None',
       });
       return res.sendStatus(204);
     }
@@ -26,7 +26,6 @@ const handleLogout = async (req, res) => {
       httpOnly: true,
       secure: true,
       sameSite: 'None',
-      secure: true,
     });
     res.sendStatus(204);
   } catch (err) {
