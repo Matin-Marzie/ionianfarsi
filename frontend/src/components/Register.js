@@ -1,7 +1,8 @@
-import React, { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import axios from './../api/api.js';
 import { FaCheck, FaTimes, FaInfoCircle } from "react-icons/fa";
+import { createUser } from '../api/UserApi';
+import { useMutation } from '@tanstack/react-query';
 
 const NAME_REGEX = /^[a-zA-Z '-]{3,35}$/;
 const USERNAME_REGEX = /^[a-zA-Z][a-zA-Z0-9-_]{3,23}$/;
@@ -15,10 +16,6 @@ function Registration() {
     const usernameRef = useRef();
     // When there are errors, we will focus on them so it can be announced by a screen reader for accessibility
     const errRef = useRef();
-
-    // const navigate = useNavigate();
-
-    const API_HOST_NAME = process.env.REACT_APP_BACKEND_API_HOSTNAME;
 
     const [name, setName] = useState('');
     const [validName, setValidName] = useState(false);
@@ -65,38 +62,20 @@ function Registration() {
         setErrorMsg('');
     }, [name, username, password, matchPassword])
 
+    const { mutate } = useMutation({
+        mutationFn: createUser,
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        // If button enabled with JS hack
-        const v1 = NAME_REGEX.test(name);
-        const v2 = USERNAME_REGEX.test(username);
-        const v3 = PASSWORD_REGEX.test(password);
-        if (!v1 || !v2 || !v3) {
-            setErrorMsg("Invalid Entry you dummy, don't try again!");
-            return;
-        }
-
-        try {
-            const response = await axios.post(
-                `${API_HOST_NAME}/register`,
-                JSON.stringify({ name: name, username: username, password: password }),
-                {
-                    headers: { "Content-Type": "application/json" },
-                    withCredentials: true
-                }
-            );
-
+        onSuccess: (response) => {
+            console.log(response.status)
             if (response?.status === 201) {
                 setSuccess(true);
-
                 setName('');
                 setUsername('');
                 setPassword('');
                 setMatchPassword('');
             }
-
-        } catch (err) {
+        },
+        onError: (err) => {
             // ex. we lost internet connection
             if (!err?.response) {
                 setErrorMsg("No server Response");
@@ -110,7 +89,22 @@ function Registration() {
             }
             errRef.current.focus();
         }
-    };
+    })
+
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        // If button enabled with JS hack
+        const v1 = NAME_REGEX.test(name);
+        const v2 = USERNAME_REGEX.test(username);
+        const v3 = PASSWORD_REGEX.test(password);
+        if (!v1 || !v2 || !v3) {
+            setErrorMsg("Invalid Entry you dummy, don't try again!");
+            return;
+        }
+
+        mutate({name, username, password});
+    }
 
     return (
         <div className="bg-[url('https://itto.org/iran/image-bin/nasir-ol-molk-mosque-2024.jpg')] md:bg-[url('https://talktravelapp.com/wp-content/uploads/Shiraz-in-Iran.jpg')] bg-cover bg-center w-full flex items-center justify-center p-4">

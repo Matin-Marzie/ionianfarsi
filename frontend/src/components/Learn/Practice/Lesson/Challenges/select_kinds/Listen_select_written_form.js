@@ -1,8 +1,10 @@
 import { ImVolumeMedium } from "react-icons/im";
+import { useContext } from "react";
+import LessonContext from "../../../../../../context/LessonContext";
 
-const ListenSelectWrittenForm = ({ challenge, Check_Selected, shuffledOptions, selectedOption, setSelectedOption, playSound, correctAnswer }) => {
+const ListenSelectWrittenForm = ({ Check_Selected, shuffledOptions, selectedOption, setSelectedOption }) => {
 
-
+  const { playSound, challenge } = useContext(LessonContext);
   return (
     <div className="w-full h-full flex flex-col justify-between text-2xl ">
       {/* Audio Button */}

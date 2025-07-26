@@ -1,5 +1,7 @@
+import { useContext } from "react";
+import LessonContext from "../../../../../../context/LessonContext";
+
 function MatchWritten_formToEnglish_equivalent({
-    playSound,
     handleLeftSelect,
     handleRightSelect,
     rightSelected,
@@ -7,6 +9,8 @@ function MatchWritten_formToEnglish_equivalent({
     leftSideWords,
     rightSideWords,
 }) {
+
+    const { playSound } = useContext(LessonContext)
 
     return (
         <div className="flex flex-row w-full h-full">

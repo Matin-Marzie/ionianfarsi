@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import useAxiosPrivate from "../../../../../../hooks/useAxiosPrivate";
 import { useEffect } from "react";
+import LessonContext from "../../../../../../context/LessonContext";
 
 const OriginDestinationContainer = ({
   handleDragOver,
@@ -8,10 +9,10 @@ const OriginDestinationContainer = ({
   handleDragStart,
   originItems,
   handleItemClick,
-  destinationItems,
-  challenge,
-  playSound,
+  destinationItems
 }) => {
+
+  const { challenge, playSound } = useContext(LessonContext);
   const axiosPrivate = useAxiosPrivate();
   const [fetched_letters_pronounciation, setlettersAudio] = useState([]);
   // ----------------------Fetch-Letter-pronounciations----------------------

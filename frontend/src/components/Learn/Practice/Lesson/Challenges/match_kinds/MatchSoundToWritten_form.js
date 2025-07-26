@@ -1,7 +1,8 @@
+import { useContext } from "react";
+import LessonContext from "../../../../../../context/LessonContext";
 import { GiSoundWaves } from "react-icons/gi";
 
 function MatchSoundToWritten_form({
-    playSound,
     handleLeftSelect,
     handleRightSelect,
     rightSelected,
@@ -9,6 +10,8 @@ function MatchSoundToWritten_form({
     leftSideWords,
     rightSideWords,
 }) {
+
+    const { playSound } = useContext(LessonContext)
 
     return (
         <div className="flex flex-grow w-full h-full">

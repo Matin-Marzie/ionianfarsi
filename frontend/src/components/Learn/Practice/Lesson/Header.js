@@ -1,8 +1,14 @@
-import React from 'react';
 import { FaArrowLeft } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
+import { useContext } from 'react';
+import LessonContext from '../../../../context/LessonContext';
 
-function Header({ percentage, exercise_count }) {
+function Header() {
+  const { challenges, challengeIndex } = useContext(LessonContext);
+
+  const percentage = challengeIndex - 1
+  const exercise_count = challenges.length
+
   // Show how many exercises(ex. 4/10) we have done in the practice session
   const navigate = useNavigate();
 

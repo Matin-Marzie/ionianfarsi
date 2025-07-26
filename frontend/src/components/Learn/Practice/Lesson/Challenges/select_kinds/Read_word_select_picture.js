@@ -1,7 +1,10 @@
+import { useContext } from "react";
 import { ImVolumeMedium } from "react-icons/im";
+import LessonContext from "../../../../../../context/LessonContext";
 
-const Read_word_select_picture = ({ challenge, Check_Selected, shuffledOptions, selectedOption, setSelectedOption, playSound, correctAnswer }) => {
+const Read_word_select_picture = ({ Check_Selected, shuffledOptions, selectedOption, setSelectedOption }) => {
 
+  const { challenge, playSound } = useContext(LessonContext);
 
   return (
     <div className="w-full h-full flex flex-col justify-between text-2xl ">

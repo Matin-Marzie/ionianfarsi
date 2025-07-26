@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import useAxiosPrivate from "../../hooks/useAxiosPrivate.js";
+import { getUsers } from "../../api/UserApi";
 
 const Leaderboard = () => {
   const axiosPrivate = useAxiosPrivate();
@@ -10,10 +11,7 @@ const Leaderboard = () => {
     error
   } = useQuery({
     queryKey: ["users"],
-    queryFn: async () => {
-      const response = await axiosPrivate.get("/users");
-      return response.data;
-    },
+    queryFn: () => getUsers(axiosPrivate),
     keepPreviousData: true,
     staleTime: Infinity,
     cacheTime: Infinity,

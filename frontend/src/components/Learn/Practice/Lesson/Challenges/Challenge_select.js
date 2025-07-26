@@ -1,21 +1,23 @@
-import { useState, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
+import LessonContext from "../../../../../context/LessonContext";
+
 import ListenSelectWrittenForm from "./select_kinds/Listen_select_written_form";
 import ListenAnswerQuestion from "./select_kinds/Listen_answer_question";
 import ReadSentenceSelectWrittenForm from "./select_kinds/Read_sentence_select_written_form";
 import ReadWordSelectPicture from "./select_kinds/Read_word_select_picture";
 
-
-const ChallengeSelect = ({
-  playSound,
-  nextChallengeSound,
-  wrongAnswerSound,
-  displayContinue,
-  setDisplayContinue,
-  setContinueText,
-  setCorrectAnswer,
-  challenge,
-  fisher_yates_shuffle
-}) => {
+const ChallengeSelect = () => {
+  const {
+    challenge,
+    playSound,
+    setDisplayContinue,
+    setContinueText,
+    setCorrectAnswer,
+    nextChallengeSound,
+    wrongAnswerSound,
+    fisher_yates_shuffle,
+    displayContinue,
+  } = useContext(LessonContext);
 
   const select_kinds = {
     listen_select_written_form: ListenSelectWrittenForm,
@@ -27,30 +29,25 @@ const ChallengeSelect = ({
   const [selectedOption, setSelectedOption] = useState(null);
   const [shuffledOptions, setShuffledOptions] = useState([]);
 
-  // ----------When-component-mounts----------
   useEffect(() => {
-    // Shuffle the options
     setSelectedOption(null);
     setShuffledOptions(fisher_yates_shuffle([...challenge.options]));
   }, [challenge.options, fisher_yates_shuffle]);
 
-
-  // ----------Check-selected-answer----------
-  // Input: selected_option id
   const Check_Selected = (selected_option) => {
     setDisplayContinue(true);
-    const correctAnswer = challenge.options.find((option) => option.correct === 1)?.option_id || null;
+    const correctAnswer =
+      challenge.options.find((option) => option.correct === 1)?.option_id || null;
 
-    if(challenge.select_type === 'listen_answer_question'){
-      setContinueText(`${challenge.sentence_written_form}\n${challenge.sentence_english_equivalent}`)
+    if (challenge.select_type === "listen_answer_question") {
+      setContinueText(
+        `${challenge.sentence_written_form}\n${challenge.sentence_english_equivalent}`
+      );
     }
 
-    // Correct answer
     if (selected_option === correctAnswer) {
       playSound(nextChallengeSound);
       setCorrectAnswer(true);
-
-      // Wrong answer
     } else {
       playSound(wrongAnswerSound);
       setCorrectAnswer(false);
@@ -61,16 +58,12 @@ const ChallengeSelect = ({
 
   return (
     <div className="flex-grow p-4 flex flex-col space-y-4">
-      <p className="text-2xl font-bold">
-        {challenge.question}
-      </p>
+      <p className="text-2xl font-bold">{challenge.question}</p>
       <ChallengeComponent
-        challenge={challenge}
         shuffledOptions={shuffledOptions}
         Check_Selected={Check_Selected}
         selectedOption={selectedOption}
         setSelectedOption={setSelectedOption}
-        playSound={playSound}
         displayContinue={displayContinue}
         setContinueText={setContinueText}
       />

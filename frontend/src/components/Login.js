@@ -1,13 +1,13 @@
 import { Link, useNavigate, useLocation } from 'react-router-dom';
-import { useState, useRef, useEffect} from 'react';
-import axios from '../api/api.js'
-import useAuth from '../hooks/UseAuth.js'
+import { useState, useRef, useEffect } from 'react';
+import { useMutation } from '@tanstack/react-query';
+import { loginUser } from '../api/UserApi.js';
+import useAuth from '../hooks/UseAuth.js';
 
 const USERNAME_REGEX = /^[a-zA-Z][a-zA-Z0-9-_]{3,23}$/;
 const PASSWORD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
 
 const Login = () => {
-
   const { setAuth } = useAuth();
   const location = useLocation();
   // Will redirect to the previous_route_location
@@ -19,76 +19,64 @@ const Login = () => {
   // When there are errors, we will focus on them so it can be announced by a screen reader for accessibility
   const errRef = useRef();
 
-  const API_HOST_NAME = process.env.REACT_APP_BACKEND_API_HOSTNAME;
-
   const navigate = useNavigate();
 
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [errorMsg, setErrorMsg] = useState('');
 
-
   // on page load, we set focus on the name field
   useEffect(() => {
     usernameRef.current.focus();
-  }, [])
+  }, []);
 
   useEffect(() => {
     setErrorMsg('');
-  }, [username, password])
+  }, [username, password]);
 
+  const { mutate } = useMutation({
+    mutationFn: loginUser,
+    onSuccess: (data) => {
+      const accessToken = data?.accessToken;
+      setAuth({ username, accessToken });
+      setUsername('');
+      setPassword('');
+      setErrorMsg('');
+      navigate(previous_route_location, { replace: true });
+    },
+    onError: (err) => {
+      if (!err?.response) {
+        setErrorMsg('No server response');
+      } else if (err.response?.status === 400) {
+        setErrorMsg('Missing Username or Password');
+      } else if (err.response?.status === 404) {
+        setErrorMsg("Username doesn't exist");
+        usernameRef.current.focus();
+      } else if (err.response?.status === 401) {
+        setErrorMsg('Invalid Password.');
+        passwordRef.current.focus();
+      } else {
+        setErrorMsg('Login Failed.');
+      }
+      errRef.current.focus();
+    }
+  });
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     const v1 = USERNAME_REGEX.test(username);
     if (!v1) {
-      setErrorMsg('Username Invalid.')
+      setErrorMsg('Username Invalid.');
       return;
     }
     const v2 = PASSWORD_REGEX.test(password);
     if (!v2) {
-      setErrorMsg('Password Invalid.')
+      setErrorMsg('Password Invalid.');
       return;
     }
 
-    try {
-      const response = await axios.post(
-        `${API_HOST_NAME}/auth`,
-        JSON.stringify({ username, password }),
-        {
-          headers: { "Content-Type": "application/json" },
-          withCredentials: true
-        }
-      );
-
-      const accessToken = response?.data?.accessToken;
-      setAuth({ username, accessToken })
-      setUsername('')
-      setPassword('')
-      setErrorMsg('')
-
-      navigate(previous_route_location, {replace: true})
-
-    } catch (err) {
-      if (!err?.response) {
-        setErrorMsg('No server response')
-      } else if (err.response?.status === 400) {
-        setErrorMsg('Missing Username or Password')
-      } else if (err.response?.status === 404) {
-        setErrorMsg("Username doesn't exist")
-        usernameRef.current.focus()
-      } else if(err.response?.status === 401){
-        setErrorMsg('Invalid Password.')
-        passwordRef.current.focus()
-      } else {
-        setErrorMsg('Login Failed.')
-      }
-
-      errRef.current.focus();
-    }
-
+    mutate({ username, password });
   };
-
 
   return (
     <section className="bg-[url('https://itto.org/iran/image-bin/nasir-ol-molk-mosque-2024.jpg')] md:bg-[url('https://talktravelapp.com/wp-content/uploads/Shiraz-in-Iran.jpg')] bg-cover bg-center w-full flex items-center justify-center p-4">
@@ -137,7 +125,7 @@ const Login = () => {
           </div>
 
           {/* Buttons */}
-          <button type="submit" disabled={!username || !password } className={`w-100 mt-3 border w-full py-2 io-button`}>Login</button>
+          <button type="submit" disabled={!username || !password} className={`w-100 mt-3 border w-full py-2 io-button`}>Login</button>
         </form>
         <p className='mt-6 text-center'>
           Don't have an accound?{' '}

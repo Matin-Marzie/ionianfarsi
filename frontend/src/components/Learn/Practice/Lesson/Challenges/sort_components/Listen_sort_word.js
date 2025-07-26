@@ -1,18 +1,13 @@
-import { useEffect } from "react"
+import { useContext, useEffect } from "react"
 import { ImVolumeMedium } from "react-icons/im"
+import LessonContext from "../../../../../../context/LessonContext"
 
 const Listen_sort_word = ({
-  challenge,
-  playSound,
-  setContinueText,
-  handleDragOver,
-  handleDrop,
-  handleItemClick,
-  handleDragStart,
   destinationItems,
   setOriginItems,
-  fisher_yates_shuffle
 }) => {
+
+  const { challenge, fisher_yates_shuffle, playSound } = useContext(LessonContext);
 
   useEffect(() => {
     setOriginItems(fisher_yates_shuffle(challenge.word_written_form.split("").map((letter, index) => ({

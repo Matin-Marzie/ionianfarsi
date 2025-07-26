@@ -1,17 +1,11 @@
-import { useEffect } from "react"
+import { useContext, useEffect } from "react"
+import LessonContext from "../../../../../../context/LessonContext"
 
 const Listen_sort_sentence = ({
-  challenge,
-  playSound,
-  setContinueText,
-  handleDragOver,
-  handleDrop,
-  handleItemClick,
-  handleDragStart,
-  destinationItems,
-  setOriginItems,
-  fisher_yates_shuffle,
+  setOriginItems
 }) => {
+
+  const { challenge, fisher_yates_shuffle } = useContext(LessonContext);
 
   useEffect(() => {
     setOriginItems(fisher_yates_shuffle(challenge.sentence_written_form.split(" ").map((word, index) => ({
