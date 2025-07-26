@@ -1,7 +1,8 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState, useRef } from 'react';
 import { useParams } from 'react-router-dom';
+import { motion } from "framer-motion";
 
-import useAxiosPrivate from '../../../hooks/useAxiosPrivate.js';
+import useAxiosPrivate from '../../../../hooks/useAxiosPrivate.js';
 
 import lessonCompletedSound from './sounds/fanfare.mp3';
 import nextChallengeSound from './sounds/short-fanfare.wav';

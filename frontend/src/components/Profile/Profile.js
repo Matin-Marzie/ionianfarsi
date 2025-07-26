@@ -2,7 +2,9 @@ import Leaderboard from "./Leaderboard"
 
 const Profile = () => {
   return (
-    <Leaderboard />
+    <section className="flex-grow h-full w-full max-w-screen-md m-auto bg-white">
+      <Leaderboard />
+    </section>
   )
 }
 

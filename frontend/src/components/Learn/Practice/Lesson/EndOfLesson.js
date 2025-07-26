@@ -1,4 +1,4 @@
-import '../../../css/car.css'
+import '../../../../css/car.css'
 import { Link } from 'react-router-dom'
 
 const EndOfLesson = () => {
@@ -43,7 +43,7 @@ const EndOfLesson = () => {
       </p>
 
       {/* Button to Lessons */}
-      <Link to="/practice" className='io-button w-11/12 p-2 bg-[#0ca00c] mx-auto mb-6' state={{currentSection:1}}>
+      <Link to="/learn" className='io-button w-11/12 p-2 bg-[#0ca00c] mx-auto mb-6' state={{currentSection:1}}>
         Go to Lessons
       </Link>
     </div>

@@ -10,7 +10,7 @@ function Home( ) {
         <h1>Welcome to IonianFarsi</h1>
         <p>Your gateway to the finest experiences</p>
         <div className="button-container">
-          <Link to='/practice' className='button go-app'>Go to Application</Link>
+          <Link to='/learn' className='button go-app'>Go to Application</Link>
         </div>
       </div>
     </div>

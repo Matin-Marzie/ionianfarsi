@@ -1,9 +1,10 @@
 import useLogout from "../../hooks/useLogout";
-import { useNavigate, Link } from "react-router-dom"
+import { useNavigate, Link, useLocation } from "react-router-dom"
 import useAuth from "../../hooks/UseAuth";
 
 function More() {
   const { auth } = useAuth();
+  const location = useLocation();
   const logout = useLogout();
   const navigate = useNavigate();
 
@@ -13,14 +14,15 @@ function More() {
   }
 
   return (
-    <section className="w-full h-full max-w-md m-auto bg-white text-center flex flex-col items-center justify-end py-3 gap-3">
+    <section className="w-full h-full max-w-screen-md m-auto bg-white text-center flex flex-col items-center justify-end py-3 gap-3">
       {auth?.accessToken
 
         ?
-        (<button onClick={SignOut} className={`w-11/12 border py-2 io-button bg-bluesea`}>Sign Out</button>)
+        (<button onClick={SignOut} className={`w-11/12 border py-2 io-button bg-red-500`}>Sign Out</button>)
         :
         (<div className="w-11/12 flex gap-x-2">
-          <Link to="/login" className="w-11/12 border py-2 io-button bg-bluesea">Sign In</Link>
+          
+          <Link to="/login" state={{from: location}} replace className="w-11/12 border py-2 io-button bg-bluesea">Sign In</Link>
           <Link to="/register" className="w-11/12 border py-2 io-button bg-bluesea">Create Account</Link>
         </div>)
       }

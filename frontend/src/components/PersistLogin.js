@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Outlet, Navigate } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 import useAuth from '../hooks/UseAuth';
 import UseRefreshToken from '../hooks/UseRefreshToken';
 
@@ -10,13 +10,14 @@ const PersistLogin = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
+    let isMounted = true;
     const verifyRefreshToken = async () => {
       try {
         await refresh();
       } catch (err) {
         console.error('Refresh token failed', err);
       } finally {
-        setIsLoading(false);
+        isMounted && setIsLoading(false);
       }
     };
 
@@ -26,6 +27,9 @@ const PersistLogin = () => {
     } else {
       setIsLoading(false);
     }
+
+    return () => isMounted = false;
+
   // eslint-disable-next-line
   }, []);
 

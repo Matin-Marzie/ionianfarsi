@@ -1,6 +1,7 @@
-import StillWorkingOn from '../StillWorkingOn'
+import StillWorkingOn from '../StillWorkingOn.js'
 
-const Practice = () => {
+
+const Reels = () => {
   return (
     <div className='w-full max-w-screen-md m-auto min-h-[100dvh] bg-white flex'>
       <StillWorkingOn />
@@ -8,4 +9,4 @@ const Practice = () => {
   )
 }
 
-export default Practice;
+export default Reels
