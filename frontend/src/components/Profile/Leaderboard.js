@@ -13,8 +13,8 @@ const Leaderboard = () => {
     queryKey: ["users"],
     queryFn: () => getUsers(axiosPrivate),
     keepPreviousData: true,
-    staleTime: Infinity,
-    cacheTime: Infinity,
+    staleTime: 1000 * 60 * 4,     // 4 minutes
+    cacheTime: 1000 * 60 * 15,    // 15 minutes
   });
 
   if (isLoading) return <p>Loading...</p>;

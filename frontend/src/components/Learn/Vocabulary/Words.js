@@ -52,8 +52,6 @@ function Words({ letter_id, words }) {
                 <FaRotate />
               </button>
 
-
-
             {/* BACK */}
             <div className="back">
               <button className='io-button flip-button' onClick={() => handleFlip(word.id)}>

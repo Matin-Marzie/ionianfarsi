@@ -1,12 +1,7 @@
 import { Link, useLocation } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
-import api from '../../../api/api.js';
+import { fetchLessons } from '../../../api/LearnApi';
 
-// Fetch all lessons in a section
-const fetchLessons = async (sectionId) => {
-  const response = await api.get(`/lessons?section_id=${sectionId}`);
-  return response.data;
-};
 
 const Practice = () => {
   const location = useLocation();
@@ -19,7 +14,7 @@ const Practice = () => {
     error
   } = useQuery({
     queryKey: ['lessons', currentSection],
-    queryFn: () => fetchLessons(currentSection),
+    queryFn: () => fetchLessons({sectionId: currentSection}),
     staleTime: Infinity,
     cacheTime: Infinity,
     keepPreviousData: true,

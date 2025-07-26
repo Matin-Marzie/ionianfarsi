@@ -12,11 +12,37 @@ export default function Learn() {
   const [direction, setDirection] = useState(0);
   const [isFirstLoad, setIsFirstLoad] = useState(true);
   const pointerStartX = useRef(null);
+  const isScrolling = useRef(false);
+
 
   useEffect(() => {
     const timer = setTimeout(() => setIsFirstLoad(false), 500);
     return () => clearTimeout(timer);
   }, []);
+
+
+  // Navigate on pages with two-finger laptop touch
+  const handleWheel = (e) => {
+    const deltaX = e.deltaX;
+
+    if (isScrolling.current) return; // ignore if already scrolling
+    if (Math.abs(deltaX) < 50) return; // ignore small scrolls
+
+    isScrolling.current = true;
+
+    if (deltaX > 0 && index < pageComponents.length - 1) {
+      setDirection(1);
+      setIndex((prev) => prev + 1);
+    } else if (deltaX < 0 && index > 0) {
+      setDirection(-1);
+      setIndex((prev) => prev - 1);
+    }
+
+    setTimeout(() => {
+      isScrolling.current = false;
+    }, 500); // adjust delay to match animation time
+  };
+
 
   const handleStart = (x) => {
     pointerStartX.current = x;
@@ -53,6 +79,7 @@ export default function Learn() {
   return (
     <div
       className="h-full overflow-y-scroll m-auto flex w-full max-w-screen-md h-content min-h-[100dvh] bg-white text-xl"
+      onWheel={handleWheel}
       onTouchStart={(e) => handleStart(e.touches[0].clientX)}
       onTouchEnd={(e) => handleEnd(e.changedTouches[0].clientX)}
       onMouseDown={(e) => handleStart(e.clientX)}
