@@ -1,4 +1,3 @@
-// src/context/LessonContext.js
 import { createContext, useCallback, useState } from "react";
 import lessonCompletedSound from "../components/Learn/Practice/Lesson/sounds/fanfare.mp3"
 import nextChallengeSound from "../components/Learn/Practice/Lesson/sounds/short-fanfare.wav";

@@ -1,10 +1,13 @@
-function Continue({
-    handleContinue,
-    displayContinue,
-    continueText,
-    continueButtonText,
-    correctAnswer
-}) {
+import { useContext } from "react"
+import LessonContext from "../../../../context/LessonContext"
+
+function Continue({ handleContinue }) {
+
+    const {
+        displayContinue,
+        continueText,
+        continueButtonText,
+        correctAnswer } = useContext(LessonContext);
 
     return (
         <div className={`w-full fixed flex flex-col justify-between max-w-screen-md bg-continueBG bottom-0 text-2xl opacity-90 p-5 font-bold space-y-3

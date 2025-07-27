@@ -1,9 +1,12 @@
-import { useEffect, useState, useContext } from 'react';
+import { useEffect, useContext } from 'react';
 import { useParams } from 'react-router-dom';
 
 import useAxiosPrivate from '../../../../hooks/useAxiosPrivate.js';
 import { LessonProvider } from '../../../../context/LessonContext.js';
 import LessonContext from '../../../../context/LessonContext.js';
+import { useQuery } from '@tanstack/react-query';
+import { fetchLessonChallenges } from '../../../../api/LearnApi.js';
+
 
 import Header from './Header';
 import Continue from './Continue';
@@ -19,29 +22,16 @@ function LessonContent() {
 
   // Context values
   const {
-    correctAnswer,
-    setCorrectAnswer,
     challengeIndex,
     setChallengeIndex,
-    challenge,
     setChallenge,
     challenges,
     setChallenges,
-    displayContinue,
     setDisplayContinue,
-    continueText,
     setContinueText,
-    continueButtonText,
-    setContinueButtonText,
     playSound,
-    nextChallengeSound,
-    wrongAnswerSound,
-    fisher_yates_shuffle,
     lessonCompletedSound,
   } = useContext(LessonContext);
-
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
 
   const challenge_components = {
     challenge_match: ChallengeMatch,
@@ -50,34 +40,20 @@ function LessonContent() {
   };
 
   // ----------------------Fetch-Lesson-Data(challenges)----------------------
-  useEffect(() => {
-    let isMounted = true;
-    const controller = new AbortController();
+  const { data: challengesData, isPending: loading, error } = useQuery({
+  queryKey: ['lesson', id],
+  queryFn: ({ signal }) => fetchLessonChallenges({ lessonId: id, signal, axiosInstance: axiosPrivate }),
+  staleTime: Infinity,
+});
 
-    const fetchChanllenges = async () => {
-      try {
-        setLoading(true);
-        const response = await axiosPrivate.get(`/lesson?lesson_id=${id}`, { signal: controller.signal });
-        if (isMounted) {
-          setChallenges(response.data);
-          setChallenge(response.data[0]);
-        }
-      } catch (err) {
-        if (err.code === "ERR_CANCELED") return;
-        setError("Failed to fetch challenges.");
-        console.error(err);
-      } finally {
-        setLoading(false);
-      }
-    };
 
-    fetchChanllenges();
+useEffect(() => {
+  if (challengesData) {
+    setChallenges(challengesData);
+    setChallenge(challengesData[0]);
+  }
+}, [challengesData, setChallenge, setChallenges]);
 
-    return () => {
-      isMounted = false;
-      controller.abort();
-    };
-  }, [id, axiosPrivate, setChallenges, setChallenge]);
 
   // --------------------Handle-when-current-challenge-finish--------------------
   const handleContinue = () => {
@@ -103,32 +79,9 @@ function LessonContent() {
     <div className="max-w-screen-md m-auto w-full h-full bg-[#F5F5F5] flex flex-col">
       <Header />
 
-      {ChallengeComponent
-        ?
-        <ChallengeComponent
-          playSound={playSound}
-          nextChallengeSound={nextChallengeSound}
-          wrongAnswerSound={wrongAnswerSound}
-          setDisplayContinue={setDisplayContinue}
-          displayContinue={displayContinue}
-          setContinueButtonText={setContinueButtonText}
-          setContinueText={setContinueText}
-          setChallengeIndex={setChallengeIndex}
-          challenge={challenge}
-          setChallenge={setChallenge}
-          fisher_yates_shuffle={fisher_yates_shuffle}
-          setCorrectAnswer={setCorrectAnswer}
-        />
-        :
-        <EndOfLesson />}
+      {ChallengeComponent ? <ChallengeComponent/> : <EndOfLesson />}
 
-      <Continue
-        handleContinue={handleContinue}
-        displayContinue={displayContinue}
-        continueText={continueText}
-        continueButtonText={continueButtonText}
-        correctAnswer={correctAnswer}
-      />
+      <Continue handleContinue={handleContinue} />
     </div>
   );
 }

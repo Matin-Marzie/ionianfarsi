@@ -17,5 +17,11 @@ export const fetchLessons = async ({ sectionId }) => { // Fetch all lessons in a
     return response.data;
 };
 
+// -----Fetch-single-Lesson-----
+export const fetchLessonChallenges = async ({ lessonId, signal, axiosInstance }) => {
+  const response = await axiosInstance.get(`/lesson?lesson_id=${lessonId}`, { signal });
+  return response.data;
+};;
+
 
 // --------------------Grammer--------------------
