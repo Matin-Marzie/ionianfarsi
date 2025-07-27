@@ -4,7 +4,7 @@ import useAxiosPrivate from '../../../hooks/useAxiosPrivate';
 import Words from './Words';
 import { getVocabulary } from '../../../api/LearnApi';
 
-function Vocabulary({ }) {
+function Vocabulary() {
   
   const axiosPrivate = useAxiosPrivate();
 

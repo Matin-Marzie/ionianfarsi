@@ -52,11 +52,24 @@ function Registration() {
     }, [username])
 
     useEffect(() => {
-        const isValid = PASSWORD_REGEX.test(password)
-        setValidPassword(isValid)
+        const hasUppercase = /[A-Z]/.test(password);
+        const hasLowercase = /[a-z]/.test(password);
+        const hasNumber = /[0-9]/.test(password);
+        const hasSpecialChar = /[!@#$%]/.test(password);
+        const isProperLength = password.length >= 8 && password.length <= 24;
+
+        setValidPassword(
+            hasUppercase &&
+            hasLowercase &&
+            hasNumber &&
+            hasSpecialChar &&
+            isProperLength
+        );
+
         const match = password === matchPassword;
         setValidMatch(match);
-    }, [password, matchPassword])
+    }, [password, matchPassword]);
+
 
     useEffect(() => {
         setErrorMsg('');
@@ -103,7 +116,7 @@ function Registration() {
             return;
         }
 
-        mutate({name, username, password});
+        mutate({ name, username, password });
     }
 
     return (
@@ -205,11 +218,17 @@ function Registration() {
                                 onBlur={() => setPasswordFocus(false)}
                             />
                             <p id="passwordnote" className={passwordFocus && password && !validPassword ? 'mt-2 text-white bg-gray-500 p-2 rounded-md shadow-lg' : 'absolute -left-[9999px]'}>
-                                <FaInfoCircle />
-                                8 to 24 characters. <br />
-                                Must include uppercase and lowercase letter,a number and one special character: <span aria-label='exclamation mark'>!</span><span aria-label='at symbol'>@</span><span aria-label='hashtag'>#</span><span aria-label='dollar sign'>$</span><span aria-label='percent'>%</span>
-
+                                <FaInfoCircle className='inline-block mr-1' />
+                                Password must include:
+                                <ul className='list-disc ml-5'>
+                                    <li className={/[A-Z]/.test(password) ? 'hidden' : ''}>At least one uppercase letter</li>
+                                    <li className={/[a-z]/.test(password) ? 'hidden' : ''}>At least one lowercase letter</li>
+                                    <li className={/[0-9]/.test(password) ? 'hidden' : ''}>At least one number</li>
+                                    <li className={/[!@#$%]/.test(password) ? 'hidden' : ''}>One special character (!@#$%)</li>
+                                    <li className={password.length >= 8 && password.length <= 24 ? 'hidden' : ''}>8 to 24 characters long</li>
+                                </ul>
                             </p>
+
                         </div>
 
                         {/* Match password */}
