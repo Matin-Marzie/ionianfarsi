@@ -43,7 +43,7 @@ const OriginDestinationContainer = ({
       {/* Destination Container */}
       <div
         className="min-h-[20dvh] border-2 border-dashed border-gray-500 p-2 rounded mb-4 flex gap-2 justify-center items-start flex-wrap flex-row-reverse"
-        onDragOver={() => {if(hasSwiped) return; handleDragOver()}}
+        onDragOver={(e) => {if(hasSwiped) return; handleDragOver(e)}}
         onDrop={(e) => handleDrop(e, "destination")}
       >
         {destinationItems?.map((item) => (
@@ -83,7 +83,7 @@ const OriginDestinationContainer = ({
       {/* ORIGIN */}
       <div
         className="w-full border-4 border-gray-300 p-2 rounded flex flex-wrap gap-2 justify-center items-center min-h-[15dvh]"
-        onDragOver={() => {if(hasSwiped) return; handleDragOver()}}
+        onDragOver={(e) => {if(hasSwiped) return; handleDragOver(e)}}
         onDrop={(e) => handleDrop(e, "origin")}
       >
         {originItems.map((item) => (
@@ -91,7 +91,7 @@ const OriginDestinationContainer = ({
             key={item.id}
             disabled
             className="cursor-pointer bg-bluesea text-white px-3 py-2 rounded shadow-md io-button"
-            draggable={!hasSwiped}
+            draggable
             onDragStart={(e) =>{ if(hasSwiped) return; handleDragStart(e, item, "origin")}}
             onClick={() => {
               if(hasSwiped) return;
