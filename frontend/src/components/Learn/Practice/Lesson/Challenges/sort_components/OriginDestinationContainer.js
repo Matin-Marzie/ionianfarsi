@@ -12,7 +12,7 @@ const OriginDestinationContainer = ({
   destinationItems
 }) => {
 
-  const { challenge, playSound } = useContext(LessonContext);
+  const { challenge, playSound, hasSwiped } = useContext(LessonContext);
   const axiosPrivate = useAxiosPrivate();
   const [fetched_letters_pronounciation, setlettersAudio] = useState([]);
   // ----------------------Fetch-Letter-pronounciations----------------------
@@ -43,16 +43,17 @@ const OriginDestinationContainer = ({
       {/* Destination Container */}
       <div
         className="min-h-[20dvh] border-2 border-dashed border-gray-500 p-2 rounded mb-4 flex gap-2 justify-center items-start flex-wrap flex-row-reverse"
-        onDragOver={handleDragOver}
+        onDragOver={() => {if(hasSwiped) return; handleDragOver()}}
         onDrop={(e) => handleDrop(e, "destination")}
       >
         {destinationItems?.map((item) => (
           <div
             key={item.id}
-            className="io-button cursor-pointer bg-bluesea text-white px-4 py-1 rounded"
-            draggable
-            onDragStart={(e) => handleDragStart(e, item, "destination")}
+            className={`io-button cursor-pointer bg-bluesea text-white px-4 py-1 rounded`}
+            draggable={!hasSwiped}
+            onDragStart={(e) =>{ if(hasSwiped) return; handleDragStart(e, item, "destination")}}
             onClick={() => {
+              if(hasSwiped) return;
               const word_pronounciation = challenge.sentence_words?.find(
                 (word) => {
                   return word.audio_url && word.written_form === item.content;
@@ -78,18 +79,22 @@ const OriginDestinationContainer = ({
           </div>
         ))}
       </div>
+
+      {/* ORIGIN */}
       <div
         className="w-full border-4 border-gray-300 p-2 rounded flex flex-wrap gap-2 justify-center items-center min-h-[15dvh]"
-        onDragOver={handleDragOver}
+        onDragOver={() => {if(hasSwiped) return; handleDragOver()}}
         onDrop={(e) => handleDrop(e, "origin")}
       >
         {originItems.map((item) => (
           <div
             key={item.id}
+            disabled
             className="cursor-pointer bg-bluesea text-white px-3 py-2 rounded shadow-md io-button"
-            draggable
-            onDragStart={(e) => handleDragStart(e, item, "origin")}
+            draggable={!hasSwiped}
+            onDragStart={(e) =>{ if(hasSwiped) return; handleDragStart(e, item, "origin")}}
             onClick={() => {
+              if(hasSwiped) return;
               const word_pronounciation = challenge.sentence_words?.find(
                 (word) => {
                   return word.audio_url && word.written_form === item.content;

@@ -6,7 +6,7 @@ import LessonContext from '../../../../context/LessonContext';
 function Header() {
   const { challenges, challengeIndex } = useContext(LessonContext);
 
-  const percentage = challengeIndex - 1
+  const percentage = challengeIndex
   const exercise_count = challenges.length
 
   // Show how many exercises(ex. 4/10) we have done in the practice session

@@ -1,4 +1,5 @@
 import { createContext, useCallback, useState } from "react";
+import { useRef } from "react";
 import lessonCompletedSound from "../components/Learn/Practice/Lesson/sounds/fanfare.mp3"
 import nextChallengeSound from "../components/Learn/Practice/Lesson/sounds/short-fanfare.wav";
 import wrongAnswerSound from "../components/Learn/Practice/Lesson/sounds/wrong-answer.wav";
@@ -8,30 +9,40 @@ const LessonContext = createContext({});
 export const LessonProvider = ({ children }) => {
   // Shared states
   const [correctAnswer, setCorrectAnswer] = useState(null);
-  const [challengeIndex, setChallengeIndex] = useState(1);
+  const [challengeIndex, setChallengeIndex] = useState(0);
   const [challenge, setChallenge] = useState();
   const [challenges, setChallenges] = useState([]);
 
-  const [displayContinue, setDisplayContinue] = useState(false);
-  const [continueText, setContinueText] = useState('');
-  const [continueButtonText, setContinueButtonText] = useState('Continue');
+  const [displayAnswer, setDisplayAnswer] = useState(false);
+  const [answerText, setAnswerText] = useState('');
 
-  const [currentAudio, setCurrentAudio] = useState(null);
+  const [hasSwiped, setHasSwiped] = useState(false);
 
+  // For Challenge_select component
+  const [selectedOption, setSelectedOption] = useState(null);
 
+  // For Challenge_sort component
+  const [destinationItems, setDestinationItems] = useState([]);
 
   // ----------Function-to-play-Sound----------
-  const playSound = (sound) => {
-    if (currentAudio && currentAudio.currentTime > 0) {
-      currentAudio.pause();
+  const currentAudioRef = useRef(null);
+
+  const playSound = useCallback((sound) => {
+    if (currentAudioRef.current) {
+      currentAudioRef.current.pause();
+      currentAudioRef.current.src = '';
+      currentAudioRef.current = null;
     }
     const newAudio = new Audio(sound);
-    setCurrentAudio(newAudio);
-    newAudio.play();
-    newAudio.onended = () => setCurrentAudio(null);
-  };
+    currentAudioRef.current = newAudio;
+    newAudio.play().catch(() => { });// Ignore play interruption errors
+    newAudio.onended = () => {
+      currentAudioRef.current = null;
+    };
+  }, []);
 
-  
+
+
 
   // ----------Fisher-Yates_Algorithm----------
   const fisher_yates_shuffle = useCallback((array) => {
@@ -42,7 +53,7 @@ export const LessonProvider = ({ children }) => {
     return array;
   }, []);
 
-  
+
 
   return (
     <LessonContext.Provider value={{
@@ -54,17 +65,21 @@ export const LessonProvider = ({ children }) => {
       setChallenge,
       challenges,
       setChallenges,
-      displayContinue,
-      setDisplayContinue,
-      continueText,
-      setContinueText,
-      continueButtonText,
-      setContinueButtonText,
+      displayAnswer,
+      setDisplayAnswer,
+      answerText,
+      setAnswerText,
       playSound,
       nextChallengeSound,
       wrongAnswerSound,
       fisher_yates_shuffle,
       lessonCompletedSound,
+      hasSwiped,
+      setHasSwiped,
+      selectedOption,
+      setSelectedOption,
+      destinationItems,
+      setDestinationItems
     }}>
       {children}
     </LessonContext.Provider>

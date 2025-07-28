@@ -1,11 +1,12 @@
 import { useContext } from "react";
 import { ImVolumeMedium } from "react-icons/im";
 import LessonContext from "../../../../../../context/LessonContext";
+import { MdOutlineSwipeUp } from "react-icons/md";
 
-const Read_sentence_select_written_form = ({ Check_Selected, shuffledOptions, selectedOption, setSelectedOption}) => {
+const Read_sentence_select_written_form = ({ shuffledOptions, selectedOption, setSelectedOption }) => {
 
   const { challenge, playSound } = useContext(LessonContext);
-  
+
   return (
     <div className="w-full h-full flex flex-col justify-between text-2xl ">
       {/* Sentence */}
@@ -40,16 +41,10 @@ const Read_sentence_select_written_form = ({ Check_Selected, shuffledOptions, se
         ))}
       </div>
 
-      {/* Check Button */}
-      <button
-        className={`p-2 bg-green-500 text-white font-bold rounded-lg
-          ${selectedOption ? 'opacity-100 hover:bg-green-600 transition' : 'opacity-80'}
-          `}
-        onClick={() => Check_Selected(selectedOption)}
-        disabled={selectedOption === null}
-      >
-        Check Answer
-      </button>
+      {/* Check selected */}
+      <p className='p-2 text-bluesea rounded-lg font-bold flex gap-x-4 mx-auto'>
+        <span>Swipe Up</span> <MdOutlineSwipeUp className="text-4xl" />
+      </p>
     </div>
   );
 };

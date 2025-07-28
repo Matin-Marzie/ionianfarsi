@@ -14,7 +14,7 @@ const Leaderboard = () => {
     queryFn: () => getUsers(axiosPrivate),
     keepPreviousData: true,
     staleTime: 1000 * 60 * 4,     // 4 minutes
-    cacheTime: 1000 * 60 * 15,    // 15 minutes
+    cacheTime: 1000 * 60 * 60 * 24 * 2,    // 2 days
   });
 
   if (isLoading) return <p>Loading...</p>;

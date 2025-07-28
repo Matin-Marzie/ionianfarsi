@@ -5,14 +5,16 @@ import MatchSoundToWritten_form from './match_kinds/MatchSoundToWritten_form';
 import LessonContext from '../../../../../context/LessonContext';
 
 const Challenge_match = () => {
+  console.log("Challenge_match")
   const {
     challenge,
     playSound,
-    setDisplayContinue,
+    setDisplayAnswer,
     fisher_yates_shuffle,
     setCorrectAnswer,
-    nextChallengeSound,
-    wrongAnswerSound
+    wrongAnswerSound,
+    setHasSwiped,
+    setAnswerText
   } = useContext(LessonContext);
 
   const match_kinds = {
@@ -67,9 +69,10 @@ const Challenge_match = () => {
 
         const remaining = updatedRight.filter(w => w.id !== rightSelectedWord.id);
         if (remaining.every(w => w.disabled)) {
-          setDisplayContinue(true);
+          setHasSwiped(true);
           setCorrectAnswer(true);
-          playSound(nextChallengeSound);
+          setDisplayAnswer(true);
+          setAnswerText("Swipe up to Continue  👆")
         }
       } else {
         // wrong match
@@ -77,6 +80,7 @@ const Challenge_match = () => {
       }
     }
   };
+
 
   const MatchKindsComponent = match_kinds[challenge.content[0].match_type];
 

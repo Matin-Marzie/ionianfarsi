@@ -1,5 +1,6 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState, useCallback } from "react";
 import LessonContext from "../../../../../context/LessonContext";
+import { MdOutlineSwipeUp } from "react-icons/md";
 
 import OriginDestinationContainer from "./sort_components/OriginDestinationContainer";
 import ListenSortWord from "./sort_components/Listen_sort_word";
@@ -9,15 +10,17 @@ import ReadFarsiSortWord from "./sort_components/Read_farsi_sort_word";
 import ReadEnglishEquivalentSortFarsiSentence from "./sort_components/Read_english_equivalent_sort_farsi_sentence";
 
 const ChallengeSort = () => {
+  console.log("challenge Sort")
   const {
     challenge,
     playSound,
-    setDisplayContinue,
-    displayContinue,
-    setContinueText,
+    setDisplayAnswer,
+    setAnswerText,
     setCorrectAnswer,
-    nextChallengeSound,
     wrongAnswerSound,
+    hasSwiped,
+    destinationItems,
+    setDestinationItems
   } = useContext(LessonContext);
 
   const sort_kinds = {
@@ -30,12 +33,11 @@ const ChallengeSort = () => {
 
   const [isSentence, setIsSentence] = useState(challenge.sentence_written_form !== null);
   const [originItems, setOriginItems] = useState([]);
-  const [destinationItems, setDestinationItems] = useState([]);
 
   useEffect(() => {
     setIsSentence(challenge.sentence_written_form !== null);
     setDestinationItems([]);
-  }, [challenge]);
+  }, [challenge, setDestinationItems]);
 
   const handleDragStart = (e, item, source) => {
     e.dataTransfer.setData("text/plain", JSON.stringify({ item, source }));
@@ -70,7 +72,7 @@ const ChallengeSort = () => {
     }
   };
 
-  const handleCheck = () => {
+  const check_Sort = useCallback(() => {
     const userItem = destinationItems.map((item) => item.content).join("");
     let isAnswerCorrect;
 
@@ -84,36 +86,41 @@ const ChallengeSort = () => {
       isAnswerCorrect = userItem === target;
     }
 
+    setDisplayAnswer(true);
     if (isAnswerCorrect) {
-      playSound(nextChallengeSound);
       setCorrectAnswer(true);
-      setDisplayContinue(true);
 
       if (["listen_sort_word", "read_farsi_sort_word"].includes(challenge.sort_type)) {
-        setContinueText(challenge.word_english_equivalent);
+        setAnswerText(challenge.word_english_equivalent);
       } else if (challenge.sort_type === "listen_sort_sentence") {
-        setContinueText(challenge.sentence_english_equivalent);
+        setAnswerText(challenge.sentence_english_equivalent);
       }
     } else {
       playSound(wrongAnswerSound);
       setCorrectAnswer(false);
-      setDisplayContinue(true);
 
       if (challenge.sort_type === "listen_sort_word") {
-        setContinueText(challenge.word_written_form);
+        setAnswerText(challenge.word_written_form);
       } else if (challenge.sort_type === "listen_sort_sentence") {
-        setContinueText(challenge.sentence_written_form);
+        setAnswerText(challenge.sentence_written_form);
       } else if (challenge.sort_type === "read_farsi_sort_english_equivalent_sentence") {
-        setContinueText(challenge.sentence_english_equivalent);
+        setAnswerText(challenge.sentence_english_equivalent);
       } else if (challenge.sort_type === "read_english_equivalent_sort_farsi_sentence") {
-        setContinueText(challenge.sentence_written_form);
+        setAnswerText(challenge.sentence_written_form);
       } else if (challenge.sort_type === "read_farsi_sort_word") {
-        setContinueText(challenge.word_written_form.split("").join(" "));
+        setAnswerText(challenge.word_written_form.split("").join(" "));
       }
     }
-  };
+  }, [challenge, destinationItems, isSentence, playSound, setAnswerText, setCorrectAnswer, setDisplayAnswer, wrongAnswerSound]);
 
-  const ChallengeComponent = sort_kinds[challenge.sort_type];
+  useEffect(() => {
+    if (hasSwiped) check_Sort();
+  }, [hasSwiped, check_Sort])
+
+  const ChallengeComponent = sort_kinds[challenge.sort_type] || null;
+  console.log(challenge)
+  console.log()
+  if (ChallengeComponent === null) return (<div>null component</div>)
 
   return (
     <div className="p-4 text-2xl h-full flex flex-col space-y-4">
@@ -137,13 +144,14 @@ const ChallengeSort = () => {
           destinationItems={destinationItems}
         />
 
-        <button
-          onClick={handleCheck}
-          disabled={displayContinue || destinationItems.length === 0}
-          className="p-2 bg-green-500 text-white font-bold rounded-lg w-full"
+        <p
+          className={`p-2 rounded-lg font-bold flex gap-x-4 mx-auto ${!destinationItems.length === 0
+            ? 'text-bluesea'
+            : 'opacity-40 pointer-events-none'
+            }`}
         >
-          Check
-        </button>
+          <span>Swipe Up</span> <MdOutlineSwipeUp className="text-4xl" />
+        </p>
       </div>
     </div>
   );

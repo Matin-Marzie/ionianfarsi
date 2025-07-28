@@ -11,15 +11,15 @@ module.exports = {
       },
 
       keyframes: {
-        DisplayContinue: {
+        DisplayAnswer: {
           '0%': { height: '0px' },
           '95%' : {height: '120px'},
-          '100%': { minHeight: '', height: 'content' },
+          '100%': { minHeight: '20dvh', height: 'content' },
         },
       },
 
       animation: {
-        displayContinue: 'DisplayContinue 0.2s ease-out forwards',
+        displayAnswer: 'DisplayAnswer 0.2s ease-out forwards',
       },
 
       screens: {
