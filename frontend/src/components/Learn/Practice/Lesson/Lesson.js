@@ -90,9 +90,9 @@ function LessonContent() {
 
 
   // --------------------Handle-swipe--------------------
-  const handleSwipe = (deltaY) => {
+  const handleSwipe = () => {
 
-    if (deltaY > 100 && !isScrolling.current) {
+    if (!isScrolling.current) {
       // block first swipe for challenge_match
       if (challengeType === 'challenge_match' && !hasSwiped) return;
       if (challengeType === 'challenge_select' && !selectedOption) return;
@@ -122,11 +122,11 @@ function LessonContent() {
 
   const handleTouchEnd = (e) => {
     const deltaY = e.changedTouches[0].clientY - touchStartY.current;
-    handleSwipe(deltaY);
+    if(deltaY < -100) handleSwipe();
   };
 
   const handleWheel = (e) => {
-    handleSwipe(e.deltaY);
+    if(e.deltaY > 100) handleSwipe();
   };
 
 
