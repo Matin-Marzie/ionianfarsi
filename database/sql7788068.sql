@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: sql7.freesqldatabase.com
--- Generation Time: Jul 30, 2025 at 11:11 AM
+-- Generation Time: Jul 30, 2025 at 02:12 PM
 -- Server version: 5.5.62-0ubuntu0.14.04.1
 -- PHP Version: 7.0.33-0ubuntu0.16.04.16
 
@@ -35,38 +35,6 @@ CREATE TABLE `challenge` (
   `question` varchar(255) COLLATE utf8_persian_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_persian_ci;
 
---
--- Dumping data for table `challenge`
---
-
-INSERT INTO `challenge` (`id`, `type`, `challenge_order`, `question`) VALUES
-(1, 'challenge_match', 1, 'Match the countries'),
-(2, 'challenge_match', 5, 'Match the countries'),
-(4, 'challenge_match', 6, 'Match the Countries'),
-(51, 'challenge_select', 1, 'Select the correct option'),
-(52, 'challenge_sort', 2, 'Sort the items'),
-(53, 'challenge_sort', 3, 'Sort the items'),
-(54, 'challenge_sort', 5, 'Sort the letters'),
-(55, 'challenge_select', 5, 'Select'),
-(56, 'challenge_sort', 6, 'Sort the letters'),
-(57, 'challenge_match', 7, 'Listen and Match'),
-(58, 'challenge_select', 8, 'Listen and select'),
-(59, 'challenge_match', 9, 'Read and Match the items'),
-(60, 'challenge_select', 10, 'Select the correct option'),
-(61, 'challenge_sort', 11, 'Sort the words'),
-(62, 'challenge_sort', 12, 'Sort the letters'),
-(63, 'challenge_sort', 13, 'Sort the items'),
-(64, 'challenge_sort', 14, 'Sort the letters'),
-(65, 'challenge_match', 15, 'Match the items'),
-(66, 'challenge_sort', 1, 'Sort'),
-(67, 'challenge_sort', 2, 'Sort'),
-(68, 'challenge_sort', 3, 'Sort'),
-(69, 'challenge_sort', 4, 'Sort'),
-(72, 'challenge_sort', 7, 'Sort'),
-(73, 'challenge_sort', 8, 'Sort'),
-(74, 'challenge_sort', 9, 'Sort'),
-(75, 'challenge_sort', 10, 'Sort');
-
 -- --------------------------------------------------------
 
 --
@@ -77,41 +45,6 @@ CREATE TABLE `challenges_in_lesson` (
   `challenge_id` int(11) NOT NULL,
   `lesson_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_persian_ci;
-
---
--- Dumping data for table `challenges_in_lesson`
---
-
-INSERT INTO `challenges_in_lesson` (`challenge_id`, `lesson_id`) VALUES
-(65, 3),
-(63, 3),
-(64, 3),
-(62, 3),
-(61, 3),
-(60, 3),
-(59, 3),
-(57, 3),
-(58, 3),
-(54, 3),
-(56, 3),
-(55, 3),
-(53, 3),
-(52, 3),
-(51, 3),
-(66, 5),
-(75, 5),
-(74, 5),
-(73, 5),
-(72, 5),
-(2, 5),
-(4, 5),
-(67, 5),
-(68, 5),
-(69, 5),
-(60, 2),
-(55, 2),
-(75, 10),
-(2, 1);
 
 -- --------------------------------------------------------
 
@@ -124,17 +57,6 @@ CREATE TABLE `challenge_match` (
   `type` enum('match_picture_to_written_form','match_sound_to_written_form','match_written_form_to_english_equivalent') COLLATE utf8_persian_ci DEFAULT NULL,
   `challenge_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_persian_ci;
-
---
--- Dumping data for table `challenge_match`
---
-
-INSERT INTO `challenge_match` (`id`, `type`, `challenge_id`) VALUES
-(2, 'match_written_form_to_english_equivalent', 2),
-(4, 'match_written_form_to_english_equivalent', 4),
-(5, 'match_sound_to_written_form', 65),
-(6, 'match_written_form_to_english_equivalent', 59),
-(7, 'match_sound_to_written_form', 57);
 
 -- --------------------------------------------------------
 
@@ -151,16 +73,6 @@ CREATE TABLE `challenge_select` (
   `challenge_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_persian_ci;
 
---
--- Dumping data for table `challenge_select`
---
-
-INSERT INTO `challenge_select` (`id`, `type`, `question`, `sentence_id`, `word_id`, `challenge_id`) VALUES
-(6, 'read_word_select_picture', NULL, NULL, 3, 60),
-(7, 'listen_answer_question', 'اِسمِ‌ او چیست؟', 4, NULL, 58),
-(8, 'read_word_select_picture', NULL, NULL, 1, 55),
-(9, 'listen_select_written_form', NULL, NULL, 342, 51);
-
 -- --------------------------------------------------------
 
 --
@@ -172,38 +84,6 @@ CREATE TABLE `challenge_select_option` (
   `correct` tinyint(1) DEFAULT NULL,
   `word_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_persian_ci;
-
---
--- Dumping data for table `challenge_select_option`
---
-
-INSERT INTO `challenge_select_option` (`id`, `correct`, `word_id`) VALUES
-(27, 0, 1),
-(28, 0, 2),
-(33, 0, 3),
-(34, 0, 6),
-(26, 0, 7),
-(3, 0, 26),
-(4, 0, 98),
-(11, 0, 329),
-(12, 0, 330),
-(6, 0, 332),
-(1, 0, 333),
-(8, 0, 335),
-(7, 0, 337),
-(15, 0, 342),
-(23, 0, 343),
-(24, 0, 344),
-(29, 0, 347),
-(30, 0, 348),
-(32, 1, 1),
-(25, 1, 3),
-(10, 1, 25),
-(2, 1, 331),
-(5, 1, 333),
-(9, 1, 336),
-(16, 1, 342),
-(31, 1, 349);
 
 -- --------------------------------------------------------
 
@@ -219,64 +99,6 @@ CREATE TABLE `challenge_sort` (
   `challenge_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_persian_ci;
 
---
--- Dumping data for table `challenge_sort`
---
-
-INSERT INTO `challenge_sort` (`id`, `type`, `sentence_id`, `word_id`, `challenge_id`) VALUES
-(10, 'listen_sort_sentence', 6, NULL, 63),
-(11, 'listen_sort_word', NULL, 342, 64),
-(12, 'listen_sort_word', NULL, 3, 62),
-(13, 'read_farsi_sort_english_equivalent_sentence', 5, NULL, 61),
-(14, 'listen_sort_word', NULL, 342, 54),
-(15, 'listen_sort_word', NULL, 1, 56),
-(16, 'read_english_equivalent_sort_farsi_sentence', 5, NULL, 53),
-(17, 'listen_sort_sentence', 4, NULL, 52),
-(18, 'listen_sort_sentence', 7, NULL, 66),
-(19, 'read_english_equivalent_sort_farsi_sentence', 10, NULL, 75),
-(20, 'read_english_equivalent_sort_farsi_sentence', 11, NULL, 74),
-(21, 'read_farsi_sort_english_equivalent_sentence', 10, NULL, 73),
-(22, 'listen_sort_sentence', 9, NULL, 72),
-(23, 'listen_sort_word', NULL, 336, 67),
-(24, 'read_english_equivalent_sort_farsi_sentence', 8, NULL, 69),
-(25, 'listen_sort_word', NULL, 350, 68);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `firststep_lesson`
---
-
-CREATE TABLE `firststep_lesson` (
-  `number` int(11) NOT NULL,
-  `functionality` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_persian_ci DEFAULT NULL,
-  `language` varchar(255) COLLATE utf8_persian_ci DEFAULT NULL,
-  `page_no` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_persian_ci;
-
---
--- Dumping data for table `firststep_lesson`
---
-
-INSERT INTO `firststep_lesson` (`number`, `functionality`, `language`, `page_no`) VALUES
-(1, 'مُعَرّفی خود (۱)\r\nبَیانِ نامِ خود وَ پُرسیدَنِ نامِ دیگَران', NULL, 19),
-(2, 'مُعَرِفیِ خود (۲)، پُرسِش وَ پاسُخ دَربارهٔ مِلّیَت', NULL, 29),
-(3, 'مُعَرِفیِ خود(۳)، پُرسِش وَ پاسُخ دَربارهٔ شُغل', NULL, 39),
-(4, 'مُعَرِفی دیگَران', NULL, 49),
-(5, 'اَحوال پُرسی، آغازِ گُفت و گو', 'ضَمایِر شَخصی وَ حالِ سادهٔ فِعلِ یودَن(۱)', 59),
-(6, 'پایان گُفت و گو(خُداحافِظی)', 'ضَمایِر شَخصی وَ حالِ سادهٔ فِعلِ یودَن(۱)', 69),
-(7, 'پُرسِش دَربارهٔ اَشیاء وَ اَفراد(۱)', 'ضَمایِر اِشارهٔ این وَ آن، پُرسِش واژه چیست؟/کسیت؟\r\nیِک فِعلِ پُرکاربُرد: آمَدَن', 91),
-(8, 'پُرسِش دَربارهٔ اَشیاء وَ اَفراد(۱)', 'پاسُخ واژه هایِ بَله وَ خِیر، مَنفیِ حالِ سادهٔ فِعلِ بودَن\r\nیِک فِعلِ پُرکاربُرد: دیدَن', 101),
-(9, 'پُرسِش دَربارهٔ اَشیاء وَ اَفراد', 'پُرسِش واژه آیا\r\nیِک فِعلِ پُرکاربُرد: خوردَن', 113),
-(10, 'صُحبَت کَردَن دَربارهٔ اَفرادِ خوانِواده', 'ضَمایِر مِلکی جُدا وَ پِیوَسته\r\nیِک فِعلِ پُرکاربُرد: شِنیدَن', 123),
-(11, 'بَیان وَ پُرسِش دَربارهٔ مَکان (کِتاب کُجاست؟)', 'پُرسِش واژهٔ کُجا؟ وَ قِید هایِ سادهٔ مَکان (اینجا، آنجا)\r\nیِک فِعلِ پُرکاربُرد: خواندَن', 135),
-(12, 'بَیان وَ پُرسِش دَربارهٔ مالِکیَّت', 'حالِ سادهٔ وَ مَنفیِ فِعلِ داشتَن\r\nیِک فِعلِ پُر کاربُرد: گُفتَن', 147),
-(13, 'توصیفِ اَشیا یا اَفراد', 'کَسرهٔ اِضافه (دَر تَرکیبِ وَصفی)\r\nیِک فِعلِ پُر کاربُرد: خوابیدَن', 165),
-(14, 'بَیان وَ پُرسِش دَربارهٔ زَمانِ‌ حال', 'پُرسِش واژه کی؟ وَ قِید هایِ ساده زَمانِ حال (اِمروز، اِمشَب)\r\nیِک فِعلِ پُرکاربُرد: رَفتَن', 175),
-(15, 'بَیانِ‌ یِک رویداد دَر زَمانِ‌گُذَشته\r\n(دیروز دانِشگاه بودَم)', 'گُذَشتهٔ ساده وَ قِید هایِ سادهٔ زِمانِ گُذَشته(دیروز، دیشَب)\r\nیِک فِعلِ‌پُرکاربُرد: پوشیدَن', 185),
-(16, 'مُعَرِفیِ خود (۴)\r\nبَیانِ‌سِن وَ پُرسِش دَربارهٔ سِن دیگَران', 'پُرسیدَنِ‌ واژهٔ چَند؟\r\nیِک فِعلِ‌پُرکاربُرد:پوشیدَن', 195),
-(17, 'بَیانِ تَقاضا', 'جُمله هایِ‌ اَمری ساده وَ پُرکاربُرد\r\nیِک فِعلِ پُر کاربُرد: خَریدَن', 205);
-
 -- --------------------------------------------------------
 
 --
@@ -287,23 +109,8 @@ CREATE TABLE `lesson` (
   `id` int(11) NOT NULL,
   `title` varchar(50) COLLATE utf8_persian_ci NOT NULL,
   `lesson_order` int(2) NOT NULL,
-  `unit_id` int(3) NOT NULL
+  `repetition_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_persian_ci;
-
---
--- Dumping data for table `lesson`
---
-
-INSERT INTO `lesson` (`id`, `title`, `lesson_order`, `unit_id`) VALUES
-(1, 'الف - ب', 1, 1),
-(2, 'خوش آمدید', 2, 1),
-(3, '', 1, 3),
-(5, '', 2, 3),
-(6, 'چطوری', 1, 2),
-(7, 'خوبی', 1, 4),
-(8, 'من اهل ایران هستم', 1, 5),
-(9, 'تو اهل کجایی؟', 1, 6),
-(10, 'بًزًرگ', 3, 1);
 
 -- --------------------------------------------------------
 
@@ -318,400 +125,56 @@ CREATE TABLE `letter` (
   `english_example` varchar(16) COLLATE utf8_persian_ci DEFAULT NULL,
   `persian_example` varchar(255) COLLATE utf8_persian_ci NOT NULL,
   `type` enum('consonant','vowel') COLLATE utf8_persian_ci NOT NULL,
-  `audio_url` varchar(250) COLLATE utf8_persian_ci DEFAULT NULL,
-  `lesson_id` int(11) NOT NULL
+  `audio_url` varchar(250) COLLATE utf8_persian_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_persian_ci;
 
 --
 -- Dumping data for table `letter`
 --
 
-INSERT INTO `letter` (`id`, `writing_style`, `letter_sign`, `english_example`, `persian_example`, `type`, `audio_url`, `lesson_id`) VALUES
-(1, 'ا', NULL, 'on, God', 'بابا، آب', 'vowel', 'https://ionianfarsi.onrender.com/audio/letters/aa.mp3', 1),
-(2, 'ب', NULL, 'book', 'باران', 'consonant', 'https://ionianfarsi.onrender.com/audio/letters/b.mp3', 1),
-(3, 'َ', NULL, 'cat', 'دَر', 'vowel', 'https://ionianfarsi.onrender.com/audio/letters/a.mp3', 1),
-(4, 'ی ای', NULL, 'happy', 'دیر، ایران', 'vowel', 'https://ionianfarsi.onrender.com/audio/letters/i.mp3', 2),
-(5, 'پ', NULL, 'pen', 'پا', 'consonant', 'https://ionianfarsi.onrender.com/audio/letters/p.mp3', 2),
-(6, 'ت', NULL, 'ten', 'توپ', 'consonant', 'https://ionianfarsi.onrender.com/audio/letters/t.mp3', 2),
-(7, 'اُ  ُ', NULL, 'saw', 'اُردَک، پُر', 'vowel', NULL, 3),
-(8, 'س', NULL, 'rice, sad', 'سَبز', 'consonant', 'https://ionianfarsi.onrender.com/audio/letters/s.mp3', 3),
-(9, 'ش', NULL, 'she', 'شیر', 'consonant', 'https://ionianfarsi.onrender.com/audio/letters/sh.mp3', 3),
-(10, 'ِ', NULL, 'get', 'اِستَخر، سه', 'vowel', 'https://ionianfarsi.onrender.com/audio/letters/e.mp3', 4),
-(11, 'ر', NULL, 'red', 'رود', 'consonant', 'https://ionianfarsi.onrender.com/audio/letters/r.mp3', 4),
-(12, 'ز', NULL, 'zoo', 'زَنبور', 'consonant', 'https://ionianfarsi.onrender.com/audio/letters/z.mp3', 4),
-(13, 'او و', NULL, 'good', 'موش، گِردو', 'vowel', 'https://ionianfarsi.onrender.com/audio/letters/u.mp3', 5),
-(14, 'د', NULL, 'do', 'دود', 'consonant', 'https://ionianfarsi.onrender.com/audio/letters/d.mp3', 5),
-(15, 'ن', NULL, 'pen', 'نَمَک', 'consonant', 'https://ionianfarsi.onrender.com/audio/letters/n.mp3', 6),
-(16, 'م', NULL, 'milk', 'میز', 'consonant', 'https://ionianfarsi.onrender.com/audio/letters/m.mp3', 6),
-(17, 'ک', NULL, 'cat, ask', 'کِتاب', 'consonant', 'https://ionianfarsi.onrender.com/audio/letters/k.mp3', 7),
-(18, 'گ', NULL, 'get', 'گُل، سَگ', 'consonant', 'https://ionianfarsi.onrender.com/audio/letters/g.mp3', 7),
-(19, 'ل', NULL, 'ball, let', 'لَب،‌ پُل', 'consonant', 'https://ionianfarsi.onrender.com/audio/letters/l.mp3', 8),
-(20, 'و', NULL, 'very', 'وان', 'consonant', 'https://ionianfarsi.onrender.com/audio/letters/v.mp3', 8),
-(21, 'ُ', NULL, 'saw', '	\r\nاُردَک، پُر', 'vowel', 'https://ionianfarsi.onrender.com/audio/letters/o.mp3', 8),
-(22, 'ح', NULL, 'hit', 'حباب', 'consonant', 'https://ionianfarsi.onrender.com/audio/letters/h-jim.mp3', 9),
-(23, 'ج', NULL, 'job, age', 'جَنگَل', 'consonant', 'https://ionianfarsi.onrender.com/audio/letters/jim.mp3', 9),
-(24, 'خ', NULL, NULL, 'خِرس', 'consonant', NULL, 10),
-(25, 'چ', NULL, 'cheese', 'چِشم', 'consonant', 'https://ionianfarsi.onrender.com/audio/letters/ch.mp3', 10),
-(26, 'خوا', NULL, 'khanacademy', 'خواب', 'consonant', NULL, 10),
-(27, 'ف', NULL, 'food', 'فَرش، کَفش', 'consonant', 'https://ionianfarsi.onrender.com/audio/letters/f.mp3', 11),
-(28, 'ق', NULL, '-', 'قِرمِز، غَذا', 'consonant', 'https://ionianfarsi.onrender.com/audio/letters/gh.mp3', 11),
-(29, 'ّ', NULL, NULL, 'بَچّه', 'consonant', NULL, 11),
-(30, 'ه', NULL, 'hit', 'هِند،‌ حُباب', 'consonant', 'https://ionianfarsi.onrender.com/audio/letters/h.mp3', 12),
-(31, 'ی', NULL, 'yes', 'یَخ', 'consonant', 'https://ionianfarsi.onrender.com/audio/letters/y.mp3', 12),
-(32, 'ی+ی', NULL, NULL, 'خیار،‌ سیاه', 'consonant', NULL, 12),
-(33, 'ص', NULL, 'rice, sad', 'صابون', 'consonant', 'https://ionianfarsi.onrender.com/audio/letters/sad.mp3', 13),
-(34, 'ض', NULL, 'zoo', 'وضو', 'consonant', 'https://ionianfarsi.onrender.com/audio/letters/zad.mp3', 13),
-(35, 'ع', NULL, '-', 'عَسَل، ساعَت', 'consonant', 'https://ionianfarsi.onrender.com/audio/letters/ayn.mp3', 14),
-(36, 'غ', NULL, '-', 'غَذا', 'consonant', 'https://ionianfarsi.onrender.com/audio/letters/ghayn.mp3', 14),
-(37, 'ط', NULL, 'ten', 'طلا', 'consonant', 'https://ionianfarsi.onrender.com/audio/letters/t-daste-dar.mp3', 15),
-(38, 'ظ', NULL, 'zoo', 'ظرف', 'consonant', 'https://ionianfarsi.onrender.com/audio/letters/z-daste-dar.mp3', 15),
-(39, 'ژ', NULL, 'television', 'ژله، گاراژ', 'consonant', 'localhost:8081/audio/letters/zh.mp3', 16),
-(40, 'ذ', NULL, 'zoo', 'غَذا', 'consonant', 'localhost:8081/audio/letters/de-ze.mp3', 16),
-(41, 'ث', NULL, 'rice, sad', 'کَثیف', 'consonant', 'localhost:8081/audio/letters/s-senoghte.mp3', 17),
-(42, 'ئ أ ؤ', NULL, '-', 'رَئیس', 'consonant', 'localhost:8081/audio/letters/6.mp3', 17);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `letters_taught_in_firststep_lesson`
---
-
-CREATE TABLE `letters_taught_in_firststep_lesson` (
-  `letter_id` int(11) NOT NULL,
-  `word_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_persian_ci;
-
---
--- Dumping data for table `letters_taught_in_firststep_lesson`
---
-
-INSERT INTO `letters_taught_in_firststep_lesson` (`letter_id`, `word_id`) VALUES
-(1, 1),
-(1, 2),
-(1, 3),
-(1, 4),
-(1, 5),
-(1, 6),
-(1, 7),
-(1, 8),
-(2, 9),
-(2, 10),
-(2, 11),
-(2, 12),
-(2, 13),
-(2, 14),
-(2, 15),
-(2, 16),
-(3, 17),
-(3, 18),
-(3, 19),
-(3, 20),
-(3, 21),
-(3, 22),
-(3, 23),
-(3, 24),
-(4, 25),
-(4, 26),
-(4, 27),
-(4, 28),
-(4, 29),
-(4, 30),
-(4, 31),
-(4, 32),
-(5, 33),
-(5, 34),
-(5, 35),
-(5, 36),
-(5, 37),
-(5, 38),
-(5, 39),
-(5, 40),
-(6, 41),
-(6, 42),
-(6, 43),
-(6, 44),
-(6, 45),
-(6, 46),
-(6, 47),
-(6, 48),
-(7, 49),
-(7, 50),
-(7, 51),
-(7, 52),
-(7, 53),
-(7, 54),
-(7, 55),
-(7, 56),
-(8, 57),
-(8, 58),
-(8, 59),
-(8, 60),
-(8, 61),
-(8, 62),
-(8, 63),
-(8, 64),
-(9, 65),
-(9, 66),
-(9, 67),
-(9, 68),
-(9, 69),
-(9, 70),
-(9, 71),
-(9, 72),
-(10, 73),
-(10, 74),
-(10, 75),
-(10, 76),
-(10, 77),
-(10, 78),
-(10, 79),
-(10, 80),
-(11, 81),
-(11, 82),
-(11, 83),
-(11, 84),
-(11, 85),
-(11, 86),
-(11, 87),
-(11, 88),
-(12, 89),
-(12, 90),
-(12, 91),
-(12, 92),
-(12, 93),
-(12, 94),
-(12, 95),
-(12, 96),
-(13, 97),
-(13, 98),
-(13, 99),
-(13, 100),
-(13, 101),
-(13, 102),
-(13, 103),
-(13, 104),
-(14, 105),
-(14, 106),
-(14, 107),
-(14, 108),
-(14, 109),
-(14, 110),
-(14, 111),
-(14, 112),
-(15, 113),
-(15, 114),
-(15, 115),
-(15, 116),
-(15, 117),
-(15, 118),
-(15, 119),
-(15, 120),
-(16, 121),
-(16, 122),
-(16, 123),
-(16, 124),
-(16, 125),
-(16, 126),
-(16, 127),
-(17, 129),
-(17, 130),
-(17, 131),
-(17, 132),
-(17, 133),
-(17, 134),
-(17, 135),
-(17, 136),
-(18, 137),
-(18, 138),
-(18, 139),
-(18, 140),
-(18, 141),
-(18, 142),
-(18, 143),
-(18, 144),
-(19, 145),
-(19, 146),
-(19, 147),
-(19, 148),
-(19, 149),
-(19, 150),
-(19, 151),
-(19, 152),
-(20, 153),
-(20, 154),
-(20, 155),
-(20, 156),
-(20, 157),
-(20, 158),
-(20, 159),
-(20, 160),
-(21, 161),
-(21, 162),
-(21, 163),
-(21, 164),
-(21, 165),
-(21, 166),
-(21, 167),
-(21, 168),
-(22, 169),
-(22, 170),
-(22, 171),
-(22, 172),
-(22, 173),
-(22, 174),
-(22, 175),
-(22, 176),
-(23, 177),
-(23, 178),
-(23, 179),
-(23, 180),
-(23, 181),
-(23, 182),
-(23, 183),
-(23, 184),
-(24, 185),
-(24, 186),
-(24, 187),
-(24, 188),
-(24, 189),
-(24, 190),
-(24, 191),
-(24, 192),
-(25, 193),
-(25, 194),
-(25, 195),
-(25, 196),
-(25, 197),
-(25, 198),
-(25, 199),
-(25, 200),
-(26, 201),
-(26, 202),
-(26, 203),
-(26, 204),
-(26, 205),
-(26, 206),
-(26, 207),
-(26, 208),
-(27, 209),
-(27, 210),
-(27, 211),
-(27, 212),
-(27, 213),
-(27, 214),
-(27, 215),
-(27, 216),
-(28, 217),
-(28, 218),
-(28, 219),
-(28, 220),
-(28, 221),
-(28, 222),
-(28, 223),
-(28, 224),
-(29, 225),
-(29, 226),
-(29, 227),
-(29, 228),
-(29, 229),
-(29, 230),
-(29, 231),
-(29, 232),
-(30, 233),
-(30, 234),
-(30, 235),
-(30, 236),
-(30, 237),
-(30, 238),
-(30, 239),
-(30, 240),
-(31, 241),
-(31, 242),
-(31, 243),
-(31, 244),
-(31, 245),
-(31, 246),
-(31, 247),
-(31, 248),
-(32, 249),
-(32, 250),
-(32, 251),
-(32, 252),
-(32, 253),
-(32, 254),
-(32, 255),
-(32, 256),
-(33, 257),
-(33, 258),
-(33, 259),
-(33, 260),
-(33, 261),
-(33, 262),
-(33, 263),
-(34, 264),
-(34, 265),
-(34, 266),
-(34, 267),
-(34, 268),
-(34, 269),
-(34, 270),
-(35, 271),
-(35, 272),
-(35, 273),
-(35, 274),
-(35, 275),
-(35, 276),
-(35, 277),
-(35, 278),
-(36, 279),
-(36, 280),
-(36, 281),
-(36, 282),
-(36, 283),
-(36, 284),
-(36, 285),
-(36, 286),
-(37, 287),
-(37, 288),
-(37, 289),
-(37, 290),
-(37, 291),
-(37, 292),
-(37, 293),
-(37, 294),
-(38, 295),
-(38, 296),
-(38, 297),
-(38, 298),
-(38, 299),
-(38, 300),
-(39, 301),
-(39, 302),
-(39, 303),
-(39, 304),
-(39, 305),
-(39, 306),
-(39, 307),
-(39, 308),
-(40, 309),
-(40, 310),
-(40, 311),
-(40, 312),
-(40, 313),
-(40, 314),
-(40, 315),
-(41, 316),
-(41, 317),
-(41, 318),
-(41, 319),
-(41, 320),
-(41, 321),
-(42, 322),
-(42, 323),
-(42, 324),
-(42, 325),
-(42, 326),
-(42, 327);
+INSERT INTO `letter` (`id`, `writing_style`, `letter_sign`, `english_example`, `persian_example`, `type`, `audio_url`) VALUES
+(1, 'ا', NULL, 'on, God', 'بابا، آب', 'vowel', 'https://ionianfarsi.onrender.com/audio/letters/aa.mp3'),
+(2, 'ب', NULL, 'book', 'باران', 'consonant', 'https://ionianfarsi.onrender.com/audio/letters/b.mp3'),
+(3, 'َ', NULL, 'cat', 'دَر', 'vowel', 'https://ionianfarsi.onrender.com/audio/letters/a.mp3'),
+(4, 'ی ای', NULL, 'happy', 'دیر، ایران', 'vowel', 'https://ionianfarsi.onrender.com/audio/letters/i.mp3'),
+(5, 'پ', NULL, 'pen', 'پا', 'consonant', 'https://ionianfarsi.onrender.com/audio/letters/p.mp3'),
+(6, 'ت', NULL, 'ten', 'توپ', 'consonant', 'https://ionianfarsi.onrender.com/audio/letters/t.mp3'),
+(7, 'اُ  ُ', NULL, 'saw', 'اُردَک، پُر', 'vowel', NULL),
+(8, 'س', NULL, 'rice, sad', 'سَبز', 'consonant', 'https://ionianfarsi.onrender.com/audio/letters/s.mp3'),
+(9, 'ش', NULL, 'she', 'شیر', 'consonant', 'https://ionianfarsi.onrender.com/audio/letters/sh.mp3'),
+(10, 'ِ', NULL, 'get', 'اِستَخر، سه', 'vowel', 'https://ionianfarsi.onrender.com/audio/letters/e.mp3'),
+(11, 'ر', NULL, 'red', 'رود', 'consonant', 'https://ionianfarsi.onrender.com/audio/letters/r.mp3'),
+(12, 'ز', NULL, 'zoo', 'زَنبور', 'consonant', 'https://ionianfarsi.onrender.com/audio/letters/z.mp3'),
+(13, 'او و', NULL, 'good', 'موش، گِردو', 'vowel', 'https://ionianfarsi.onrender.com/audio/letters/u.mp3'),
+(14, 'د', NULL, 'do', 'دود', 'consonant', 'https://ionianfarsi.onrender.com/audio/letters/d.mp3'),
+(15, 'ن', NULL, 'pen', 'نَمَک', 'consonant', 'https://ionianfarsi.onrender.com/audio/letters/n.mp3'),
+(16, 'م', NULL, 'milk', 'میز', 'consonant', 'https://ionianfarsi.onrender.com/audio/letters/m.mp3'),
+(17, 'ک', NULL, 'cat, ask', 'کِتاب', 'consonant', 'https://ionianfarsi.onrender.com/audio/letters/k.mp3'),
+(18, 'گ', NULL, 'get', 'گُل، سَگ', 'consonant', 'https://ionianfarsi.onrender.com/audio/letters/g.mp3'),
+(19, 'ل', NULL, 'ball, let', 'لَب،‌ پُل', 'consonant', 'https://ionianfarsi.onrender.com/audio/letters/l.mp3'),
+(20, 'و', NULL, 'very', 'وان', 'consonant', 'https://ionianfarsi.onrender.com/audio/letters/v.mp3'),
+(21, 'ُ', NULL, 'saw', '	\r\nاُردَک، پُر', 'vowel', 'https://ionianfarsi.onrender.com/audio/letters/o.mp3'),
+(22, 'ح', NULL, 'hit', 'حباب', 'consonant', 'https://ionianfarsi.onrender.com/audio/letters/h-jim.mp3'),
+(23, 'ج', NULL, 'job, age', 'جَنگَل', 'consonant', 'https://ionianfarsi.onrender.com/audio/letters/jim.mp3'),
+(24, 'خ', NULL, NULL, 'خِرس', 'consonant', NULL),
+(25, 'چ', NULL, 'cheese', 'چِشم', 'consonant', 'https://ionianfarsi.onrender.com/audio/letters/ch.mp3'),
+(26, 'خوا', NULL, 'khanacademy', 'خواب', 'consonant', NULL),
+(27, 'ف', NULL, 'food', 'فَرش، کَفش', 'consonant', 'https://ionianfarsi.onrender.com/audio/letters/f.mp3'),
+(28, 'ق', NULL, '-', 'قِرمِز، غَذا', 'consonant', 'https://ionianfarsi.onrender.com/audio/letters/gh.mp3'),
+(29, 'ّ', NULL, NULL, 'بَچّه', 'consonant', NULL),
+(30, 'ه', NULL, 'hit', 'هِند،‌ حُباب', 'consonant', 'https://ionianfarsi.onrender.com/audio/letters/h.mp3'),
+(31, 'ی', NULL, 'yes', 'یَخ', 'consonant', 'https://ionianfarsi.onrender.com/audio/letters/y.mp3'),
+(32, 'ی+ی', NULL, NULL, 'خیار،‌ سیاه', 'consonant', NULL),
+(33, 'ص', NULL, 'rice, sad', 'صابون', 'consonant', 'https://ionianfarsi.onrender.com/audio/letters/sad.mp3'),
+(34, 'ض', NULL, 'zoo', 'وضو', 'consonant', 'https://ionianfarsi.onrender.com/audio/letters/zad.mp3'),
+(35, 'ع', NULL, '-', 'عَسَل، ساعَت', 'consonant', 'https://ionianfarsi.onrender.com/audio/letters/ayn.mp3'),
+(36, 'غ', NULL, '-', 'غَذا', 'consonant', 'https://ionianfarsi.onrender.com/audio/letters/ghayn.mp3'),
+(37, 'ط', NULL, 'ten', 'طلا', 'consonant', 'https://ionianfarsi.onrender.com/audio/letters/t-daste-dar.mp3'),
+(38, 'ظ', NULL, 'zoo', 'ظرف', 'consonant', 'https://ionianfarsi.onrender.com/audio/letters/z-daste-dar.mp3'),
+(39, 'ژ', NULL, 'television', 'ژله، گاراژ', 'consonant', 'localhost:8081/audio/letters/zh.mp3'),
+(40, 'ذ', NULL, 'zoo', 'غَذا', 'consonant', 'localhost:8081/audio/letters/de-ze.mp3'),
+(41, 'ث', NULL, 'rice, sad', 'کَثیف', 'consonant', 'localhost:8081/audio/letters/s-senoghte.mp3'),
+(42, 'ئ أ ؤ', NULL, '-', 'رَئیس', 'consonant', 'localhost:8081/audio/letters/6.mp3');
 
 -- --------------------------------------------------------
 
@@ -724,36 +187,16 @@ CREATE TABLE `options_in_challenge_select` (
   `challenge_select_option_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_persian_ci;
 
---
--- Dumping data for table `options_in_challenge_select`
---
-
-INSERT INTO `options_in_challenge_select` (`challenge_select_id`, `challenge_select_option_id`) VALUES
-(9, 8),
-(9, 16),
-(9, 23),
-(9, 24),
-(6, 25),
-(6, 26),
-(6, 27),
-(6, 28),
-(8, 28),
-(7, 29),
-(7, 30),
-(7, 31),
-(8, 32),
-(8, 33),
-(8, 34);
-
 -- --------------------------------------------------------
 
 --
--- Table structure for table `repetition`
+-- Table structure for table `repetitions`
 --
 
-CREATE TABLE `repetition` (
+CREATE TABLE `repetitions` (
   `id` int(11) NOT NULL,
   `titile` varchar(50) DEFAULT NULL,
+  `repetition_order` int(2) NOT NULL,
   `unit_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -795,23 +238,6 @@ CREATE TABLE `sentence` (
   `audio_url` varchar(250) COLLATE utf8_persian_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_persian_ci;
 
---
--- Dumping data for table `sentence`
---
-
-INSERT INTO `sentence` (`id`, `written_form`, `written_form2`, `written_form3`, `english_equivalent`, `image_url`, `audio_url`) VALUES
-(1, '...  مَن اَهلِ یونان', NULL, NULL, 'I am from Greece', 'https://ionianfarsi.onrender.com/images/section-1/aristotel.webp', 'https://ionianfarsi.onrender.com/audio/section-1/sentence/from_greece.mp3'),
-(2, 'سَلام. اِسمِ مَن دیلاراست. مَن ایرانی هَستَم وَ دَر یونان کار می کُنَم', NULL, NULL, 'Hello. My name is Dilara. I am Iranian and I work in Greece.', NULL, 'https://ionianfarsi.onrender.com/audio/section-1/sentence/i_am_dilara.mp3'),
-(3, 'عَلی به مَدرِسه می‌رَوَد', NULL, NULL, 'Ali goes to school', NULL, 'https://ionianfarsi.onrender.com/audio/section-1/unit-1/sentence/Ali_goes_to_school.mp3'),
-(4, 'اِسمِ مَن مَریَم اَست', 'اِسمَ مَن مَریَمه', 'اِسمَم مَریَمه', 'my name is Mary', NULL, 'https://ionianfarsi.onrender.com/audio/section-2/unit-1/sentence/My_name_is_Maryam.mp3'),
-(5, 'اِسمِ تو چیست', 'اسمت چیه', 'اسم تو چیست', 'What is your name', NULL, 'https://ionianfarsi.onrender.com/audio/section-2/unit-1/sentence/what_is_your_name.mp3'),
-(6, 'اِسمِ مَن مَریَم اَست. اِسمِ تو چیست', 'اِسمَم مَریَمه. اِسمَت چیه', 'اسم من مریم است. اسم تو چیست', 'My name is Mary. What is your name?', NULL, 'https://ionianfarsi.onrender.com/audio/section-2/unit-1/sentence/my-name-maryam-what.mp3'),
-(7, 'مَن پِدرام هَستَم', NULL, 'من پدرام هستم', 'I am Pedram', NULL, 'https://ionianfarsi.onrender.com/audio/section-2/unit-1/sentence/im-pedram.mp3'),
-(8, 'تو اَهلِ کُجا هَستی', NULL, 'تو اهل کجا هستی', 'Where are you from', NULL, 'https://ionianfarsi.onrender.com/audio/section-2/unit-1/sentence/where-are-you-from.mp3'),
-(9, 'مَن اَهلِ آلمان هَستَم', NULL, 'من اهل آلمان هستم', 'I am from Germany', NULL, 'https://ionianfarsi.onrender.com/audio/section-2/unit-1/sentence/im-from-germany.mp3'),
-(10, 'این دوستِ مَن رَحمان اَست', NULL, 'این دوست من رحمان است', 'This is my friend Rahman', NULL, 'https://ionianfarsi.onrender.com/audio/section-2/unit-1/sentence/hes-my-fr-rahman.mp3'),
-(11, 'او اَهلِ مِصر اَست', NULL, 'او اهل مصر است', 'He is from Egypt', NULL, 'https://ionianfarsi.onrender.com/audio/section-2/unit-1/sentence/hes-from-egypt.mp3');
-
 -- --------------------------------------------------------
 
 --
@@ -825,18 +251,6 @@ CREATE TABLE `unit` (
   `unit_order` int(3) NOT NULL,
   `section_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_persian_ci;
-
---
--- Dumping data for table `unit`
---
-
-INSERT INTO `unit` (`id`, `title`, `description`, `unit_order`, `section_id`) VALUES
-(1, 'الف - ب', 'Learn the first two letters of alphabet', 1, 1),
-(2, 'درس ۲', '', 2, 1),
-(3, '', 'Learning about the vowel اَ and distinguish it from آ', 1, 2),
-(4, 'درس ۳ ', '', 3, 1),
-(5, 'درس ۴', '', 4, 1),
-(6, 'درس ۵', '', 5, 1);
 
 -- --------------------------------------------------------
 
@@ -858,20 +272,6 @@ CREATE TABLE `users` (
   `current_lesson` int(11) NOT NULL DEFAULT '1',
   `joined_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_persian_ci;
-
---
--- Dumping data for table `users`
---
-
-INSERT INTO `users` (`id`, `name`, `username`, `password`, `refresh_token`, `email`, `experience`, `current_section`, `current_unit`, `current_repetition`, `current_lesson`, `joined_date`) VALUES
-(35, 'user', 'user', '$2b$10$o1iZqc2jPkE5dR7QGS5gsudYZAQI57ckZq0ElJJkwUP1/P/.it71K', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InVzZXIiLCJpYXQiOjE3NTM4MjAwNzksImV4cCI6MTc1NjQxMjA3OX0.jrxyY40qwf-2ZRJhhBlpxOFWW3qlPBFhMB5i6RYX_3A', '', 0, 1, 1, 1, 1, '2025-07-22 14:50:24'),
-(36, NULL, 'niggers', '$2b$10$ACKCLp3XG7GlOagUeO7EHOM//xPceOiFuDUzoInGo8P7TSALeu1ES', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im5pZ2dlcnMiLCJpYXQiOjE3NTMyMDk4NzQsImV4cCI6MTc1NDQxOTQ3NH0.70St7b1Is3oqF2qAnZQj9kjwu4klOamtKsZJAIDtAd', '', 0, 1, 1, 1, 1, '2025-07-22 18:47:50'),
-(38, 'tmp', 'hadi', '$2b$10$ZmxMeCV9sEtykGSQbcsuaeSUnJiB/Yz9po6JBlz/yXefFy87rADku', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImhhZGkiLCJpYXQiOjE3NTM1MzkyOTksImV4cCI6MTc1NjEzMTI5OX0.TAR9T8_Lnw47FIIJEIdqcAtAeyGB_UUeoF_Oh_ShvtM', '', 0, 1, 1, 1, 1, '2025-07-26 12:02:32'),
-(39, 'user', 'tmpp', '$2b$10$978/aDzwBgGzOAMrEYsVPunB/gYQC1RKuwyX84B3ZVfwLNOr5rDw2', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRtcHAiLCJpYXQiOjE3NTM4MDQ0MzIsImV4cCI6MTc1NjM5NjQzMn0.yadRvqDcb7souWrl5E_Kyw9yNQ-SK-c-eldVe72UGHU', '', 0, 1, 1, 1, 1, '2025-07-26 15:18:25'),
-(42, 'tmpp', 'tmppppp', '$2b$10$CmwdFQpZt7CYFO/.JAHly.Gmi1I1zptE3tMuCTT7FnwXI8cEKamH.', NULL, '', 0, 1, 1, 1, 1, '2025-07-26 19:03:55'),
-(48, 'tmp', 'tmmppp', '$2b$10$iJ5aeMgiVP9iuscSbDdrReutCcGRri.YbnYgEVISRH8D2Nbv2UP4q', NULL, '', 0, 1, 1, 1, 1, '2025-07-26 19:08:18'),
-(49, 'tmp', 'tmmmp', '$2b$10$nlPGkn/H/ZtHcCk6ZejuseXVM5UbPFl8/9cul8hCnEz2AwXKUl2AC', NULL, '', 0, 1, 1, 1, 1, '2025-07-26 19:08:34'),
-(50, 'tmpp', 'tmp_', '$2b$10$MzP2olrCR3kY8jDQecX81OWSslZy5FHfM208OUOSL1TB0tIVuqKc2', NULL, '', 0, 1, 1, 1, 1, '2025-07-27 07:46:29');
 
 -- --------------------------------------------------------
 
@@ -1247,47 +647,6 @@ INSERT INTO `word` (`id`, `written_form`, `english_equivalent`, `category`, `ima
 -- --------------------------------------------------------
 
 --
--- Table structure for table `words_exists_in_firststep_lesson`
---
-
-CREATE TABLE `words_exists_in_firststep_lesson` (
-  `word_id` int(11) NOT NULL,
-  `lesson_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_persian_ci;
-
---
--- Dumping data for table `words_exists_in_firststep_lesson`
---
-
-INSERT INTO `words_exists_in_firststep_lesson` (`word_id`, `lesson_id`) VALUES
-(1, 1),
-(2, 1),
-(3, 1),
-(4, 1),
-(5, 1),
-(6, 1),
-(7, 1),
-(8, 1),
-(9, 1),
-(10, 1),
-(11, 1),
-(12, 1),
-(13, 1),
-(14, 1),
-(15, 1),
-(16, 1),
-(17, 1),
-(18, 1),
-(19, 1),
-(20, 1),
-(21, 1),
-(22, 1),
-(23, 1),
-(24, 1);
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `words_in_challenge_match`
 --
 
@@ -1295,33 +654,6 @@ CREATE TABLE `words_in_challenge_match` (
   `word_id` int(11) NOT NULL,
   `challenge_match_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_persian_ci;
-
---
--- Dumping data for table `words_in_challenge_match`
---
-
-INSERT INTO `words_in_challenge_match` (`word_id`, `challenge_match_id`) VALUES
-(25, 2),
-(234, 2),
-(328, 2),
-(332, 2),
-(329, 4),
-(330, 4),
-(331, 4),
-(333, 4),
-(1, 5),
-(2, 5),
-(3, 5),
-(7, 5),
-(12, 5),
-(1, 6),
-(2, 6),
-(7, 6),
-(12, 6),
-(1, 7),
-(335, 7),
-(342, 7),
-(343, 7);
 
 -- --------------------------------------------------------
 
@@ -1334,23 +666,6 @@ CREATE TABLE `words_in_sentence` (
   `word_id` int(11) NOT NULL,
   `sentence_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_persian_ci;
-
---
--- Dumping data for table `words_in_sentence`
---
-
-INSERT INTO `words_in_sentence` (`id`, `word_id`, `sentence_id`) VALUES
-(1, 338, 3),
-(2, 339, 3),
-(3, 340, 3),
-(4, 341, 3),
-(10, 335, 4),
-(8, 343, 4),
-(9, 344, 4),
-(11, 349, 4),
-(5, 343, 5),
-(6, 345, 5),
-(7, 346, 5);
 
 --
 -- Indexes for dumped tables
@@ -1403,17 +718,10 @@ ALTER TABLE `challenge_sort`
   ADD KEY `word_id` (`word_id`);
 
 --
--- Indexes for table `firststep_lesson`
---
-ALTER TABLE `firststep_lesson`
-  ADD PRIMARY KEY (`number`);
-
---
 -- Indexes for table `lesson`
 --
 ALTER TABLE `lesson`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `unit_id` (`unit_id`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `letter`
@@ -1421,15 +729,7 @@ ALTER TABLE `lesson`
 ALTER TABLE `letter`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `writing_style` (`writing_style`),
-  ADD KEY `Is_taught_in` (`lesson_id`),
   ADD KEY `writing_style_2` (`writing_style`);
-
---
--- Indexes for table `letters_taught_in_firststep_lesson`
---
-ALTER TABLE `letters_taught_in_firststep_lesson`
-  ADD PRIMARY KEY (`letter_id`,`word_id`),
-  ADD KEY `word_being_taught` (`word_id`);
 
 --
 -- Indexes for table `options_in_challenge_select`
@@ -1439,9 +739,9 @@ ALTER TABLE `options_in_challenge_select`
   ADD KEY `challenge_select_opetion_id` (`challenge_select_option_id`);
 
 --
--- Indexes for table `repetition`
+-- Indexes for table `repetitions`
 --
-ALTER TABLE `repetition`
+ALTER TABLE `repetitions`
   ADD PRIMARY KEY (`id`),
   ADD KEY `repetitions_in_unit` (`unit_id`);
 
@@ -1478,13 +778,6 @@ ALTER TABLE `users`
 --
 ALTER TABLE `word`
   ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `words_exists_in_firststep_lesson`
---
-ALTER TABLE `words_exists_in_firststep_lesson`
-  ADD PRIMARY KEY (`word_id`,`lesson_id`),
-  ADD KEY `in_lesson` (`lesson_id`);
 
 --
 -- Indexes for table `words_in_challenge_match`
@@ -1541,9 +834,9 @@ ALTER TABLE `lesson`
 ALTER TABLE `letter`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
 --
--- AUTO_INCREMENT for table `repetition`
+-- AUTO_INCREMENT for table `repetitions`
 --
-ALTER TABLE `repetition`
+ALTER TABLE `repetitions`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `section`
@@ -1615,25 +908,6 @@ ALTER TABLE `challenge_sort`
   ADD CONSTRAINT `challenge_sort_ibfk_3` FOREIGN KEY (`word_id`) REFERENCES `word` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `lesson`
---
-ALTER TABLE `lesson`
-  ADD CONSTRAINT `lesson_ibfk_1` FOREIGN KEY (`unit_id`) REFERENCES `unit` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Constraints for table `letter`
---
-ALTER TABLE `letter`
-  ADD CONSTRAINT `Is_taught_in` FOREIGN KEY (`lesson_id`) REFERENCES `firststep_lesson` (`number`) ON UPDATE CASCADE;
-
---
--- Constraints for table `letters_taught_in_firststep_lesson`
---
-ALTER TABLE `letters_taught_in_firststep_lesson`
-  ADD CONSTRAINT `letter_taught_word` FOREIGN KEY (`letter_id`) REFERENCES `letter` (`id`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `word_being_taught` FOREIGN KEY (`word_id`) REFERENCES `word` (`id`) ON UPDATE CASCADE;
-
---
 -- Constraints for table `options_in_challenge_select`
 --
 ALTER TABLE `options_in_challenge_select`
@@ -1641,9 +915,9 @@ ALTER TABLE `options_in_challenge_select`
   ADD CONSTRAINT `options_in_challenge_select_ibfk_2` FOREIGN KEY (`challenge_select_option_id`) REFERENCES `challenge_select_option` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `repetition`
+-- Constraints for table `repetitions`
 --
-ALTER TABLE `repetition`
+ALTER TABLE `repetitions`
   ADD CONSTRAINT `repetitions_in_unit` FOREIGN KEY (`unit_id`) REFERENCES `unit` (`id`) ON DELETE SET NULL ON UPDATE SET NULL;
 
 --
@@ -1659,13 +933,6 @@ ALTER TABLE `users`
   ADD CONSTRAINT `users_ibfk_1` FOREIGN KEY (`current_section`) REFERENCES `section` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `users_ibfk_2` FOREIGN KEY (`current_unit`) REFERENCES `unit` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `users_ibfk_3` FOREIGN KEY (`current_lesson`) REFERENCES `lesson` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Constraints for table `words_exists_in_firststep_lesson`
---
-ALTER TABLE `words_exists_in_firststep_lesson`
-  ADD CONSTRAINT `Word_exists` FOREIGN KEY (`word_id`) REFERENCES `word` (`id`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `in_lesson` FOREIGN KEY (`lesson_id`) REFERENCES `firststep_lesson` (`number`) ON UPDATE CASCADE;
 
 --
 -- Constraints for table `words_in_challenge_match`
