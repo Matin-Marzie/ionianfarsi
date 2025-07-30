@@ -65,7 +65,6 @@ function LessonContent() {
 
   // --------------------Handle-when-current-challenge-finish--------------------
   const nextChallenge = () => {
-    console.log("Next Challenge");
 
     // Reset all challenge-specific states
     setDisplayAnswer(false);

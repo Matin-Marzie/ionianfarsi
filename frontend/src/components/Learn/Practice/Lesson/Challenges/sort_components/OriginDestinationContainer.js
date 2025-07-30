@@ -1,7 +1,7 @@
-import { useContext, useState } from "react";
-import useAxiosPrivate from "../../../../../../hooks/useAxiosPrivate";
-import { useEffect } from "react";
+import { useContext } from "react";
 import LessonContext from "../../../../../../context/LessonContext";
+import { fetchLettersPronoun } from "../../../../../../api/LearnApi";
+import { useQuery } from '@tanstack/react-query';
 
 const OriginDestinationContainer = ({
   handleDragOver,
@@ -13,30 +13,13 @@ const OriginDestinationContainer = ({
 }) => {
 
   const { challenge, playSound, hasSwiped } = useContext(LessonContext);
-  const axiosPrivate = useAxiosPrivate();
-  const [fetched_letters_pronounciation, setlettersAudio] = useState([]);
+
   // ----------------------Fetch-Letter-pronounciations----------------------
-  useEffect(() => {
-    let isMounted = true;
-    const controller = new AbortController();
-
-    const fetchChanllenges = async () => {
-      try {
-        const response = await axiosPrivate.get(`/letters/pronounciation`, {
-          signal: controller.signal,
-        });
-        isMounted && setlettersAudio(response.data);
-      } catch (err) {
-        if (err.code === "ERR_CANCELED") return; // ignore abort errors
-      }
-    };
-
-    fetchChanllenges();
-    return () => {
-      isMounted = false;
-      controller.abort();
-    };
-  }, [challenge, axiosPrivate]);
+const { data: lettersAudio } = useQuery({
+  queryKey: ["lettersAudio", challenge],
+  queryFn: ({ signal }) => fetchLettersPronoun({ signal }),
+  enabled: !!challenge, // prevents running if challenge is null/undefined
+});
 
   return (
     <div className="w-full">
@@ -64,7 +47,7 @@ const OriginDestinationContainer = ({
               }
 
               const letter_pronounciation =
-                fetched_letters_pronounciation?.find((letter) => {
+                lettersAudio?.find((letter) => {
                   return letter.written_form === item.content;
                 });
               if (letter_pronounciation) {
@@ -105,7 +88,7 @@ const OriginDestinationContainer = ({
               }
 
               const letter_pronounciation =
-                fetched_letters_pronounciation?.find((letter) => {
+                lettersAudio?.find((letter) => {
                   return letter.written_form === item.content;
                 });
               if (letter_pronounciation) {

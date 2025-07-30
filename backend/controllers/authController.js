@@ -1,9 +1,9 @@
 import jwt from 'jsonwebtoken';
-import { findUserByUsername, updateRefreshToken, comparePassword } from '../models/UserModel.js';
+import { findUserByUsername, updateRefreshToken, comparePassword } from '../models/usersModel.js';
 import { LoginSchema } from '../validation/LoginSchema.js'
 
 const handleLogin = async (req, res) => {
-  const { error, value } = LoginSchema.validate(req.body);
+  const { error } = LoginSchema.validate(req.body);
   if (error) return res.status(400).json({ message: error.details[0].message });
 
   const { username, password } = req.body;

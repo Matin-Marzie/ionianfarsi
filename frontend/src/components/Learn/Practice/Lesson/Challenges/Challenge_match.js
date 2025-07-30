@@ -5,7 +5,6 @@ import MatchSoundToWritten_form from './match_kinds/MatchSoundToWritten_form';
 import LessonContext from '../../../../../context/LessonContext';
 
 const Challenge_match = () => {
-  console.log("Challenge_match")
   const {
     challenge,
     playSound,

@@ -1,12 +1,12 @@
 import jwt from 'jsonwebtoken';
-import { findUserByRefreshToken } from '../models/UserModel.js';
+import { findUserByRefreshToken } from '../models/usersModel.js';
 
 const handleRefreshToken = async (req, res) => {
   const cookies = req.cookies;
   if (!cookies?.jwt) return res.sendStatus(401); // Unauthorized
 
   const refreshToken = cookies.jwt;
-  console.log(`This is cookies.jwt: ${refreshToken}`);
+  console.log(refreshToken)
 
   try {
     const foundUser = await findUserByRefreshToken(refreshToken);

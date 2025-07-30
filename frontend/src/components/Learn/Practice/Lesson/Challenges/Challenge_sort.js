@@ -10,7 +10,6 @@ import ReadFarsiSortWord from "./sort_components/Read_farsi_sort_word";
 import ReadEnglishEquivalentSortFarsiSentence from "./sort_components/Read_english_equivalent_sort_farsi_sentence";
 
 const ChallengeSort = () => {
-  console.log("challenge Sort")
   const {
     challenge,
     playSound,
@@ -118,8 +117,6 @@ const ChallengeSort = () => {
   }, [hasSwiped, check_Sort])
 
   const ChallengeComponent = sort_kinds[challenge.sort_type] || null;
-  console.log(challenge)
-  console.log()
   if (ChallengeComponent === null) return (<div>null component</div>)
 
   return (

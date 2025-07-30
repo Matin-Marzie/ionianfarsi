@@ -1,5 +1,5 @@
 import bcrypt from 'bcrypt';
-import { createUser, findUserByUsername } from '../models/UserModel.js';
+import { createUser, findUserByUsername } from '../models/usersModel.js';
 import { RegistrationSchema } from '../validation/RegistrationSchema.js';
 
 const handleNewUser = async (req, res) => {

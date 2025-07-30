@@ -1,4 +1,4 @@
-import { findUserByRefreshToken, clearRefreshToken } from '../models/UserModel.js';
+import { findUserByRefreshToken, clearRefreshToken } from '../models/usersModel.js';
 
 const handleLogout = async (req, res) => {
   const cookies = req.cookies;

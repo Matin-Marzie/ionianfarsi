@@ -3,7 +3,7 @@ import api from './api.js'
 
 // Get all users
 export const getUsers = async (axiosInstance) => {
-    const response = await axiosInstance.get("/users");
+    const response = await axiosInstance.get("/api/users");
     return response.data;
 };
 

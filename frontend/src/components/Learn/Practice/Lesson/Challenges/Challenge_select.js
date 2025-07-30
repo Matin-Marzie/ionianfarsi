@@ -7,7 +7,6 @@ import ReadSentenceSelectWrittenForm from "./select_kinds/Read_sentence_select_w
 import ReadWordSelectPicture from "./select_kinds/Read_word_select_picture";
 
 const ChallengeSelect = () => {
-  console.log("Challenge Select")
   const {
     challenge,
     playSound,

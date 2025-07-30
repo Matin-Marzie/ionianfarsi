@@ -1,9 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
-import useAxiosPrivate from "../../../hooks/useAxiosPrivate.js";
 import { Link } from "react-router-dom";
+import { fetchSections } from "../../../api/LearnApi.js";
 
 const Sections = () => {
-  const axiosPrivate = useAxiosPrivate();
 
   const {
     data: sections,
@@ -11,10 +10,7 @@ const Sections = () => {
     error,
   } = useQuery({
     queryKey: ["sections"],
-    queryFn: async () => {
-      const response = await axiosPrivate.get("/sections");
-      return response.data;
-    },
+    queryFn: fetchSections,
     keepPreviousData: true,
     staleTime: Infinity,
     cacheTime: Infinity,
