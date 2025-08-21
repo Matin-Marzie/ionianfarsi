@@ -92,15 +92,6 @@ img {
 
 /* --------------------|| PRACTICE-LESSON --------------------*/
 .io-drop {
-  border-radius: 0 50% 50% 50%;
-  transform: rotate(45deg);
-  width: 200px;
-  height: 200px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  box-shadow: #094c66 4px 4px 0 0;
   transition: transform 200ms, box-shadow 200ms;
   animation: io-drop-float 2s ease-in-out infinite;
 }
@@ -113,14 +104,11 @@ img {
   transform: rotate(45deg) translateY(4px) translateX(4px);
   box-shadow: #094c66 0px 0px 0px 0px;
 }
-.io-drop-content {
-  transform: rotate(-45deg);
-}
 .io-drop-shadow {
   position: absolute;
   width: 80%;
-  height: 20px;
-  top: 115%;
+  height: 10px;
+  top: 130%;
   left: 50%;
   background-color: rgba(0, 0, 0, 0.4);
   border-radius: 50%;
@@ -284,7 +272,7 @@ width: 30%;
   border-radius: 18px;
 }
 .percentage .percentage-filled {
-  width: 20%;
+  width: 0%;
   background-color: var(--sea-color);
   border-radius: 18px;
   caret-color: transparent;
@@ -368,41 +356,6 @@ width: 30%;
 }
 
 /* --------------------|| RESPONSIVE LAYOUT -------------------- */
-@media (max-width: 768px) {
-  /* -----Navigation-as-a-bottom-bar-on-mobile----- */
-  .navigation-bar {
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    max-width: none;
-    display: flex;
-    justify-content: space-around;
-    border-top: 2px solid gray;
-    padding: 0;
-  }
-
-  .navigation-bar .nav-list {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    width: 100%;
-    padding: 0;
-    margin: 0;
-  }
-
-  .navigation-bar .nav-list li a {
-    flex-direction: column;
-    margin: 0;
-    border-radius: 0;
-  }
-
-  .navigation-bar .nav-list li a .svg {
-    padding: 0;
-    margin: 0;
-  }
-}
-
-
 
 @media (min-width: 481px) {
   .card {

@@ -24,7 +24,7 @@ function NavigationBar() {
   const selected_button = (pathToButton.find(({ key }) => currentPath.startsWith(key))?.value) || null;
 
   return (
-    <div className="bg-white flex flex-col h-full">
+    <div className="bg-white flex flex-col md:h-full">
       <h1 className="hidden md:block w-9/12 mx-auto py-7 caret-transparent"><img src={IonianFarsiLogo} alt="IonianFarsi logo" /></h1>
       <ul className="flex flex-row md:flex-col justify-between md:p-5 md:space-y-4">
         <li className={`navigation-li ${selected_button === 'learn' ? 'selected-li' : null}`}>

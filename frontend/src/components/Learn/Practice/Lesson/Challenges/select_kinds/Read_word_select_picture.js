@@ -9,7 +9,7 @@ const Read_word_select_picture = ({shuffledOptions, selectedOption, setSelectedO
 
   return (
     <div className="w-full h-full flex flex-col justify-between text-2xl ">
-      {/* Sentence */}
+      {/* Word */}
       <div className='flex justify-end items-start text-right'>
         <p className="underline underline-offset-[10px] leading-loose">
           {challenge.word_written_form}

@@ -78,7 +78,7 @@ export default function Learn() {
 
   return (
     <div
-      className="h-full overflow-y-scroll m-auto flex w-full max-w-screen-md h-content min-h-[100dvh] bg-white text-xl"
+      className="h-full m-auto flex w-full max-w-screen-md h-content text-xl"
       onWheel={handleWheel}
       onTouchStart={(e) => handleStart(e.touches[0].clientX)}
       onTouchEnd={(e) => handleEnd(e.changedTouches[0].clientX)}
