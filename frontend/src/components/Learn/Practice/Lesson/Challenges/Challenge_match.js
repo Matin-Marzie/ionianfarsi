@@ -55,7 +55,7 @@ const Challenge_match = () => {
       setLeftSelected(null);
       setRightSelected(null);
 
-      if (leftSelectedWord.id === rightSelectedWord.id) {
+      if (leftSelectedWord.id === rightSelectedWord.id || leftSelectedWord.audio_url === rightSelectedWord.audio_url) {
         // correct match
         const updatedLeft = leftSideWords.map((w) =>
           w.id === leftSelectedWord.id ? { ...w, disabled: true } : w

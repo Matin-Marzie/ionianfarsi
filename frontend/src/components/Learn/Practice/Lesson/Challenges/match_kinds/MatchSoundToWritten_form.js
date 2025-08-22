@@ -17,7 +17,7 @@ function MatchSoundToWritten_form({
         <div className="flex flex-grow w-full h-full">
 
             {/* Depict the left side words */}
-            <ul className="w-6/12 flex flex-col items-center justify-center space-y-[4vh]">
+            <ul className="w-6/12 flex flex-col items-center justify-center space-y-[4vh] ">
                 {leftSideWords.map((word) => (
                     <li className="w-10/12" key={word.id + '-left'}>
                         <button
@@ -32,7 +32,7 @@ function MatchSoundToWritten_form({
                             // Disable the button when the item has been matched
                             disabled={word.disabled}
                         >
-                            <GiSoundWaves className="text-6xl md:text-7xl m-auto" />
+                            <GiSoundWaves className="text-6xl m-auto text-bluesea " />
                         </button>
                     </li>
                 ))}
@@ -41,7 +41,7 @@ function MatchSoundToWritten_form({
             {/* Depicting right side words */}
             <ul className="w-6/12 flex flex-col items-center justify-center space-y-[4vh]">
                 {rightSideWords.map((word) => (
-                    <li className="w-10/12" key={word.id + '-left'}>
+                    <li className="w-10/12" key={word.id + '-right'}>
                         <button
                             className={`w-full h-full py-[3vh] border-2 border-black rounded-[18px] text-2xl 
                              ${word.disabled ? 'opacity-50 border-[1px]' : 'io-button'}
