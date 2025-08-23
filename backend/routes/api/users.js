@@ -1,23 +1,21 @@
 import express from 'express'
-import { getUser, updateUser, deleteUser, getPublicUserProfile, getAllUsers } from '../../controllers/usersController.js'
+import { getUser, updateUser, changePassword, changeUsername, deleteUser, getPublicUserProfile, getAllUsersPublicProfile } from '../../controllers/usersController.js'
 
 const router = express.Router()
 
-//      /api/users          → All users
-//      /api/users?username → Private profile
 router.route('/')
-    .get((req, res) => {
-        if (req.query.username) {
-            return getUser(req, res); // private view
-        } else {
-            return getAllUsers(req, res); // all users
-        }
-    })
+    .get(getAllUsersPublicProfile); // list all public profiles
+
+router.route('/me') // private profile
+    .get(getUser)
     .put(updateUser)
     .delete(deleteUser)
 
-// GET /api/users/:username → Public profile
-router.route('/:username')
-    .get(getPublicUserProfile)
+router.route('/me/changeusername')
+    .put(changeUsername)
+router.route('/me/changepassword')
+    .put(changePassword)
+
+
 
 export default router

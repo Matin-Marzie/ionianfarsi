@@ -1,5 +1,6 @@
 import jwt from 'jsonwebtoken';
-import { findUserByUsername, updateRefreshToken, comparePassword } from '../models/usersModel.js';
+import { findUserByUsername, updateRefreshToken } from '../models/usersModel.js';
+import { comparePassword } from '../utils/password.js';
 import { LoginSchema } from '../validation/LoginSchema.js'
 
 const handleLogin = async (req, res) => {

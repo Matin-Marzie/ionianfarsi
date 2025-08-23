@@ -1,6 +1,6 @@
-import bcrypt from 'bcrypt';
 import { createUser, findUserByUsername } from '../models/usersModel.js';
 import { RegistrationSchema } from '../validation/RegistrationSchema.js';
+import { hashPassword } from '../utils/password.js';
 
 const handleNewUser = async (req, res) => {
   const { error } = RegistrationSchema.validate(req.body);
@@ -14,7 +14,7 @@ const handleNewUser = async (req, res) => {
     if (duplicate) return res.sendStatus(409); // Conflict
 
     // Hash password
-    const hashedPassword = await bcrypt.hash(password, 10);
+    const hashedPassword = await hashPassword(password);
 
     // Δημιουργία χρήστη
     const userId = await createUser(name, username, hashedPassword);
