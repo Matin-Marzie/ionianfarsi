@@ -45,12 +45,8 @@ function App() {
             <Route path='learn'>
               <Route index element={<Learn />} />
               <Route path='sections' element={<Sections />} />
-              {/* Protected Route */}
-              <Route element={<PersisLogin />}>
-                <Route element={<RequireAuth />}>
-                  <Route path="lesson/:id" element={<Lesson />} />
-                </Route>
-              </Route>
+
+              <Route path="lesson/:id" element={<Lesson />} />
             </Route>
 
             <Route path='reels'>
@@ -58,12 +54,16 @@ function App() {
             </Route>
 
             <Route path='practice'>
-              <Route index element={<Practice />}/>
+              <Route index element={<Practice />} />
             </Route>
-
-            <Route path='create' element={<Create />}/>
-
+            {/* Protected Route */}
+            <Route element={<PersisLogin />}>
+              <Route element={<RequireAuth />}>
+                <Route path='create' element={<Create />} />
+              </Route>
+            </Route>
             <Route path="profile" element={<Profile />} />
+
             <Route path="more" element={<More />} />
           </Route>
 

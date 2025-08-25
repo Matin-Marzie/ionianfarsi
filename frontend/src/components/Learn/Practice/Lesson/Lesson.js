@@ -2,7 +2,6 @@ import { useEffect, useContext, useRef } from 'react';
 import { useParams } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 
-import useAxiosPrivate from '../../../../hooks/useAxiosPrivate.js';
 import { LessonProvider } from '../../../../context/LessonContext.js';
 import LessonContext from '../../../../context/LessonContext.js';
 import { useQuery } from '@tanstack/react-query';
@@ -18,7 +17,6 @@ import ChallengeSelect from './Challenges/Challenge_select';
 import ChallengeSort from './Challenges/Challenge_sort.js';
 
 function LessonContent() {
-  const axiosPrivate = useAxiosPrivate();
   const { id } = useParams();
 
   const isScrolling = useRef(false);
@@ -50,7 +48,7 @@ function LessonContent() {
   // ----------------------Fetch-Lesson-Data(challenges)----------------------
   const { data: challengesData, isPending: loading, error } = useQuery({
     queryKey: ['lesson', id],
-    queryFn: ({ signal }) => fetchLessonChallenges({ lessonId: id, signal, axiosInstance: axiosPrivate }),
+    queryFn: ({ signal }) => fetchLessonChallenges({ lessonId: id, signal }),
     staleTime: Infinity,
   });
 

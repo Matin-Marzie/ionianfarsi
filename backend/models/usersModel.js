@@ -70,7 +70,7 @@ export const updatePasswordInDB = async (username, new_hashed_password) => {
 
 export const deleteUserByUsernameFromDB = async (username) => {
   const [result] = await db.execute('DELETE FROM users WHERE username = ?', [username]);
-  return result; // result.affectedRows can be checked
+  return result;
 }
 
 export const getUserPublicProfileFromDB = async (username) => {

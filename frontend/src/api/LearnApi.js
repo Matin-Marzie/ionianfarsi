@@ -24,7 +24,7 @@ export const fetchSections = async () => {
 };
 
 // Fetch-single-Lesson
-export const fetchLessonChallenges = async ({ lessonId, signal, axiosInstance }) => {
+export const fetchLessonChallenges = async ({ lessonId, signal, axiosInstance=api }) => {
   const response = await axiosInstance.get(`/api/lessons?lesson_id=${lessonId}`, { signal });
   return response.data;
 };;

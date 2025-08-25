@@ -3,12 +3,12 @@ import db from '../config/db.js'
 export const getLessonsOfSectionFromDB = async (req, res) => {
     const query_parameters = [req.query.section_id];
     const sql_query = `
-        SELECT lesson.*, unit.title as unit_title, unit.unit_order, repetitions.repetition_order
-        FROM lesson
-        JOIN repetitions ON lesson.repetition_id = repetitions.id
-        JOIN unit ON repetitions.unit_id = unit.id
-        WHERE unit.section_id = ?
-        ORDER BY repetitions.unit_id, lesson.repetition_id, lesson.lesson_order;
+        SELECT lessons.*, units.title as unit_title, units.unit_order, repetitions.repetition_order
+        FROM lessons
+        JOIN repetitions ON lessons.repetition_id = repetitions.id
+        JOIN units ON repetitions.unit_id = units.id
+        WHERE units.section_id = ?
+        ORDER BY repetitions.unit_id, lessons.repetition_id, lessons.lesson_order;
     `;
     const [lessons] = await db.execute(sql_query, query_parameters);
     return lessons;
@@ -18,14 +18,14 @@ export const getLessonsOfSectionFromDB = async (req, res) => {
 export const getLessonFromDB = async (req, res) => {
     const lessonId = req.query.lesson_id;
 
-    // Get all the challenges(data) in the lesson
+    // Get all the challenges in the lesson
     const queryChallenges = `
-        SELECT challenge.*
-        FROM lesson
-        JOIN challenges_in_lesson ON challenges_in_lesson.lesson_id = lesson.id
-        JOIN challenge ON challenges_in_lesson.challenge_id = challenge.id
-        WHERE lesson.id = ?
-        ORDER BY challenge.challenge_order;
+        SELECT challenges.*
+        FROM lessons
+        JOIN challenges_in_lesson ON challenges_in_lesson.lesson_id = lessons.id
+        JOIN challenges ON challenges_in_lesson.challenge_id = challenges.id
+        WHERE lessons.id = ?
+        ORDER BY challenges_in_lesson.challenge_order;
     `;
 
     const [challenges] = await db.execute(queryChallenges, [lessonId]);
