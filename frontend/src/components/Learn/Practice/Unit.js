@@ -1,18 +1,20 @@
 import { Link } from "react-router-dom"
 import Repetition from "./Repetition"
 
-const Unit = ({ unit, currentSection }) => {
+const Unit = ({ key:unit_order, unit, currentSection, id }) => {
+
     return (
         <article
+            id={id}
             className="px-2 flex flex-col bg-white"
         >
-            <Link to='sections' className='bg-bluesea io-button p-4 sticky top-4 z-20'>
+            <Link to='sections' className='bg-bluesea io-button p-4 sticky top-4 z-15'>
                 <h5>Section {currentSection} — Unit {unit.unit_order}</h5>
                 <h5>{unit.unit_title}</h5>
             </Link>
 
             {/* Repetitions */}
-            <div className="grid grid-cols-12 items-start pt-10 mb-8 h-full min-h-[calc(100dvh-146px)] flex-grow gap-y-12">
+            <div className={`grid grid-cols-12 items-start pt-10 mb-8 h-full min-h-[calc(100dvh-146px)] flex-grow gap-y-12`}>
                 {unit.repetitions.map((rep, i) => {
                     let colClass = "";
                     switch (i) {
@@ -37,7 +39,7 @@ const Unit = ({ unit, currentSection }) => {
 
                     return (
                         <div key={rep.repetition_order} className={`${colClass}`}>
-                            <Repetition repetition={rep} />
+                            <Repetition unit={unit} repetition={rep} unit_order={unit_order} />
                         </div>
                     );
                 })}

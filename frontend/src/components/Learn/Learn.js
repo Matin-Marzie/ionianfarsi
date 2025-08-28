@@ -4,10 +4,13 @@ import { motion, AnimatePresence } from "framer-motion";
 import Vocabulary from './Vocabulary/Vocabulary.js'
 import Practice from './Practice/Practice.js'
 import Grammer from './Grammer/Grammer.js'
+import useAuth from "../../hooks/UseAuth.js";
 
 const pageComponents = [<Vocabulary />, <Practice />, <Grammer />];
 
 export default function Learn() {
+  const {auth} = useAuth();
+
   const [index, setIndex] = useState(1); // Start at Practice
   const [direction, setDirection] = useState(0);
   const [isFirstLoad, setIsFirstLoad] = useState(true);
@@ -78,14 +81,21 @@ export default function Learn() {
 
   return (
     <div
-      className="h-full m-auto flex w-full max-w-screen-md h-content text-xl"
+      className="h-full m-auto flex flex-col w-full max-w-screen-md h-content text-xl"
       onWheel={handleWheel}
       onTouchStart={(e) => handleStart(e.touches[0].clientX)}
       onTouchEnd={(e) => handleEnd(e.changedTouches[0].clientX)}
       onMouseDown={(e) => handleStart(e.clientX)}
       onMouseUp={(e) => handleEnd(e.clientX)}
     >
-      <div className="relative w-full h-full">
+      <div className="w-full fixed top-0 z-20 max-w-screen-md bg-white">
+        🇮🇷
+        🪙
+        {auth?.accessToken ? "accessToken": "not logged"}
+        <div>{auth?.user?.name}-{auth?.user?.joined_date}</div>
+      </div>
+
+      <div className="relative w-full">
         <AnimatePresence custom={direction} mode="popLayout">
           <motion.div
             key={index}

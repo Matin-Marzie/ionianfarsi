@@ -1,8 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
 import useAxiosPrivate from "../../hooks/useAxiosPrivate.js";
 import { getUsers } from "../../api/UserApi";
+import useAuth from "../../hooks/UseAuth.js";
 
 const Leaderboard = () => {
+  const { auth } = useAuth();
   const axiosPrivate = useAxiosPrivate();
 
   const {
@@ -12,11 +14,13 @@ const Leaderboard = () => {
   } = useQuery({
     queryKey: ["users"],
     queryFn: () => getUsers(axiosPrivate),
+    enabled: !!auth?.accessToken,   // <-- only fetch when logged in
     keepPreviousData: true,
-    staleTime: 1000 * 60 * 4,     // 4 minutes
-    cacheTime: 1000 * 60 * 60 * 24 * 2,    // 2 days
+    staleTime: 1000 * 60 * 4,       // 4 minutes
+    cacheTime: 1000 * 60 * 60 * 24 * 2, // 2 days
   });
 
+  if (!auth?.accessToken) return <div>You need to Login</div>;
   if (isLoading) return <p>Loading...</p>;
   if (error) return <p>Error loading users.</p>;
 
@@ -26,7 +30,7 @@ const Leaderboard = () => {
       {users?.length ? (
         <ul>
           {users.map((user) => (
-            <li key={user.id} className="border flex justify-between">
+            <li key={user.id} className={`border flex justify-between p-4 ${user.id === auth.user.id ? "bg-bluesea text-white" : "bg-white"}`}>
               <h3>{user.username}</h3>
               <h3>{user.experience} xp</h3>
             </li>

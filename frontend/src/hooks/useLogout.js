@@ -13,7 +13,7 @@ const useLogout = () => {
             const response = await api.get('/logout', { withCredentials: true })
 
             if (response.status === 204) {
-                queryClient.clear(); // 🔥 clears all react-query caches
+                queryClient.clear(); // clears all react-query caches
             }
         }
         catch (err) {

@@ -1,6 +1,6 @@
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useState, useRef, useEffect } from 'react';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { loginUser } from '../api/UserApi.js';
 import useAuth from '../hooks/UseAuth.js';
 
@@ -8,6 +8,7 @@ const USERNAME_REGEX = /^[a-zA-Z][a-zA-Z0-9-_]{3,23}$/;
 const PASSWORD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
 
 const Login = () => {
+  const queryClient = useQueryClient();
   const { setAuth } = useAuth();
   const location = useLocation();
   // Will redirect to the previous_route_location
@@ -37,8 +38,10 @@ const Login = () => {
   const { mutate } = useMutation({
     mutationFn: loginUser,
     onSuccess: (data) => {
-      const accessToken = data?.accessToken;
-      setAuth({ username, accessToken });
+      setAuth({ accessToken: data?.accessToken, user: data?.user });
+
+      queryClient.setQueryData(["user"], data.user);
+
       setUsername('');
       setPassword('');
       setErrorMsg('');

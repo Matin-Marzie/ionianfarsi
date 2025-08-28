@@ -15,6 +15,8 @@ const handleLogin = async (req, res) => {
   const match = await comparePassword(password, foundUser.password);
   if (!match) return res.status(401).json({ message: 'Incorrect password.' });
 
+  const { password:pass, refresh_token, ...safeUserInfo } = foundUser;
+
   const accessToken = jwt.sign(
     { username: foundUser.username },
     process.env.ACCESS_TOKEN_SECRET,
@@ -35,7 +37,7 @@ const handleLogin = async (req, res) => {
     maxAge:  30 * 24*60*60*1000 // 30 days
   });
 
-  res.json({ accessToken });
+  res.json({ accessToken, user:safeUserInfo });
 };
 
 export default { handleLogin };

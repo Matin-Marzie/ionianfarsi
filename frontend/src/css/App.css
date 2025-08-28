@@ -118,12 +118,12 @@ img {
 }
 @keyframes io-drop-shadow-shrink {
 0%{
-  width: 70%;
+  width: 45%;
 }50%{
-width: 30%;
+width: 25%;
 }
 100%{
-  width: 70%;
+  width: 45%;
 }
 }
 

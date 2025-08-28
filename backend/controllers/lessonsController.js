@@ -17,10 +17,12 @@ export const getLessonsOfSection = async (req, res) => {
     // Group by unit → repetition → lessons
     const unitsMap = lessons.reduce((acc, lesson) => {
       const uOrder = lesson.unit_order;
+      const uId = lesson.unit_id;
       const rOrder = lesson.repetition_order;
 
       if (!acc[uOrder]) {
         acc[uOrder] = {
+          unit_id: uId, 
           unit_order: uOrder,
           unit_title: lesson.unit_title || `Unit ${uOrder}`,
           repetitions: {}

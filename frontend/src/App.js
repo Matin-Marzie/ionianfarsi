@@ -29,46 +29,48 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route element={<Layout />}>
-
-            {/* ||--------------------PUBLIC ROUTES--------------------|| */}
-            {/*         Redirect '/' to 'practice'         */}
-            <Route path="/" element={<Navigate to="learn" replace />} />
-            {/* tmp */}
-            <Route path='test' element={<ReelsFeed />} />
-
-            <Route path="home" element={<Home />} />
-
-            <Route path="register" element={<Register />} />
-            <Route path="login" element={<Login />} />
-
-
-            <Route path='learn'>
-              <Route index element={<Learn />} />
-              <Route path='sections' element={<Sections />} />
-
-              <Route path="lesson/:id" element={<Lesson />} />
-            </Route>
-
-            <Route path='reels'>
-              <Route index element={<Reels />} />
-            </Route>
-
-            <Route path='practice'>
-              <Route index element={<Practice />} />
-            </Route>
-            {/* Protected Route */}
             <Route element={<PersisLogin />}>
+
+              {/* ||--------------------PUBLIC ROUTES--------------------|| */}
+              {/*         Redirect '/' to 'practice'         */}
+              <Route path="/" element={<Navigate to="learn" replace />} />
+              {/* tmp */}
+              <Route path='test' element={<ReelsFeed />} />
+
+              <Route path="home" element={<Home />} />
+
+              <Route path="register" element={<Register />} />
+              <Route path="login" element={<Login />} />
+
+
+              <Route path='learn'>
+                <Route index element={<Learn />} />
+                <Route path='sections' element={<Sections />} />
+
+                <Route path="lesson/:id" element={<Lesson />} />
+              </Route>
+
+              <Route path='reels'>
+                <Route index element={<Reels />} />
+              </Route>
+
+              <Route path='practice'>
+                <Route index element={<Practice />} />
+              </Route>
+
+              {/* Protected Route */}
               <Route element={<RequireAuth />}>
                 <Route path='create' element={<Create />} />
               </Route>
+
+              <Route path="profile" element={<Profile />} />
+
+              <Route path="more" element={<More />} />
             </Route>
-            <Route path="profile" element={<Profile />} />
 
-            <Route path="more" element={<More />} />
+            {/* Catch-all for undefined routes */}
+            <Route path="*" element={<Missing />} />
           </Route>
-
-          {/* Catch-all for undefined routes */}
-          <Route path="*" element={<Missing />} />
         </Routes>
       </BrowserRouter>
     </div>

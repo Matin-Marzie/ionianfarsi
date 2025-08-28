@@ -3,7 +3,7 @@ import db from '../config/db.js'
 export const getLessonsOfSectionFromDB = async (req, res) => {
     const query_parameters = [req.query.section_id];
     const sql_query = `
-        SELECT lessons.*, units.title as unit_title, units.unit_order, repetitions.repetition_order
+        SELECT lessons.*, units.id as unit_id, units.title as unit_title, units.unit_order, repetitions.repetition_order
         FROM lessons
         JOIN repetitions ON lessons.repetition_id = repetitions.id
         JOIN units ON repetitions.unit_id = units.id

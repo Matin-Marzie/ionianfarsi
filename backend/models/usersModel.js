@@ -27,7 +27,7 @@ export const findUserByUsername = async (username) => {
 };
 
 export const getAllUsersPublicProfileFromDB = async () => {
-  const sql_query = `SELECT name, username, experience, current_section, current_unit, joined_date FROM users`;
+  const sql_query = `SELECT id, name, username, experience, current_section, current_unit, joined_date FROM users`;
   const [rows] = await db.execute(sql_query);
   return rows;
 }
@@ -75,7 +75,7 @@ export const deleteUserByUsernameFromDB = async (username) => {
 
 export const getUserPublicProfileFromDB = async (username) => {
   const sql_query = `
-    SELECT name, username, experience, current_section, current_unit, joined_date 
+    SELECT id, name, username, experience, current_section, current_unit, joined_date 
     FROM users 
     WHERE username = ?
   `;

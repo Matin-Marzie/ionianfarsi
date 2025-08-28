@@ -11,6 +11,8 @@ const handleRefreshToken = async (req, res) => {
     const foundUser = await findUserByRefreshToken(refreshToken);
     if (!foundUser) return res.sendStatus(403); // Forbidden
 
+    const { password:pass, refresh_token, ...safeUserInfo } = foundUser;
+
     jwt.verify(
       refreshToken,
       process.env.REFRESH_TOKEN_SECRET,
@@ -25,7 +27,7 @@ const handleRefreshToken = async (req, res) => {
           { expiresIn: '1h' }
         );
 
-        res.json({ accessToken });
+        res.json({ accessToken, user: safeUserInfo });
       }
     );
   } catch (err) {
