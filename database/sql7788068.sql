@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Aug 26, 2025 at 12:49 AM
+-- Generation Time: Aug 28, 2025 at 11:09 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -29,13 +29,29 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `challenges` (
   `id` int(11) NOT NULL,
-  `media_type` enum('word_picture_with_writtenform','word_english_equivalent','word_audio','word_written_form','sentence_written_form','sentence_audio','sentence_english_equivalent','media_video','media_video_with_dialogue','media_image') DEFAULT NULL,
-  `challenge_type` enum('match','select','sort','') NOT NULL,
   `question` varchar(255) NOT NULL,
+  `media_type` enum('word_picture_audio_writtenform_englishequivalent','word_picture_audio_writtenform','word_picture_audio','word_picture','word_audio','word_transliteration','word_writtenform','word_wtittenform_audio_englishequivalent','sentence_written_form','sentence_audio','sentence_english_equivalent') DEFAULT NULL,
   `word_id` int(11) DEFAULT NULL,
   `sentence_id` int(11) DEFAULT NULL,
-  `media_id` int(11) DEFAULT NULL
+  `media_id` int(11) DEFAULT NULL,
+  `challenge_type` enum('match','select','sort','') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_persian_ci;
+
+--
+-- Dumping data for table `challenges`
+--
+
+INSERT INTO `challenges` (`id`, `question`, `media_type`, `word_id`, `sentence_id`, `media_id`, `challenge_type`) VALUES
+(1, 'New Letter', 'word_picture_audio', 351, NULL, NULL, 'select'),
+(2, 'New Word', 'word_picture_audio_writtenform_englishequivalent', 1, NULL, NULL, 'sort'),
+(3, 'New Word', 'word_picture_audio_writtenform_englishequivalent', 2, NULL, NULL, 'sort'),
+(4, 'New Word', 'word_picture_audio_writtenform_englishequivalent', 3, NULL, NULL, 'sort'),
+(5, 'Match words to transliterations', NULL, NULL, NULL, NULL, 'match'),
+(6, 'New Word', 'word_picture_audio_writtenform_englishequivalent', 6, NULL, NULL, 'sort'),
+(7, 'New word', 'word_picture_audio_writtenform_englishequivalent', 4, NULL, NULL, 'sort'),
+(8, 'New Word', 'word_picture_audio_writtenform_englishequivalent', 5, NULL, NULL, 'sort'),
+(9, 'New word', 'word_picture_audio_writtenform_englishequivalent', 8, NULL, NULL, 'sort'),
+(10, 'New Word', 'word_picture_audio_writtenform_englishequivalent', 7, NULL, NULL, 'sort');
 
 -- --------------------------------------------------------
 
@@ -49,6 +65,23 @@ CREATE TABLE `challenges_in_lesson` (
   `challenge_order` int(2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `challenges_in_lesson`
+--
+
+INSERT INTO `challenges_in_lesson` (`challenge_id`, `lesson_id`, `challenge_order`) VALUES
+(1, 2, 1),
+(1, 2, 11),
+(2, 2, 2),
+(3, 2, 3),
+(4, 2, 4),
+(5, 2, 5),
+(6, 2, 6),
+(7, 2, 7),
+(8, 2, 8),
+(9, 2, 9),
+(10, 2, 10);
+
 -- --------------------------------------------------------
 
 --
@@ -57,9 +90,16 @@ CREATE TABLE `challenges_in_lesson` (
 
 CREATE TABLE `challenge_match` (
   `id` int(11) NOT NULL,
-  `match_type` enum('picture_to_written_form','written_form_to_english_equivalent','sound_to_written_form') DEFAULT NULL,
+  `match_type` enum('picture_to_writtenform','writtenform_to_englishequivalent','sound_to_writtenform','writtenform_to_transliteration') DEFAULT NULL,
   `challenge_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_persian_ci;
+
+--
+-- Dumping data for table `challenge_match`
+--
+
+INSERT INTO `challenge_match` (`id`, `match_type`, `challenge_id`) VALUES
+(1, 'writtenform_to_transliteration', 5);
 
 -- --------------------------------------------------------
 
@@ -73,6 +113,17 @@ CREATE TABLE `challenge_match_items` (
   `sentence_id` int(11) DEFAULT NULL
 ) ;
 
+--
+-- Dumping data for table `challenge_match_items`
+--
+
+INSERT INTO `challenge_match_items` (`challenge_match_id`, `word_id`, `sentence_id`) VALUES
+(1, 1, NULL),
+(1, 2, NULL),
+(1, 3, NULL),
+(1, 351, NULL),
+(1, 352, NULL);
+
 -- --------------------------------------------------------
 
 --
@@ -81,12 +132,17 @@ CREATE TABLE `challenge_match_items` (
 
 CREATE TABLE `challenge_select` (
   `id` int(11) NOT NULL,
-  `select_type` enum('listen_select_written_form','read_word_select_picture','read_sentence_select_written_form','listen_answer_question') DEFAULT NULL,
+  `select_type` enum('sequential_audio_writtenform','sequential_audio_englishequivalent','card_audio_writtenform','card_writtenform','card_audio_picture','card_picture','card_audio_transliteration','card_transliteration') DEFAULT NULL,
   `question` varchar(250) DEFAULT NULL,
-  `sentence_id` int(11) DEFAULT NULL,
-  `word_id` int(11) DEFAULT NULL,
   `challenge_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_persian_ci;
+
+--
+-- Dumping data for table `challenge_select`
+--
+
+INSERT INTO `challenge_select` (`id`, `select_type`, `question`, `challenge_id`) VALUES
+(1, 'card_transliteration', 'What sound do you hear?', 1);
 
 -- --------------------------------------------------------
 
@@ -95,11 +151,21 @@ CREATE TABLE `challenge_select` (
 --
 
 CREATE TABLE `challenge_select_options` (
-  `challenge_select_id` int(11) NOT NULL,
-  `word_id` int(11) NOT NULL,
-  `sentence_id` int(11) NOT NULL,
+  `id` int(11) NOT NULL,
+  `challenge__select_id` int(11) NOT NULL,
+  `word_id` int(11) DEFAULT NULL,
+  `sentence_id` int(11) DEFAULT NULL,
   `correct` tinyint(1) NOT NULL DEFAULT 0
-) ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `challenge_select_options`
+--
+
+INSERT INTO `challenge_select_options` (`id`, `challenge__select_id`, `word_id`, `sentence_id`, `correct`) VALUES
+(1, 1, 1, NULL, 0),
+(2, 1, 354, NULL, 0),
+(3, 1, 6, NULL, 0);
 
 -- --------------------------------------------------------
 
@@ -109,11 +175,24 @@ CREATE TABLE `challenge_select_options` (
 
 CREATE TABLE `challenge_sort` (
   `id` int(11) NOT NULL,
-  `sort_type` enum('listen_sort_word','read_farsi_sort_english_equivalent_sentence','read_english_equivalent_sort_farsi_sentence','read_farsi_sort_word','listen_sort_sentence') DEFAULT NULL,
+  `sort_type` enum('letters','letters_audio','words') DEFAULT NULL,
   `sentence_id` int(11) DEFAULT NULL,
-  `word_id` int(11) DEFAULT NULL,
   `challenge_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_persian_ci;
+
+--
+-- Dumping data for table `challenge_sort`
+--
+
+INSERT INTO `challenge_sort` (`id`, `sort_type`, `sentence_id`, `challenge_id`) VALUES
+(1, 'letters_audio', NULL, 2),
+(3, 'letters_audio', NULL, 3),
+(4, 'letters_audio', NULL, 4),
+(6, NULL, NULL, 6),
+(7, NULL, NULL, 7),
+(8, NULL, NULL, 8),
+(9, 'letters_audio', NULL, 9),
+(10, 'letters_audio', NULL, 10);
 
 -- --------------------------------------------------------
 
@@ -133,8 +212,8 @@ CREATE TABLE `lessons` (
 --
 
 INSERT INTO `lessons` (`id`, `title`, `lesson_order`, `repetition_id`) VALUES
-(1, '', 1, 1),
-(2, 'lesson 2 has no title', 2, 1),
+(1, 'lesson 2 has no title', 1, 1),
+(2, '2', 2, 1),
 (3, 'lesson 3 has no title', 3, 1),
 (4, '', 1, 3),
 (5, '', 2, 3),
@@ -362,14 +441,14 @@ CREATE TABLE `words` (
 --
 
 INSERT INTO `words` (`id`, `written_form`, `english_equivalent`, `transliteration`, `category`, `image_url`, `audio_url`) VALUES
-(1, 'آب', 'water', NULL, 'اسم', 'https://ionianfarsi.onrender.com/images/lesson-1/ab.jpg', 'https://ionianfarsi.onrender.com/audio/lesson-1/ab.mp3'),
-(2, 'آبی', 'blue', NULL, 'نام رنگ، صفت', 'https://ionianfarsi.onrender.com/images/lesson-1/abi.jpg', 'https://ionianfarsi.onrender.com/audio/lesson-1/abi.mp3'),
+(1, 'آب', 'water', 'aab', 'اسم', 'https://ionianfarsi.onrender.com/images/lesson-1/ab.jpg', 'https://ionianfarsi.onrender.com/audio/lesson-1/ab.mp3'),
+(2, 'آبی', 'blue', 'aabi', 'نام رنگ، صفت', 'https://ionianfarsi.onrender.com/images/lesson-1/abi.jpg', 'https://ionianfarsi.onrender.com/audio/lesson-1/abi.mp3'),
 (3, 'بادام', 'almond', NULL, 'اسم', 'https://ionianfarsi.onrender.com/images/lesson-1/badam.jpg', 'https://ionianfarsi.onrender.com/audio/lesson-1/badam.mp3'),
 (4, 'پا', 'foot', NULL, 'اسم، اعضای بدن', 'https://ionianfarsi.onrender.com/images/lesson-1/pa.jpg', 'https://ionianfarsi.onrender.com/audio/lesson-1/pa.mp3'),
 (5, 'باران', 'rain', NULL, 'اسم', 'https://ionianfarsi.onrender.com/images/lesson-1/baran.jpg', 'https://ionianfarsi.onrender.com/audio/lesson-1/baran.mp3'),
-(6, 'باد', 'wind', NULL, 'اسم', 'https://ionianfarsi.onrender.com/images/lesson-1/bad.jpg', 'https://ionianfarsi.onrender.com/audio/lesson-1/bad.mp3'),
+(6, 'باد', 'wind', 'baad', 'اسم', 'https://ionianfarsi.onrender.com/images/lesson-1/bad.jpg', 'https://ionianfarsi.onrender.com/audio/lesson-1/bad.mp3'),
 (7, 'پاندا', 'panda', NULL, 'اسم، حیوان', 'https://ionianfarsi.onrender.com/images/lesson-1/panda.jpg', 'https://ionianfarsi.onrender.com/audio/lesson-1/panda.mp3'),
-(8, 'آسِمان', 'sky', NULL, 'اسم', 'https://ionianfarsi.onrender.com/images/lesson-1/aseman.jpg', 'https://ionianfarsi.onrender.com/audio/lesson-1/aseman.mp3'),
+(8, 'آسِمان', 'sky', 'aasemaan', 'اسم', 'https://ionianfarsi.onrender.com/images/lesson-1/aseman.jpg', 'https://ionianfarsi.onrender.com/audio/lesson-1/aseman.mp3'),
 (9, 'اَبر', 'cloud', NULL, 'اسم', 'https://ionianfarsi.onrender.com/images/lesson-1/abr.jpg', 'https://ionianfarsi.onrender.com/audio/lesson-1/abr.mp3'),
 (10, 'بَبر', 'tiger', NULL, 'اسم، حیوان', 'https://ionianfarsi.onrender.com/images/lesson-1/babr.jpg', 'https://ionianfarsi.onrender.com/audio/lesson-1/babr.mp3'),
 (11, 'مُبل', 'sofa', NULL, 'اسم', 'https://ionianfarsi.onrender.com/images/lesson-1/mobl.jpg', 'https://ionianfarsi.onrender.com/audio/lesson-1/mobl.mp3'),
@@ -377,7 +456,7 @@ INSERT INTO `words` (`id`, `written_form`, `english_equivalent`, `transliteratio
 (13, 'قاب', 'frame', NULL, 'اسم', 'https://ionianfarsi.onrender.com/images/lesson-1/ghab.jpg', 'https://ionianfarsi.onrender.com/audio/lesson-1/ghab.mp3'),
 (14, 'کَباب', 'kebab', NULL, 'اسم، غذا', 'https://ionianfarsi.onrender.com/images/lesson-1/kabab.jpg', 'https://ionianfarsi.onrender.com/audio/lesson-1/kabab.mp3'),
 (15, 'سیب', 'apple', NULL, 'اسم، میوه', 'https://ionianfarsi.onrender.com/images/lesson-1/sib.jpg', 'https://ionianfarsi.onrender.com/audio/lesson-1/sib.mp3'),
-(16, 'بابا', 'daddy', NULL, 'اسم', 'https://ionianfarsi.onrender.com/images/lesson-1/baba.jpg', 'https://ionianfarsi.onrender.com/audio/lesson-1/baba.mp3'),
+(16, 'بابا', 'daddy', 'baabaa', 'اسم', 'https://ionianfarsi.onrender.com/images/lesson-1/baba.jpg', 'https://ionianfarsi.onrender.com/audio/lesson-1/baba.mp3'),
 (17, 'اَسب', 'horse', NULL, 'اسم، حیوان', 'https://ionianfarsi.onrender.com/images/lesson-1/asb.jpg', 'https://ionianfarsi.onrender.com/audio/lesson-1/asb.mp3'),
 (18, 'اَنگُشت', 'finger', NULL, 'اسم، اعضای بدن', 'https://ionianfarsi.onrender.com/images/lesson-1/angosht.jpg', 'https://ionianfarsi.onrender.com/audio/lesson-1/angosht.mp3'),
 (19, 'اَبرو', 'eyebrow', NULL, 'اسم، اعضای بدن', 'https://ionianfarsi.onrender.com/images/lesson-1/abru.jpg', 'https://ionianfarsi.onrender.com/audio/lesson-1/abru.mp3'),
@@ -489,7 +568,6 @@ INSERT INTO `words` (`id`, `written_form`, `english_equivalent`, `transliteratio
 (125, 'تیم', 'team', NULL, 'اسم', 'https://ionianfarsi.onrender.com/images/lesson-6/tim.jpg', 'https://ionianfarsi.onrender.com/audio/lesson-6/tim.mp3'),
 (126, 'نامه', 'letter', NULL, 'اسم', 'https://ionianfarsi.onrender.com/images/lesson-6/name.jpg', 'https://ionianfarsi.onrender.com/audio/lesson-6/name.mp3'),
 (127, 'بیمار', 'patient', NULL, 'اسم، صفت', 'https://ionianfarsi.onrender.com/images/lesson-6/bimar.jpg', 'https://ionianfarsi.onrender.com/audio/lesson-6/bimar.mp3'),
-(128, 'بادام', 'almond', NULL, 'اسم، آجیل', 'https://ionianfarsi.onrender.com/images/lesson-6/badam.jpg', 'https://ionianfarsi.onrender.com/audio/lesson-6/badam.mp3'),
 (129, 'کِتاب', 'book', NULL, 'اسم', 'https://ionianfarsi.onrender.com/images/lesson-7/ketab.jpg', 'https://ionianfarsi.onrender.com/audio/lesson-7/ketab.mp3'),
 (130, 'کُمُد', 'closet', NULL, 'اسم', 'https://ionianfarsi.onrender.com/images/lesson-7/komod.jpg', 'https://ionianfarsi.onrender.com/audio/lesson-7/komod.mp3'),
 (131, 'دُکمه', 'button', NULL, 'اسم', 'https://ionianfarsi.onrender.com/images/lesson-7/dokme.jpg', 'https://ionianfarsi.onrender.com/audio/lesson-7/dokme.mp3'),
@@ -663,9 +741,9 @@ INSERT INTO `words` (`id`, `written_form`, `english_equivalent`, `transliteratio
 (299, 'ماشینِ ظَرفشویی', 'dishwasher', NULL, 'اسم، وسایل آشپزخانه', 'https://ionianfarsi.onrender.com/images/lesson-15/dishwasher.jpg', 'https://ionianfarsi.onrender.com/audio/lesson-15/dishwasher.mp3'),
 (300, 'خُداحافِظ', 'goodbye', NULL, 'شبه جمله', 'https://ionianfarsi.onrender.com/images/lesson-15/goodbye.jpg', 'https://ionianfarsi.onrender.com/audio/lesson-15/goodbye.mp3'),
 (301, 'ژِله', 'jelly', NULL, 'اسم، خوردنی', 'https://ionianfarsi.onrender.com/images/lesson-16/jelly.jpg', 'https://ionianfarsi.onrender.com/audio/lesson-16/jelly.mp3'),
-(302, 'ژاکَت', 'jacket', NULL, 'اسم، لباس', 'https://ionianfarsi.onrender.com/images/lesson-16/jacket.jpg', 'https://ionianfarsi.onrender.com/audio/lesson-16/jacket.mp3');
+(302, 'ژاکَت', 'jacket', NULL, 'اسم، لباس', 'https://ionianfarsi.onrender.com/images/lesson-16/jacket.jpg', 'https://ionianfarsi.onrender.com/audio/lesson-16/jacket.mp3'),
+(303, 'ماژیک', 'marker', NULL, 'اسم', 'https://ionianfarsi.onrender.com/images/lesson-16/marker.jpg', 'https://ionianfarsi.onrender.com/audio/lesson-16/marker.mp3');
 INSERT INTO `words` (`id`, `written_form`, `english_equivalent`, `transliteration`, `category`, `image_url`, `audio_url`) VALUES
-(303, 'ماژیک', 'marker', NULL, 'اسم', 'https://ionianfarsi.onrender.com/images/lesson-16/marker.jpg', 'https://ionianfarsi.onrender.com/audio/lesson-16/marker.mp3'),
 (304, 'بِلژیک', '‌Belgium', NULL, 'اسم، کشور در اروپا', 'https://ionianfarsi.onrender.com/images/lesson-16/Belgium.jpg', 'https://ionianfarsi.onrender.com/audio/lesson-16/Belgium.mp3'),
 (305, 'بِژ', 'beige', NULL, 'اسم، رنگ', 'https://ionianfarsi.onrender.com/images/lesson-16/beige.jpg', 'https://ionianfarsi.onrender.com/audio/lesson-16/beige.mp3'),
 (306, 'اِژدِها', 'dragon', NULL, 'اسم', 'https://ionianfarsi.onrender.com/images/lesson-16/dragon.jpg', 'https://ionianfarsi.onrender.com/audio/lesson-16/dragon.mp3'),
@@ -712,10 +790,13 @@ INSERT INTO `words` (`id`, `written_form`, `english_equivalent`, `transliteratio
 (348, 'پِدرام', 'Pedram', NULL, 'اسم فرد', NULL, 'https://ionianfarsi.onrender.com/audio/section-2/unit-1/word/Pedram.mp3'),
 (349, 'مَریَم', 'Mary', NULL, 'اسم فرد', NULL, NULL),
 (350, 'کُجا', 'where', NULL, NULL, NULL, 'https://ionianfarsi.onrender.com/audio/section-2/unit-1/word/where.mp3'),
-(351, 'آ', 'aa', NULL, 'letter', 'http://localhost:3500/images/section-1/unit-1/words/aa.png', 'https://ionianfarsi.onrender.com/audio/letters/aa.mp3'),
-(352, 'ا', 'aa', NULL, 'letter', 'http://localhost:3500/images/section-1/unit-1/words/aa.png', 'https://ionianfarsi.onrender.com/audio/letters/aa.mp3'),
-(353, 'بـ', 'b', NULL, 'letter', 'http://localhost:3500/images/section-1/unit-1/words/b.png', 'https://ionianfarsi.onrender.com/audio/letters/b.mp3'),
-(354, 'ب', 'b', NULL, 'letter', 'http://localhost:3500/images/section-1/unit-1/words/b.png', 'https://ionianfarsi.onrender.com/audio/letters/b.mp3');
+(351, 'آ', 'aa', 'aa', 'letter', 'http://localhost:3500/images/section-1/unit-1/words/aa.png', 'https://ionianfarsi.onrender.com/audio/letters/aa.mp3'),
+(352, 'ا', 'aa', 'aa', 'letter', 'http://localhost:3500/images/section-1/unit-1/words/aa.png', 'https://ionianfarsi.onrender.com/audio/letters/aa.mp3'),
+(353, 'بـ', 'b', 'b', 'letter', 'http://localhost:3500/images/section-1/unit-1/words/b.png', 'https://ionianfarsi.onrender.com/audio/letters/b.mp3'),
+(354, 'ب', 'b', 'b', 'letter', 'http://localhost:3500/images/section-1/unit-1/words/b.png', 'https://ionianfarsi.onrender.com/audio/letters/b.mp3'),
+(355, 'باب', 'Bob', 'baab', 'name', NULL, NULL),
+(356, 'آتَش', 'fire', 'aatash', NULL, NULL, NULL),
+(357, 'اَ', 'a', 'a', 'letter', 'http://localhost:3500/images/section-1/unit-1/words/a.png', 'https://ionianfarsi.onrender.com/audio/letters/a.mp3');
 
 -- --------------------------------------------------------
 
@@ -737,13 +818,15 @@ CREATE TABLE `words_in_sentence` (
 -- Indexes for table `challenges`
 --
 ALTER TABLE `challenges`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk1_challenge_word_id` (`word_id`),
+  ADD KEY `fk_2_challenge_sentence_id` (`sentence_id`);
 
 --
 -- Indexes for table `challenges_in_lesson`
 --
 ALTER TABLE `challenges_in_lesson`
-  ADD PRIMARY KEY (`challenge_id`,`lesson_id`);
+  ADD PRIMARY KEY (`challenge_id`,`lesson_id`,`challenge_order`);
 
 --
 -- Indexes for table `challenge_match`
@@ -765,17 +848,16 @@ ALTER TABLE `challenge_match_items`
 --
 ALTER TABLE `challenge_select`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `word_id` (`word_id`),
-  ADD KEY `challenge_id` (`challenge_id`),
-  ADD KEY `sentence_id` (`sentence_id`);
+  ADD KEY `challenge_id` (`challenge_id`);
 
 --
 -- Indexes for table `challenge_select_options`
 --
 ALTER TABLE `challenge_select_options`
-  ADD PRIMARY KEY (`challenge_select_id`,`word_id`,`sentence_id`),
-  ADD KEY `fk_word` (`word_id`),
-  ADD KEY `fk_sentence` (`sentence_id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_1_challenge_select_id` (`challenge__select_id`),
+  ADD KEY `fk_2_word_id` (`word_id`),
+  ADD KEY `fk_3_sentence_id` (`sentence_id`);
 
 --
 -- Indexes for table `challenge_sort`
@@ -783,8 +865,7 @@ ALTER TABLE `challenge_select_options`
 ALTER TABLE `challenge_sort`
   ADD PRIMARY KEY (`id`),
   ADD KEY `challenge_id` (`challenge_id`),
-  ADD KEY `sentence_id` (`sentence_id`),
-  ADD KEY `word_id` (`word_id`);
+  ADD KEY `sentence_id` (`sentence_id`);
 
 --
 -- Indexes for table `lessons`
@@ -878,6 +959,12 @@ ALTER TABLE `challenge_select`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
+-- AUTO_INCREMENT for table `challenge_select_options`
+--
+ALTER TABLE `challenge_select_options`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
 -- AUTO_INCREMENT for table `challenge_sort`
 --
 ALTER TABLE `challenge_sort`
@@ -929,18 +1016,24 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `words`
 --
 ALTER TABLE `words`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=355;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=358;
 
 --
 -- Constraints for dumped tables
 --
 
 --
+-- Constraints for table `challenges`
+--
+ALTER TABLE `challenges`
+  ADD CONSTRAINT `fk1_challenge_word_id` FOREIGN KEY (`word_id`) REFERENCES `words` (`id`),
+  ADD CONSTRAINT `fk_2_challenge_sentence_id` FOREIGN KEY (`sentence_id`) REFERENCES `sentences` (`id`);
+
+--
 -- Constraints for table `challenges_in_lesson`
 --
 ALTER TABLE `challenges_in_lesson`
-  ADD CONSTRAINT `challenge` FOREIGN KEY (`challenge_id`) REFERENCES `challenges` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `lesson` FOREIGN KEY (`lesson_id`) REFERENCES `lessons` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `challenge` FOREIGN KEY (`challenge_id`) REFERENCES `challenges` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `challenge_match`
@@ -960,25 +1053,22 @@ ALTER TABLE `challenge_match_items`
 -- Constraints for table `challenge_select`
 --
 ALTER TABLE `challenge_select`
-  ADD CONSTRAINT `challenge_select_ibfk_1` FOREIGN KEY (`word_id`) REFERENCES `words` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `challenge_select_ibfk_2` FOREIGN KEY (`challenge_id`) REFERENCES `challenges` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `challenge_select_ibfk_3` FOREIGN KEY (`sentence_id`) REFERENCES `sentences` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `challenge_select_ibfk_1` FOREIGN KEY (`challenge_id`) REFERENCES `challenges` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `challenge_select_options`
 --
 ALTER TABLE `challenge_select_options`
-  ADD CONSTRAINT `fk_challenge_select` FOREIGN KEY (`challenge_select_id`) REFERENCES `challenge_select` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `fk_sentence` FOREIGN KEY (`sentence_id`) REFERENCES `sentences` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `fk_word` FOREIGN KEY (`word_id`) REFERENCES `words` (`id`) ON DELETE CASCADE;
+  ADD CONSTRAINT `fk_1_challenge_select_id` FOREIGN KEY (`challenge__select_id`) REFERENCES `challenge_select` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_2_word_id` FOREIGN KEY (`word_id`) REFERENCES `words` (`id`),
+  ADD CONSTRAINT `fk_3_sentence_id` FOREIGN KEY (`sentence_id`) REFERENCES `sentences` (`id`);
 
 --
 -- Constraints for table `challenge_sort`
 --
 ALTER TABLE `challenge_sort`
   ADD CONSTRAINT `challenge_sort_ibfk_1` FOREIGN KEY (`challenge_id`) REFERENCES `challenges` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `challenge_sort_ibfk_2` FOREIGN KEY (`sentence_id`) REFERENCES `sentences` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `challenge_sort_ibfk_3` FOREIGN KEY (`word_id`) REFERENCES `words` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `challenge_sort_ibfk_2` FOREIGN KEY (`sentence_id`) REFERENCES `sentences` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `lessons`
