@@ -2,7 +2,10 @@ import { useQuery } from "@tanstack/react-query";
 import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 import useAuth from "../../hooks/UseAuth";
 import { getUser } from "../../api/UserApi";
-import Leaderboard from "./Leaderboard"
+
+import ProfileInfo from "./ProfileInfo";
+import Leaderboard from "./Leaderboard";
+import AuthPanel from "./AuthPanel";
 
 const Profile = () => {
 
@@ -23,9 +26,10 @@ const Profile = () => {
   });
 
   return (
-    <section className="flex-grow h-full w-full max-w-screen-md m-auto bg-white">
-      <h1>username: {auth?.user?.username}</h1>
+    <section className="flex-grow h-full w-full max-w-screen-md m-auto flex flex-col bg-white">
+      <ProfileInfo />
       <Leaderboard />
+      <AuthPanel />
     </section>
   )
 }

@@ -18,7 +18,6 @@ import Reels from './components/Reels/Reels.js'
 import Create from './components/Create/Create.js'
 import Practice from './components/Practice/Practice.js';
 import Profile from './components/Profile/Profile.js';
-import More from './components/More/More.js';
 import Missing from './components/Missing.js';
 
 function App() {
@@ -64,8 +63,6 @@ function App() {
               </Route>
 
               <Route path="profile" element={<Profile />} />
-
-              <Route path="more" element={<More />} />
             </Route>
 
             {/* Catch-all for undefined routes */}

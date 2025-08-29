@@ -10,7 +10,6 @@ const Practice = () => {
   const currentSection = location.state?.currentSection || 1;
   const { auth } = useAuth();
   const user = auth?.user;
-  const currentUnitOrder = user?.current_unit_order || 0;
 
   const {
     data: units,
@@ -46,7 +45,7 @@ const Practice = () => {
   }
 
   return (
-    <div className='flex flex-col flex-grow h-full'>
+    <div className='flex flex-col flex-grow'>
       {/* Units */}
       {units?.map(unit => (
         <Unit

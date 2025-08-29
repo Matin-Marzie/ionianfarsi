@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom"
 import Repetition from "./Repetition"
 
-const Unit = ({ key:unit_order, unit, currentSection, id }) => {
+const Unit = ({ unit, currentSection, id }) => {
 
     return (
         <article
@@ -14,7 +14,7 @@ const Unit = ({ key:unit_order, unit, currentSection, id }) => {
             </Link>
 
             {/* Repetitions */}
-            <div className={`grid grid-cols-12 items-start pt-10 mb-8 h-full min-h-[calc(100dvh-146px)] flex-grow gap-y-12`}>
+            <div className={`grid grid-cols-12 items-start pt-10 mb-8 h-full min-h-[calc(100dvh-246px)] flex-grow gap-y-12`}>
                 {unit.repetitions.map((rep, i) => {
                     let colClass = "";
                     switch (i) {
@@ -39,7 +39,7 @@ const Unit = ({ key:unit_order, unit, currentSection, id }) => {
 
                     return (
                         <div key={rep.repetition_order} className={`${colClass}`}>
-                            <Repetition unit={unit} repetition={rep} unit_order={unit_order} />
+                            <Repetition unit={unit} repetition={rep} unit_order={unit.unit_order} />
                         </div>
                     );
                 })}

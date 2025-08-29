@@ -25,7 +25,7 @@ const Leaderboard = () => {
   if (error) return <p>Error loading users.</p>;
 
   return (
-    <>
+    <div>
       <h2 className="text-3xl border-b-2 text-center p-3">Users List</h2>
       {users?.length ? (
         <ul>
@@ -39,7 +39,7 @@ const Leaderboard = () => {
       ) : (
         <p>No user found.</p>
       )}
-    </>
+    </div>
   );
 };
 

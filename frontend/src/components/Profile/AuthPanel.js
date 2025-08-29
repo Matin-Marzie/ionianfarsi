@@ -2,7 +2,7 @@ import useLogout from "../../hooks/useLogout";
 import { useNavigate, Link, useLocation } from "react-router-dom"
 import useAuth from "../../hooks/UseAuth";
 
-function More() {
+function AuthPanel() {
   const { auth } = useAuth();
   const location = useLocation();
   const logout = useLogout();
@@ -32,4 +32,4 @@ function More() {
   )
 }
 
-export default More
+export default AuthPanel
