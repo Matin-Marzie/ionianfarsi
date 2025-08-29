@@ -5,18 +5,22 @@ const Header = () => {
 
   return (
     <header className=''>
-      <ul className="flex w-full bg-white text-3xl justify-between py-1">
-        <li>
-          {auth?.user?.level ?? 'N'} 🇮🇷
+      <ul className="flex w-full bg-white text-3xl justify-between py-1 px-2.5">
+        <li className='flex'>
+          <div>{auth?.user?.level ?? 'N'}</div>
+          <span className='pl-1'>🇮🇷</span>
         </li>
-        <li>
-          {auth?.user?.coin ?? 0} 🪙
+        <li className='flex'>
+          <div>{auth?.user?.coin ?? 0}</div>
+          <span className='pl-0'>🪙</span>
         </li>
-        <li className='font-'>
-          {auth?.user?.experience ?? 0} <span className='text-green-500 font-bold'>XP</span>
+        <li className='flex'>
+          <div>{auth?.user?.experience ?? 0}</div>
+          <span className='pl-1 text-green-500 font-bold'>XP</span>
         </li>
-        <li>
-          {auth?.user?.energy ?? 5} ⚡️
+        <li className='flex'>
+          <div>{auth?.user?.energy ?? 5}</div>
+          <span className='pl-0'>⚡️</span>
         </li>
       </ul>
     </header>
