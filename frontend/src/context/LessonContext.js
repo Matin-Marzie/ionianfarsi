@@ -1,8 +1,8 @@
 import { createContext, useCallback, useState } from "react";
 import { useRef } from "react";
-import lessonCompletedSound from "../components/Learn/Practice/Lesson/sounds/fanfare.mp3"
-import nextChallengeSound from "../components/Learn/Practice/Lesson/sounds/short-fanfare.wav";
-import wrongAnswerSound from "../components/Learn/Practice/Lesson/sounds/wrong-answer.wav";
+import lessonCompletedSound from "../components/Learn/Main/Practice/Lesson/sounds/fanfare.mp3"
+import nextChallengeSound from "../components/Learn/Main/Practice/Lesson/sounds/short-fanfare.wav";
+import wrongAnswerSound from "../components/Learn/Main/Practice/Lesson/sounds/wrong-answer.wav";
 
 const LessonContext = createContext({});
 

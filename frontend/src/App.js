@@ -11,8 +11,8 @@ import Register from './components/Register.js'
 import Login from './components/Login.js';
 
 import Learn from './components/Learn/Learn.js';
-import Sections from './components/Learn/Practice/Sections.js';
-import Lesson from './components/Learn/Practice/Lesson/Lesson.js'
+import Sections from './components/Learn/Main/Practice/Sections.js';
+import Lesson from './components/Learn/Main/Practice/Lesson/Lesson.js'
 
 import Reels from './components/Reels/Reels.js'
 import Create from './components/Create/Create.js'
