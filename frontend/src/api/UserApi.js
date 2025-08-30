@@ -43,7 +43,9 @@ export const getUser = async (axiosInstance) => {
 
 
 // Update User
-// export const updateUser = async (id, newData) => {...}
+export const updateUser = async (id, newData) => {
+    return;
+}
 
 // Delete User
 // export const deleteUser = async (id) => {...}

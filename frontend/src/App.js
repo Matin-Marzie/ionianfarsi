@@ -28,19 +28,19 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route element={<Layout />}>
+
+            {/* ||--------------------PUBLIC ROUTES--------------------|| */}
+            {/*         Redirect '/' to 'practice'         */}
+            <Route path="/" element={<Navigate to="learn" replace />} />
+            {/* tmp */}
+            <Route path='test' element={<ReelsFeed />} />
+
+            <Route path="home" element={<Home />} />
+
+            <Route path="register" element={<Register />} />
+            <Route path="login" element={<Login />} />
+
             <Route element={<PersisLogin />}>
-
-              {/* ||--------------------PUBLIC ROUTES--------------------|| */}
-              {/*         Redirect '/' to 'practice'         */}
-              <Route path="/" element={<Navigate to="learn" replace />} />
-              {/* tmp */}
-              <Route path='test' element={<ReelsFeed />} />
-
-              <Route path="home" element={<Home />} />
-
-              <Route path="register" element={<Register />} />
-              <Route path="login" element={<Login />} />
-
 
               <Route path='learn'>
                 <Route index element={<Learn />} />

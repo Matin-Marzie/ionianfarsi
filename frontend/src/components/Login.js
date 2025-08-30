@@ -38,7 +38,10 @@ const Login = () => {
   const { mutate } = useMutation({
     mutationFn: loginUser,
     onSuccess: (data) => {
-      setAuth({ accessToken: data?.accessToken, user: data?.user });
+      setAuth(prev => ({
+        ...prev,
+        accessToken: data?.accessToken
+      }));
 
       queryClient.setQueryData(["user"], data.user);
 

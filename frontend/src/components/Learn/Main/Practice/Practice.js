@@ -7,9 +7,8 @@ import useAuth from '../../../../hooks/UseAuth';
 
 const Practice = () => {
   const location = useLocation();
-  const { auth } = useAuth();
-  const user = auth?.user;
-  const currentSection = location.state?.currentSection || user?.current_section;
+  const { user } = useAuth();
+  const currentSection = location.state?.currentSection || user.current_section;
 
   const {
     data: units,
@@ -26,7 +25,7 @@ const Practice = () => {
 
 
   useEffect(() => {
-    if (user?.current_unit) {
+    if (user.current_unit) {
       const el = document.getElementById(`unit-${user.current_unit}`);
       if (el) {
         el.scrollIntoView({ behavior: 'instant', block: 'start' });

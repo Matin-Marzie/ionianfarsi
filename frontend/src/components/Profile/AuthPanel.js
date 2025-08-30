@@ -3,7 +3,7 @@ import { useNavigate, Link, useLocation } from "react-router-dom"
 import useAuth from "../../hooks/UseAuth";
 
 function AuthPanel() {
-  const { auth } = useAuth();
+  const { isLoggedIn } = useAuth();
   const location = useLocation();
   const logout = useLogout();
   const navigate = useNavigate();
@@ -15,7 +15,7 @@ function AuthPanel() {
 
   return (
     <section className="w-full h-full max-w-screen-md m-auto bg-white text-center flex flex-col items-center justify-end py-3 gap-3">
-      {auth?.accessToken
+      {isLoggedIn
 
         ?
         (<button onClick={SignOut} className={`w-11/12 border py-2 io-button bg-red-500`}>Sign Out</button>)

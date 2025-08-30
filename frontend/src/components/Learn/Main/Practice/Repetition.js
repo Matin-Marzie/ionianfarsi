@@ -2,12 +2,20 @@ import useAuth from "../../../../hooks/UseAuth"
 import Drop from "./Drop"
 
 const Repetition = ({ unit, repetition }) => {
-    const { auth } = useAuth();
-    const user = auth?.user;
+    const { user } = useAuth();
 
     const lesson = repetition.lessons.find(
         (lesson) => lesson.lesson_order === user.current_lesson
-    );
+    ) || {
+        id: 1,
+        title: "lesson 2",
+        lesson_order: 1,
+        repetition_id: 1,
+        unit_id: 1,
+        unit_title: "Get Started",
+        unit_order: 1,
+        repetition_order: 1
+    };
 
     let percentage;
 

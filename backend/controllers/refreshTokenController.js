@@ -3,21 +3,37 @@ import { findUserByRefreshToken } from '../models/usersModel.js';
 
 const handleRefreshToken = async (req, res) => {
   const cookies = req.cookies;
-  if (!cookies?.jwt) return res.sendStatus(401); // Unauthorized
+  if (!cookies?.jwt) return res.status(401).json({ message: 'No jwt cookie' }); // Unauthorized
 
   const refreshToken = cookies.jwt;
 
   try {
     const foundUser = await findUserByRefreshToken(refreshToken);
-    if (!foundUser) return res.sendStatus(403); // Forbidden
 
-    const { password:pass, refresh_token, ...safeUserInfo } = foundUser;
+    if (!foundUser) {
+      res.clearCookie("jwt", {
+        httpOnly: true,
+        sameSite: "None",
+        secure: true
+      });
+      return res.sendStatus(403); // Forbidden
+    }
+
+
+    const { password: pass, refresh_token, ...safeUserInfo } = foundUser;
 
     jwt.verify(
       refreshToken,
       process.env.REFRESH_TOKEN_SECRET,
       (err, decoded) => {
         if (err || foundUser.username !== decoded.username) {
+
+          res.clearCookie("jwt", {
+            httpOnly: true,
+            sameSite: "None",
+            secure: true
+          });
+          
           return res.sendStatus(403);
         }
 
