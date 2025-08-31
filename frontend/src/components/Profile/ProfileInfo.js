@@ -1,7 +1,7 @@
 import { FaArrowLeft } from 'react-icons/fa';
 import useAuth from "../../hooks/UseAuth";
 import { FaBook } from "react-icons/fa";
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const ProfileInfo = ({ PublicUser }) => {
     const { user: authUser } = useAuth();
@@ -40,7 +40,7 @@ const ProfileInfo = ({ PublicUser }) => {
                 <div className="flex flex-col items-center">
                     <img
                         src={`${user.profile_picture_url ?? '/profile.png'}`}
-                        alt="Error loading profile picture"
+                        alt="Error loading profile"
                         className="w-[100px] h-[100px] rounded-[50%_0%_50%_50%] border-2 border-gray-300 text-center"
                     />
                     <h2 className="text-lg font-medium text-gray-800">

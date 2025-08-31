@@ -3,11 +3,9 @@ import { useQuery } from "@tanstack/react-query";
 import { getUserPublic } from "../../api/UserApi"; // you'll need this
 import ProfileInfo from "./ProfileInfo";
 import Leaderboard from "./Leaderboard";
-import useAuth from "../../hooks/UseAuth";
 
 const PublicProfile = () => {
   const { username } = useParams();
-  const {user} = useAuth();
 
   const {
     data: publicUser,
