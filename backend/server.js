@@ -59,8 +59,6 @@ app.use('/api/lessons', lessonRouter);
 
 app.use("/api/letters", lettersRouter);
 
-app.use(verifyJWT); // AUTHENTICATION
-
 app.use('/api/users', usersRouter);
 
 app.use("/api/vocabulary", vocabularyRouter);

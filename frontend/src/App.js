@@ -14,10 +14,12 @@ import Learn from './components/Learn/Learn.js';
 import Sections from './components/Learn/Main/Practice/Sections.js';
 import Lesson from './components/Learn/Main/Practice/Lesson/Lesson.js'
 
+import Profile from './components/Profile/Profile.js';
+import PublicProfile from './components/Profile/PublicProfile.js';
+
 import Reels from './components/Reels/Reels.js'
 import Create from './components/Create/Create.js'
 import Practice from './components/Practice/Practice.js';
-import Profile from './components/Profile/Profile.js';
 import Missing from './components/Missing.js';
 
 function App() {
@@ -33,7 +35,7 @@ function App() {
             {/*         Redirect '/' to 'practice'         */}
             <Route path="/" element={<Navigate to="learn" replace />} />
             {/* tmp */}
-            <Route path='test' element={<ReelsFeed />} />
+            <Route path="test" element={<ReelsFeed />} />
 
             <Route path="home" element={<Home />} />
 
@@ -42,27 +44,31 @@ function App() {
 
             <Route element={<PersisLogin />}>
 
-              <Route path='learn'>
+              <Route path="learn">
                 <Route index element={<Learn />} />
-                <Route path='sections' element={<Sections />} />
+                <Route path="sections" element={<Sections />} />
 
                 <Route path="lesson/:id" element={<Lesson />} />
               </Route>
 
-              <Route path='reels'>
+              <Route path="profile">
+                <Route index element={<Profile />} />
+                <Route path=":username" element={<PublicProfile />} />
+              </Route>
+
+              <Route path="reels">
                 <Route index element={<Reels />} />
               </Route>
 
-              <Route path='practice'>
+              <Route path="practice">
                 <Route index element={<Practice />} />
               </Route>
 
               {/* Protected Route */}
               <Route element={<RequireAuth />}>
-                <Route path='create' element={<Create />} />
+                <Route path="create" element={<Create />} />
               </Route>
 
-              <Route path="profile" element={<Profile />} />
             </Route>
 
             {/* Catch-all for undefined routes */}

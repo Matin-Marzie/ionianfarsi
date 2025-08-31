@@ -27,11 +27,20 @@ export const findUserByUsername = async (username) => {
 };
 
 export const getAllUsersPublicProfileFromDB = async () => {
-  const sql_query = `SELECT id, name, username, experience, level, current_section, current_unit, joined_date FROM users ORDER BY experience DESC`;
+  const sql_query = `SELECT id, name, username, experience, level, profile_picture_url, current_section, current_unit, joined_date FROM users ORDER BY experience DESC`;
   const [rows] = await db.execute(sql_query);
   return rows;
 }
 
+export const getUserPublicProfileFromDB = async (username) => {
+  const sql_query = `
+    SELECT id, name, username, experience, level, profile_picture_url, current_unit, joined_date 
+    FROM users 
+    WHERE username = ?
+  `;
+  const [rows] = await db.execute(sql_query, [username]);
+  return rows[0]; // Return single user or undefined if not found
+}
 
 export const updateUserByUsernameInDB = async (username, updates) => {
   const fields = [];
@@ -54,31 +63,18 @@ export const updateUserByUsernameInDB = async (username, updates) => {
   return result;
 };
 
-
 export const updateUsernameInDB = async (username, new_username, refresh_token) => {
   console.log(username, new_username)
   const [row] = await db.execute('UPDATE users SET username = ?, refresh_token = ? WHERE username = ?', [new_username, refresh_token, username])
   return row;
 }
 
-
 export const updatePasswordInDB = async (username, new_hashed_password) => {
   const [row] = await db.execute('UPDATE users SET password = ? WHERE username = ?', [new_hashed_password, username])
   return row;
 }
 
-
 export const deleteUserByUsernameFromDB = async (username) => {
   const [result] = await db.execute('DELETE FROM users WHERE username = ?', [username]);
   return result;
-}
-
-export const getUserPublicProfileFromDB = async (username) => {
-  const sql_query = `
-    SELECT id, name, username, experience, current_section, current_unit, joined_date 
-    FROM users 
-    WHERE username = ?
-  `;
-  const [rows] = await db.execute(sql_query, [username]);
-  return rows[0]; // Return single user or undefined if not found
 }

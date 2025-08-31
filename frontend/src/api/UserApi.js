@@ -34,8 +34,12 @@ export const getUsers = async (axiosInstance) => {
     return response.data;
 };
 
+export const getUserPublic = async (username) =>{
+    const response = await api.get(`/api/users/${username}`)
+    return response.data;
+}
 
-// Get user
+// Get user/my private info
 export const getUser = async (axiosInstance) => {
     const response = await axiosInstance.get("/api/users/me");
     return response.data;
@@ -48,4 +52,6 @@ export const updateUser = async (id, newData) => {
 }
 
 // Delete User
-// export const deleteUser = async (id) => {...}
+export const deleteUser = async (id) => {
+    return;
+}

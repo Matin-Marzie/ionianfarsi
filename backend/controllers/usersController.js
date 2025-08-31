@@ -14,6 +14,22 @@ export const getAllUsersPublicProfile = async (req, res) => {
     }
 }
 
+export const getPublicUserProfile = async (req, res) => {
+    const { username } = req.params; // extract username from URL
+
+    try {
+        const user = await getUserPublicProfileFromDB(username);
+
+        if (!user) return res.status(404).json({ message: "User not found" });
+
+        res.json(user);
+        
+    } catch (err) {
+        console.error("Error fetching public profile:", err);
+        res.status(500).json({ message: "Internal server error" });
+    }
+};
+
 
 // User all private info (Need Authorization)
 // /api/users/me → private info
@@ -187,21 +203,5 @@ export const deleteUser = async (req, res) => {
     } catch (err) {
         console.error('Error deleting user:', err);
         res.status(500).json({ message: 'Internal server error.' });
-    }
-};
-
-
-export const getPublicUserProfile = async (req, res) => {
-    const { username } = req.params; // extract username from URL
-
-    try {
-        const user = await getUserPublicProfileFromDB(username);
-
-        if (!user) return res.status(404).json({ message: "User not found" });
-
-        res.json(user);
-    } catch (err) {
-        console.error("Error fetching public profile:", err);
-        res.status(500).json({ message: "Internal server error" });
     }
 };

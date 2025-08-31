@@ -1,5 +1,4 @@
 import express from 'express'
-import verifyJWT from '../../middleware/verifyJWT.js';
 import { getLessonsOfSection, getLesson } from '../../controllers/lessonsController.js';
 
 const router = express.Router();
