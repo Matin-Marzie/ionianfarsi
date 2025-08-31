@@ -39,14 +39,17 @@ export const AuthProvider = ({ children }) => {
   const defaultUser = {
     name: "guest user",
     username: "Guest",
+    email: "guest@example.com",
     experience: 0,
     level: 'N',
-    energy: 5,
     coin: 0,
+    energy: 5,
+    profile_picture_url: "/profile.png",
     current_section: 1,
     current_unit: 1,
     current_repetition: 1,
     current_lesson: 1,
+    joined_date: new Date().toISOString()
   };
 
   return (

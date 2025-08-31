@@ -6,13 +6,10 @@ const ProfileInfo = () => {
 
     return (
         <div className="bg-white px-2">
-            <div className="flex gap-2 items-center">
             <h1 className="font-bold text-xl">{user?.name}</h1>
-            <h6>Member since: {new Date(user.joined_date).getFullYear()}</h6>
-            </div>
-            <div className=" shadow-md rounded-2xl gap-6 flex">
+            <div className=" shadow-md rounded-2xl gap-6 flex border-t-">
                 {/* Left side - user info */}
-                <ul className="flex flex-grow text-gray-700 text-xl font-medium justify-evenly items-center">
+                <ul className="flex flex-grow text-gray-700 text font-medium justify-evenly items-center border-t-[1px]">
                     <li className="flex flex-col">
                         <span className=''>{user?.level ?? "N"} 🇮🇷</span>
                         <h3 className="">Level</h3>
@@ -39,6 +36,7 @@ const ProfileInfo = () => {
                     </h2>
                 </div>
             </div>
+            <h6>Member since: {new Date(user.joined_date).getFullYear()}</h6>
         </div>
     );
 };

@@ -27,7 +27,7 @@ export const findUserByUsername = async (username) => {
 };
 
 export const getAllUsersPublicProfileFromDB = async () => {
-  const sql_query = `SELECT id, name, username, experience, current_section, current_unit, joined_date FROM users`;
+  const sql_query = `SELECT id, name, username, experience, level, current_section, current_unit, joined_date FROM users ORDER BY experience DESC`;
   const [rows] = await db.execute(sql_query);
   return rows;
 }

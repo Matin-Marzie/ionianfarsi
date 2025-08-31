@@ -14,7 +14,7 @@ function AuthPanel() {
   }
 
   return (
-    <section className="w-full h-full max-w-screen-md m-auto bg-white text-center flex flex-col items-center justify-end py-3 gap-3">
+    <section className="w-full m-auto bg-white text-center flex flex-col items-center justify-end pb-3 gap-3">
       {isLoggedIn
 
         ?
