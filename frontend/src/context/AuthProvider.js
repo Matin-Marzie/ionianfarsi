@@ -37,6 +37,8 @@ export const AuthProvider = ({ children }) => {
   });
 
   const defaultUser = {
+    name: "guest user",
+    username: "Guest",
     experience: 0,
     level: 'N',
     energy: 5,
