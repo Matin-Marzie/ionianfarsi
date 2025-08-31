@@ -2,10 +2,10 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost
--- Generation Time: Aug 28, 2025 at 11:09 AM
--- Server version: 10.4.32-MariaDB
--- PHP Version: 8.2.12
+-- Εξυπηρετητής: localhost
+-- Χρόνος δημιουργίας: 31 Αυγ 2025 στις 19:35:33
+-- Έκδοση διακομιστή: 10.4.32-MariaDB
+-- Έκδοση PHP: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,13 +18,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `sql7788068`
+-- Βάση δεδομένων: `sql7788068`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `challenges`
+-- Δομή πίνακα για τον πίνακα `challenges`
 --
 
 CREATE TABLE `challenges` (
@@ -38,7 +38,7 @@ CREATE TABLE `challenges` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_persian_ci;
 
 --
--- Dumping data for table `challenges`
+-- Άδειασμα δεδομένων του πίνακα `challenges`
 --
 
 INSERT INTO `challenges` (`id`, `question`, `media_type`, `word_id`, `sentence_id`, `media_id`, `challenge_type`) VALUES
@@ -56,7 +56,7 @@ INSERT INTO `challenges` (`id`, `question`, `media_type`, `word_id`, `sentence_i
 -- --------------------------------------------------------
 
 --
--- Table structure for table `challenges_in_lesson`
+-- Δομή πίνακα για τον πίνακα `challenges_in_lesson`
 --
 
 CREATE TABLE `challenges_in_lesson` (
@@ -66,26 +66,26 @@ CREATE TABLE `challenges_in_lesson` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `challenges_in_lesson`
+-- Άδειασμα δεδομένων του πίνακα `challenges_in_lesson`
 --
 
 INSERT INTO `challenges_in_lesson` (`challenge_id`, `lesson_id`, `challenge_order`) VALUES
-(1, 2, 1),
-(1, 2, 11),
-(2, 2, 2),
-(3, 2, 3),
-(4, 2, 4),
-(5, 2, 5),
-(6, 2, 6),
-(7, 2, 7),
-(8, 2, 8),
-(9, 2, 9),
-(10, 2, 10);
+(1, 1, 1),
+(1, 1, 11),
+(2, 1, 2),
+(3, 1, 3),
+(4, 1, 4),
+(5, 1, 5),
+(6, 1, 6),
+(7, 1, 7),
+(8, 1, 8),
+(9, 1, 9),
+(10, 1, 10);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `challenge_match`
+-- Δομή πίνακα για τον πίνακα `challenge_match`
 --
 
 CREATE TABLE `challenge_match` (
@@ -95,7 +95,7 @@ CREATE TABLE `challenge_match` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_persian_ci;
 
 --
--- Dumping data for table `challenge_match`
+-- Άδειασμα δεδομένων του πίνακα `challenge_match`
 --
 
 INSERT INTO `challenge_match` (`id`, `match_type`, `challenge_id`) VALUES
@@ -104,7 +104,7 @@ INSERT INTO `challenge_match` (`id`, `match_type`, `challenge_id`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `challenge_match_items`
+-- Δομή πίνακα για τον πίνακα `challenge_match_items`
 --
 
 CREATE TABLE `challenge_match_items` (
@@ -114,7 +114,7 @@ CREATE TABLE `challenge_match_items` (
 ) ;
 
 --
--- Dumping data for table `challenge_match_items`
+-- Άδειασμα δεδομένων του πίνακα `challenge_match_items`
 --
 
 INSERT INTO `challenge_match_items` (`challenge_match_id`, `word_id`, `sentence_id`) VALUES
@@ -127,7 +127,7 @@ INSERT INTO `challenge_match_items` (`challenge_match_id`, `word_id`, `sentence_
 -- --------------------------------------------------------
 
 --
--- Table structure for table `challenge_select`
+-- Δομή πίνακα για τον πίνακα `challenge_select`
 --
 
 CREATE TABLE `challenge_select` (
@@ -138,7 +138,7 @@ CREATE TABLE `challenge_select` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_persian_ci;
 
 --
--- Dumping data for table `challenge_select`
+-- Άδειασμα δεδομένων του πίνακα `challenge_select`
 --
 
 INSERT INTO `challenge_select` (`id`, `select_type`, `question`, `challenge_id`) VALUES
@@ -147,7 +147,7 @@ INSERT INTO `challenge_select` (`id`, `select_type`, `question`, `challenge_id`)
 -- --------------------------------------------------------
 
 --
--- Table structure for table `challenge_select_options`
+-- Δομή πίνακα για τον πίνακα `challenge_select_options`
 --
 
 CREATE TABLE `challenge_select_options` (
@@ -159,7 +159,7 @@ CREATE TABLE `challenge_select_options` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `challenge_select_options`
+-- Άδειασμα δεδομένων του πίνακα `challenge_select_options`
 --
 
 INSERT INTO `challenge_select_options` (`id`, `challenge__select_id`, `word_id`, `sentence_id`, `correct`) VALUES
@@ -170,7 +170,7 @@ INSERT INTO `challenge_select_options` (`id`, `challenge__select_id`, `word_id`,
 -- --------------------------------------------------------
 
 --
--- Table structure for table `challenge_sort`
+-- Δομή πίνακα για τον πίνακα `challenge_sort`
 --
 
 CREATE TABLE `challenge_sort` (
@@ -181,7 +181,7 @@ CREATE TABLE `challenge_sort` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_persian_ci;
 
 --
--- Dumping data for table `challenge_sort`
+-- Άδειασμα δεδομένων του πίνακα `challenge_sort`
 --
 
 INSERT INTO `challenge_sort` (`id`, `sort_type`, `sentence_id`, `challenge_id`) VALUES
@@ -197,7 +197,7 @@ INSERT INTO `challenge_sort` (`id`, `sort_type`, `sentence_id`, `challenge_id`) 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `lessons`
+-- Δομή πίνακα για τον πίνακα `lessons`
 --
 
 CREATE TABLE `lessons` (
@@ -208,11 +208,11 @@ CREATE TABLE `lessons` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_persian_ci;
 
 --
--- Dumping data for table `lessons`
+-- Άδειασμα δεδομένων του πίνακα `lessons`
 --
 
 INSERT INTO `lessons` (`id`, `title`, `lesson_order`, `repetition_id`) VALUES
-(1, 'lesson 2 has no title', 1, 1),
+(1, '', 1, 1),
 (2, '2', 2, 1),
 (3, 'lesson 3 has no title', 3, 1),
 (4, '', 1, 3),
@@ -234,7 +234,7 @@ INSERT INTO `lessons` (`id`, `title`, `lesson_order`, `repetition_id`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `letters`
+-- Δομή πίνακα για τον πίνακα `letters`
 --
 
 CREATE TABLE `letters` (
@@ -249,7 +249,7 @@ CREATE TABLE `letters` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_persian_ci;
 
 --
--- Dumping data for table `letters`
+-- Άδειασμα δεδομένων του πίνακα `letters`
 --
 
 INSERT INTO `letters` (`id`, `writing_style`, `letter_sign`, `english_example`, `persian_example`, `type`, `audio_url`, `image_url`) VALUES
@@ -299,7 +299,7 @@ INSERT INTO `letters` (`id`, `writing_style`, `letter_sign`, `english_example`, 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `repetitions`
+-- Δομή πίνακα για τον πίνακα `repetitions`
 --
 
 CREATE TABLE `repetitions` (
@@ -310,7 +310,7 @@ CREATE TABLE `repetitions` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
--- Dumping data for table `repetitions`
+-- Άδειασμα δεδομένων του πίνακα `repetitions`
 --
 
 INSERT INTO `repetitions` (`id`, `titile`, `repetition_order`, `unit_id`) VALUES
@@ -330,7 +330,7 @@ INSERT INTO `repetitions` (`id`, `titile`, `repetition_order`, `unit_id`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `sections`
+-- Δομή πίνακα για τον πίνακα `sections`
 --
 
 CREATE TABLE `sections` (
@@ -342,7 +342,7 @@ CREATE TABLE `sections` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_persian_ci;
 
 --
--- Dumping data for table `sections`
+-- Άδειασμα δεδομένων του πίνακα `sections`
 --
 
 INSERT INTO `sections` (`id`, `title`, `description`, `image_url`, `level`) VALUES
@@ -352,7 +352,7 @@ INSERT INTO `sections` (`id`, `title`, `description`, `image_url`, `level`) VALU
 -- --------------------------------------------------------
 
 --
--- Table structure for table `sentences`
+-- Δομή πίνακα για τον πίνακα `sentences`
 --
 
 CREATE TABLE `sentences` (
@@ -368,7 +368,7 @@ CREATE TABLE `sentences` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `sentence_matches`
+-- Δομή πίνακα για τον πίνακα `sentence_matches`
 --
 
 CREATE TABLE `sentence_matches` (
@@ -379,7 +379,7 @@ CREATE TABLE `sentence_matches` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `units`
+-- Δομή πίνακα για τον πίνακα `units`
 --
 
 CREATE TABLE `units` (
@@ -391,7 +391,7 @@ CREATE TABLE `units` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_persian_ci;
 
 --
--- Dumping data for table `units`
+-- Άδειασμα δεδομένων του πίνακα `units`
 --
 
 INSERT INTO `units` (`id`, `title`, `description`, `unit_order`, `section_id`) VALUES
@@ -402,7 +402,7 @@ INSERT INTO `units` (`id`, `title`, `description`, `unit_order`, `section_id`) V
 -- --------------------------------------------------------
 
 --
--- Table structure for table `users`
+-- Δομή πίνακα για τον πίνακα `users`
 --
 
 CREATE TABLE `users` (
@@ -413,6 +413,10 @@ CREATE TABLE `users` (
   `refresh_token` varchar(255) DEFAULT NULL,
   `email` varchar(50) DEFAULT NULL,
   `experience` int(11) NOT NULL DEFAULT 0,
+  `level` enum('N','A1','A2','B1','B2','C1','C2') NOT NULL DEFAULT 'N',
+  `coin` int(6) DEFAULT NULL,
+  `energy` tinyint(4) DEFAULT NULL,
+  `profile_picture_url` varchar(255) DEFAULT NULL,
   `current_section` int(11) NOT NULL DEFAULT 1,
   `current_unit` int(11) NOT NULL DEFAULT 1,
   `current_repetition` int(1) NOT NULL DEFAULT 1,
@@ -420,10 +424,70 @@ CREATE TABLE `users` (
   `joined_date` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_persian_ci;
 
+--
+-- Άδειασμα δεδομένων του πίνακα `users`
+--
+
+
+-- THESE ARE FAKE DATA
+
+-- FAKE DATA
+
+-- DONT BOTHER
+
+-- Simonini pizarini
+
+
+
+INSERT INTO `users` (`id`, `name`, `username`, `password`, `refresh_token`, `email`, `experience`, `level`, `coin`, `energy`, `profile_picture_url`, `current_section`, `current_unit`, `current_repetition`, `current_lesson`, `joined_date`) VALUES
+(55, 'user', 'user22', '$2b$10$Tulb7/nLnA23yKvyK2OSjegqo.atMi3BEiOxjTy4QRi/FpQt4sdxO', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InVzZXIyMiIsImlhdCI6MTc1NjM4OTQ3NSwiZXhwIjoxNzU4OTgxNDc1fQ.pJkfrPfK78wTKYYzqbJMqet-2QthCEMJR_Fwc82q6xo', NULL, 999000, 'N', NULL, NULL, NULL, 1, 1, 1, 1, '2025-08-28 09:44:03'),
+(56, 'user', 'user', '$2b$10$H1MquCuCuqBFcz715W4n/.Hwz5EUp6YTz0HImB5may9ij9MNitUse', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InVzZXIiLCJpYXQiOjE3NTY2NDAzODcsImV4cCI6MTc1OTIzMjM4N30.u1RXNVBdUdztrY5Grrl0C-TxyhX-eB_pHG3nllQqNi8', 'user@gmail.com', 320, 'A1', NULL, 3, 'https://matin-marzie.netlify.app/img/prof-pic-removebg-preview.png', 1, 1, 2, 1, '2025-08-28 09:46:22'),
+(59, 'Fake User', 'testuser_fk', '$2b$10$abcdefghijklmnopqrstuv', NULL, 'fakeuser_fk@example.com', 100, 'A1', 50, 3, 'https://example.com/profile.png', 1, 1, 1, 1, '2025-08-31 08:00:20'),
+(70, 'Fake User 1', 'alpha_fk', '$2b$10$abcdefghijklmnopqrstuv', NULL, 'alpha_fk@example.com', 120, 'A1', 10, 2, 'https://picsum.photos/200?random=1', 1, 1, 1, 1, '2025-08-31 08:02:41'),
+(71, 'Fake User 2', 'bravo_fk', '$2b$10$abcdefghijklmnopqrstuv', NULL, 'bravo_fk@example.com', 340, 'A2', 25, 4, 'https://picsum.photos/200?random=2', 1, 1, 1, 1, '2025-08-31 08:02:41'),
+(72, 'Fake User 3', 'charlie_fk', '$2b$10$abcdefghijklmnopqrstuv', NULL, 'charlie_fk@example.com', 560, 'B1', 40, 5, 'https://picsum.photos/200?random=3', 1, 2, 1, 2, '2025-08-31 08:02:41'),
+(73, 'Fake User 4', 'delta_fk', '$2b$10$abcdefghijklmnopqrstuv', NULL, 'delta_fk@example.com', 220, 'B2', 15, 3, 'https://picsum.photos/200?random=4', 1, 2, 1, 1, '2025-08-31 08:02:41'),
+(74, 'Fake User 5', 'echo_fk', '$2b$10$abcdefghijklmnopqrstuv', NULL, 'echo_fk@example.com', 410, 'C1', 60, 0, 'https://picsum.photos/200?random=5', 1, 1, 1, 2, '2025-08-31 08:02:41'),
+(75, 'Fake User 6', 'foxtrot_fk', '$2b$10$abcdefghijklmnopqrstuv', NULL, 'foxtrot_fk@example.com', 175, 'C2', 70, 1, 'https://picsum.photos/200?random=6', 1, 3, 1, 3, '2025-08-31 08:02:41'),
+(76, 'Fake User 7', 'golf_fk', '$2b$10$abcdefghijklmnopqrstuv', NULL, 'golf_fk@example.com', 290, 'A2', 20, 2, 'https://picsum.photos/200?random=7', 1, 3, 1, 1, '2025-08-31 08:02:41'),
+(77, 'Fake User 8', 'hotel_fk', '$2b$10$abcdefghijklmnopqrstuv', NULL, 'hotel_fk@example.com', 505, 'B1', 90, 5, 'https://picsum.photos/200?random=8', 1, 2, 1, 2, '2025-08-31 08:02:41'),
+(78, 'Fake User 9', 'india_fk', '$2b$10$abcdefghijklmnopqrstuv', NULL, 'india_fk@example.com', 640, 'B2', 35, 4, 'https://picsum.photos/200?random=9', 1, 3, 1, 1, '2025-08-31 08:02:41'),
+(79, 'Fake User 10', 'juliet_fk', '$2b$10$abcdefghijklmnopqrstuv', NULL, 'juliet_fk@example.com', 80, 'N', 5, 1, 'https://picsum.photos/200?random=10', 1, 1, 1, 1, '2025-08-31 08:02:41'),
+(80, 'User 1', 'user1_fk', 'password123', NULL, 'user1@example.com', 10, 'A1', 5, 3, NULL, 1, 1, 1, 1, '2025-08-31 09:21:14'),
+(81, 'User 2', 'user2_fk', 'password123', NULL, 'user2@example.com', 15, 'A2', 10, 4, NULL, 1, 1, 1, 1, '2025-08-31 09:21:14'),
+(82, 'User 3', 'user3_fk', 'password123', NULL, 'user3@example.com', 20, 'B1', 20, 2, NULL, 1, 1, 1, 1, '2025-08-31 09:21:14'),
+(83, 'User 4', 'user4_fk', 'password123', NULL, 'user4@example.com', 25, 'B2', 25, 5, NULL, 1, 1, 1, 1, '2025-08-31 09:21:14'),
+(84, 'User 5', 'user5_fk', 'password123', NULL, 'user5@example.com', 30, 'C1', 30, 1, NULL, 1, 1, 1, 1, '2025-08-31 09:21:14'),
+(85, 'User 6', 'user6_fk', 'password123', NULL, 'user6@example.com', 5, 'A1', 3, 2, NULL, 1, 1, 1, 1, '2025-08-31 09:21:14'),
+(86, 'User 7', 'user7_fk', 'password123', NULL, 'user7@example.com', 12, 'A2', 8, 4, NULL, 1, 1, 1, 1, '2025-08-31 09:21:14'),
+(87, 'User 8', 'user8_fk', 'password123', NULL, 'user8@example.com', 18, 'B1', 15, 3, NULL, 1, 1, 1, 1, '2025-08-31 09:21:14'),
+(88, 'User 9', 'user9_fk', 'password123', NULL, 'user9@example.com', 22, 'B2', 22, 5, NULL, 1, 1, 1, 1, '2025-08-31 09:21:14'),
+(89, 'User 10', 'user10_fk', 'password123', NULL, 'user10@example.com', 28, 'C1', 28, 1, NULL, 1, 1, 1, 1, '2025-08-31 09:21:14'),
+(90, 'User 11', 'user11_fk', 'password123', NULL, 'user11@example.com', 8, 'A1', 6, 2, NULL, 1, 1, 1, 1, '2025-08-31 09:21:14'),
+(91, 'User 12', 'user12_fk', 'password123', NULL, 'user12@example.com', 14, 'A2', 9, 3, NULL, 1, 1, 1, 1, '2025-08-31 09:21:14'),
+(92, 'User 13', 'user13_fk', 'password123', NULL, 'user13@example.com', 19, 'B1', 18, 4, NULL, 1, 1, 1, 1, '2025-08-31 09:21:14'),
+(93, 'User 14', 'user14_fk', 'password123', NULL, 'user14@example.com', 23, 'B2', 23, 5, NULL, 1, 1, 1, 1, '2025-08-31 09:21:14'),
+(94, 'User 15', 'user15_fk', 'password123', NULL, 'user15@example.com', 27, 'C1', 27, 1, NULL, 1, 1, 1, 1, '2025-08-31 09:21:14'),
+(95, 'User 16', 'user16_fk', 'password123', NULL, 'user16@example.com', 6, 'A1', 4, 2, NULL, 1, 1, 1, 1, '2025-08-31 09:21:14'),
+(96, 'User 17', 'user17_fk', 'password123', NULL, 'user17@example.com', 13, 'A2', 7, 3, NULL, 1, 1, 1, 1, '2025-08-31 09:21:14'),
+(97, 'User 18', 'user18_fk', 'password123', NULL, 'user18@example.com', 17, 'B1', 16, 4, NULL, 1, 1, 1, 1, '2025-08-31 09:21:14'),
+(98, 'User 19', 'user19_fk', 'password123', NULL, 'user19@example.com', 21, 'B2', 21, 5, NULL, 1, 1, 1, 1, '2025-08-31 09:21:14'),
+(99, 'User 20', 'user20_fk', 'password123', NULL, 'user20@example.com', 29, 'C1', 29, 1, NULL, 1, 1, 1, 1, '2025-08-31 09:21:14'),
+(100, 'User 21', 'user21_fk', 'password123', NULL, 'user21@example.com', 355, 'C1', 50, 5, NULL, 1, 1, 1, 1, '2025-08-31 09:22:35'),
+(101, 'User 22', 'user22_fk', 'password123', NULL, 'user22@example.com', 360, 'C1', 52, 5, NULL, 1, 1, 1, 1, '2025-08-31 09:22:35'),
+(102, 'User 23', 'user23_fk', 'password123', NULL, 'user23@example.com', 365, 'C2', 55, 4, NULL, 1, 1, 1, 1, '2025-08-31 09:22:35'),
+(103, 'User 24', 'user24_fk', 'password123', NULL, 'user24@example.com', 370, 'C2', 57, 3, NULL, 1, 1, 1, 1, '2025-08-31 09:22:35'),
+(104, 'User 25', 'user25_fk', 'password123', NULL, 'user25@example.com', 375, 'C2', 60, 5, NULL, 1, 1, 1, 1, '2025-08-31 09:22:35'),
+(105, 'User 26', 'user26_fk', 'password123', NULL, 'user26@example.com', 380, 'C1', 62, 4, NULL, 1, 1, 1, 1, '2025-08-31 09:22:35'),
+(106, 'User 27', 'user27_fk', 'password123', NULL, 'user27@example.com', 385, 'C1', 65, 5, NULL, 1, 1, 1, 1, '2025-08-31 09:22:35'),
+(107, 'User 28', 'user28_fk', 'password123', NULL, 'user28@example.com', 390, 'C2', 67, 3, NULL, 1, 1, 1, 1, '2025-08-31 09:22:35'),
+(108, 'User 29', 'user29_fk', 'password123', NULL, 'user29@example.com', 395, 'C2', 70, 5, NULL, 1, 1, 1, 1, '2025-08-31 09:22:35'),
+(109, 'User 30', 'user30_fk', 'password123', NULL, 'user30@example.com', 400, 'C2', 75, 5, NULL, 1, 1, 1, 1, '2025-08-31 09:22:35');
+
 -- --------------------------------------------------------
 
 --
--- Table structure for table `words`
+-- Δομή πίνακα για τον πίνακα `words`
 --
 
 CREATE TABLE `words` (
@@ -437,7 +501,7 @@ CREATE TABLE `words` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_persian_ci;
 
 --
--- Dumping data for table `words`
+-- Άδειασμα δεδομένων του πίνακα `words`
 --
 
 INSERT INTO `words` (`id`, `written_form`, `english_equivalent`, `transliteration`, `category`, `image_url`, `audio_url`) VALUES
@@ -801,7 +865,7 @@ INSERT INTO `words` (`id`, `written_form`, `english_equivalent`, `transliteratio
 -- --------------------------------------------------------
 
 --
--- Table structure for table `words_in_sentence`
+-- Δομή πίνακα για τον πίνακα `words_in_sentence`
 --
 
 CREATE TABLE `words_in_sentence` (
@@ -811,11 +875,11 @@ CREATE TABLE `words_in_sentence` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_persian_ci;
 
 --
--- Indexes for dumped tables
+-- Ευρετήρια για άχρηστους πίνακες
 --
 
 --
--- Indexes for table `challenges`
+-- Ευρετήρια για πίνακα `challenges`
 --
 ALTER TABLE `challenges`
   ADD PRIMARY KEY (`id`),
@@ -823,20 +887,21 @@ ALTER TABLE `challenges`
   ADD KEY `fk_2_challenge_sentence_id` (`sentence_id`);
 
 --
--- Indexes for table `challenges_in_lesson`
+-- Ευρετήρια για πίνακα `challenges_in_lesson`
 --
 ALTER TABLE `challenges_in_lesson`
-  ADD PRIMARY KEY (`challenge_id`,`lesson_id`,`challenge_order`);
+  ADD PRIMARY KEY (`challenge_id`,`lesson_id`,`challenge_order`),
+  ADD KEY `fk2_lesson_id` (`lesson_id`);
 
 --
--- Indexes for table `challenge_match`
+-- Ευρετήρια για πίνακα `challenge_match`
 --
 ALTER TABLE `challenge_match`
   ADD PRIMARY KEY (`id`),
   ADD KEY `challenge_id` (`challenge_id`);
 
 --
--- Indexes for table `challenge_match_items`
+-- Ευρετήρια για πίνακα `challenge_match_items`
 --
 ALTER TABLE `challenge_match_items`
   ADD UNIQUE KEY `unique_match` (`challenge_match_id`,`word_id`,`sentence_id`),
@@ -844,14 +909,14 @@ ALTER TABLE `challenge_match_items`
   ADD KEY `fk3_sentence_id` (`sentence_id`);
 
 --
--- Indexes for table `challenge_select`
+-- Ευρετήρια για πίνακα `challenge_select`
 --
 ALTER TABLE `challenge_select`
   ADD PRIMARY KEY (`id`),
   ADD KEY `challenge_id` (`challenge_id`);
 
 --
--- Indexes for table `challenge_select_options`
+-- Ευρετήρια για πίνακα `challenge_select_options`
 --
 ALTER TABLE `challenge_select_options`
   ADD PRIMARY KEY (`id`),
@@ -860,7 +925,7 @@ ALTER TABLE `challenge_select_options`
   ADD KEY `fk_3_sentence_id` (`sentence_id`);
 
 --
--- Indexes for table `challenge_sort`
+-- Ευρετήρια για πίνακα `challenge_sort`
 --
 ALTER TABLE `challenge_sort`
   ADD PRIMARY KEY (`id`),
@@ -868,14 +933,14 @@ ALTER TABLE `challenge_sort`
   ADD KEY `sentence_id` (`sentence_id`);
 
 --
--- Indexes for table `lessons`
+-- Ευρετήρια για πίνακα `lessons`
 --
 ALTER TABLE `lessons`
   ADD PRIMARY KEY (`id`),
   ADD KEY `lesson_in_repetition` (`repetition_id`);
 
 --
--- Indexes for table `letters`
+-- Ευρετήρια για πίνακα `letters`
 --
 ALTER TABLE `letters`
   ADD PRIMARY KEY (`id`),
@@ -883,166 +948,169 @@ ALTER TABLE `letters`
   ADD KEY `writing_style_2` (`writing_style`);
 
 --
--- Indexes for table `repetitions`
+-- Ευρετήρια για πίνακα `repetitions`
 --
 ALTER TABLE `repetitions`
   ADD PRIMARY KEY (`id`),
   ADD KEY `repetitions_in_unit` (`unit_id`);
 
 --
--- Indexes for table `sections`
+-- Ευρετήρια για πίνακα `sections`
 --
 ALTER TABLE `sections`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `sentences`
+-- Ευρετήρια για πίνακα `sentences`
 --
 ALTER TABLE `sentences`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `sentence_matches`
+-- Ευρετήρια για πίνακα `sentence_matches`
 --
 ALTER TABLE `sentence_matches`
   ADD UNIQUE KEY `unique_pair` (`sentence_left_id`,`sentence_right_id`),
   ADD KEY `fk_right_sentence` (`sentence_right_id`);
 
 --
--- Indexes for table `units`
+-- Ευρετήρια για πίνακα `units`
 --
 ALTER TABLE `units`
   ADD PRIMARY KEY (`id`),
   ADD KEY `section_id` (`section_id`);
 
 --
--- Indexes for table `users`
+-- Ευρετήρια για πίνακα `users`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`),
   ADD KEY `current_section` (`current_section`),
   ADD KEY `current_unit` (`current_unit`),
-  ADD KEY `current_lesson` (`current_lesson`);
+  ADD KEY `current_lesson` (`current_lesson`),
+  ADD KEY `users_ibfk_3` (`current_repetition`);
 
 --
--- Indexes for table `words`
+-- Ευρετήρια για πίνακα `words`
 --
 ALTER TABLE `words`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `words_in_sentence`
+-- Ευρετήρια για πίνακα `words_in_sentence`
 --
 ALTER TABLE `words_in_sentence`
   ADD PRIMARY KEY (`word_id`,`sentence_id`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT για άχρηστους πίνακες
 --
 
 --
--- AUTO_INCREMENT for table `challenges`
+-- AUTO_INCREMENT για πίνακα `challenges`
 --
 ALTER TABLE `challenges`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=504;
 
 --
--- AUTO_INCREMENT for table `challenge_match`
+-- AUTO_INCREMENT για πίνακα `challenge_match`
 --
 ALTER TABLE `challenge_match`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
--- AUTO_INCREMENT for table `challenge_select`
+-- AUTO_INCREMENT για πίνακα `challenge_select`
 --
 ALTER TABLE `challenge_select`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
--- AUTO_INCREMENT for table `challenge_select_options`
+-- AUTO_INCREMENT για πίνακα `challenge_select_options`
 --
 ALTER TABLE `challenge_select_options`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT for table `challenge_sort`
+-- AUTO_INCREMENT για πίνακα `challenge_sort`
 --
 ALTER TABLE `challenge_sort`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
--- AUTO_INCREMENT for table `lessons`
+-- AUTO_INCREMENT για πίνακα `lessons`
 --
 ALTER TABLE `lessons`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
--- AUTO_INCREMENT for table `letters`
+-- AUTO_INCREMENT για πίνακα `letters`
 --
 ALTER TABLE `letters`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
 
 --
--- AUTO_INCREMENT for table `repetitions`
+-- AUTO_INCREMENT για πίνακα `repetitions`
 --
 ALTER TABLE `repetitions`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
--- AUTO_INCREMENT for table `sections`
+-- AUTO_INCREMENT για πίνακα `sections`
 --
 ALTER TABLE `sections`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT for table `sentences`
+-- AUTO_INCREMENT για πίνακα `sentences`
 --
 ALTER TABLE `sentences`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
--- AUTO_INCREMENT for table `units`
+-- AUTO_INCREMENT για πίνακα `units`
 --
 ALTER TABLE `units`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
--- AUTO_INCREMENT for table `users`
+-- AUTO_INCREMENT για πίνακα `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=55;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=110;
 
 --
--- AUTO_INCREMENT for table `words`
+-- AUTO_INCREMENT για πίνακα `words`
 --
 ALTER TABLE `words`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=358;
 
 --
--- Constraints for dumped tables
+-- Περιορισμοί για άχρηστους πίνακες
 --
 
 --
--- Constraints for table `challenges`
+-- Περιορισμοί για πίνακα `challenges`
 --
 ALTER TABLE `challenges`
   ADD CONSTRAINT `fk1_challenge_word_id` FOREIGN KEY (`word_id`) REFERENCES `words` (`id`),
   ADD CONSTRAINT `fk_2_challenge_sentence_id` FOREIGN KEY (`sentence_id`) REFERENCES `sentences` (`id`);
 
 --
--- Constraints for table `challenges_in_lesson`
+-- Περιορισμοί για πίνακα `challenges_in_lesson`
 --
 ALTER TABLE `challenges_in_lesson`
-  ADD CONSTRAINT `challenge` FOREIGN KEY (`challenge_id`) REFERENCES `challenges` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `challenge` FOREIGN KEY (`challenge_id`) REFERENCES `challenges` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk2_lesson_id` FOREIGN KEY (`lesson_id`) REFERENCES `lessons` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `lesson` FOREIGN KEY (`lesson_id`) REFERENCES `lessons` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `challenge_match`
+-- Περιορισμοί για πίνακα `challenge_match`
 --
 ALTER TABLE `challenge_match`
   ADD CONSTRAINT `challenge_match_ibfk_1` FOREIGN KEY (`challenge_id`) REFERENCES `challenges` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `challenge_match_items`
+-- Περιορισμοί για πίνακα `challenge_match_items`
 --
 ALTER TABLE `challenge_match_items`
   ADD CONSTRAINT `fk1_challenge_match_id` FOREIGN KEY (`challenge_match_id`) REFERENCES `challenge_select` (`id`) ON DELETE CASCADE,
@@ -1050,13 +1118,13 @@ ALTER TABLE `challenge_match_items`
   ADD CONSTRAINT `fk3_sentence_id` FOREIGN KEY (`sentence_id`) REFERENCES `sentences` (`id`) ON DELETE CASCADE;
 
 --
--- Constraints for table `challenge_select`
+-- Περιορισμοί για πίνακα `challenge_select`
 --
 ALTER TABLE `challenge_select`
   ADD CONSTRAINT `challenge_select_ibfk_1` FOREIGN KEY (`challenge_id`) REFERENCES `challenges` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `challenge_select_options`
+-- Περιορισμοί για πίνακα `challenge_select_options`
 --
 ALTER TABLE `challenge_select_options`
   ADD CONSTRAINT `fk_1_challenge_select_id` FOREIGN KEY (`challenge__select_id`) REFERENCES `challenge_select` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
@@ -1064,47 +1132,45 @@ ALTER TABLE `challenge_select_options`
   ADD CONSTRAINT `fk_3_sentence_id` FOREIGN KEY (`sentence_id`) REFERENCES `sentences` (`id`);
 
 --
--- Constraints for table `challenge_sort`
+-- Περιορισμοί για πίνακα `challenge_sort`
 --
 ALTER TABLE `challenge_sort`
   ADD CONSTRAINT `challenge_sort_ibfk_1` FOREIGN KEY (`challenge_id`) REFERENCES `challenges` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `challenge_sort_ibfk_2` FOREIGN KEY (`sentence_id`) REFERENCES `sentences` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `lessons`
+-- Περιορισμοί για πίνακα `lessons`
 --
 ALTER TABLE `lessons`
   ADD CONSTRAINT `lesson_in_repetition` FOREIGN KEY (`repetition_id`) REFERENCES `repetitions` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 --
--- Constraints for table `repetitions`
+-- Περιορισμοί για πίνακα `repetitions`
 --
 ALTER TABLE `repetitions`
   ADD CONSTRAINT `repetitions_in_unit` FOREIGN KEY (`unit_id`) REFERENCES `units` (`id`) ON DELETE SET NULL ON UPDATE SET NULL;
 
 --
--- Constraints for table `sentence_matches`
+-- Περιορισμοί για πίνακα `sentence_matches`
 --
 ALTER TABLE `sentence_matches`
   ADD CONSTRAINT `fk_left_sentence` FOREIGN KEY (`sentence_left_id`) REFERENCES `sentences` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `fk_right_sentence` FOREIGN KEY (`sentence_right_id`) REFERENCES `sentences` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `units`
+-- Περιορισμοί για πίνακα `units`
 --
 ALTER TABLE `units`
   ADD CONSTRAINT `units_ibfk_1` FOREIGN KEY (`section_id`) REFERENCES `sections` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `users`
+-- Περιορισμοί για πίνακα `users`
 --
 ALTER TABLE `users`
-  ADD CONSTRAINT `users_ibfk_1` FOREIGN KEY (`current_section`) REFERENCES `sections` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `users_ibfk_2` FOREIGN KEY (`current_unit`) REFERENCES `units` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `users_ibfk_3` FOREIGN KEY (`current_lesson`) REFERENCES `lessons` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `users_ibfk_1` FOREIGN KEY (`current_section`) REFERENCES `sections` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `words_in_sentence`
+-- Περιορισμοί για πίνακα `words_in_sentence`
 --
 ALTER TABLE `words_in_sentence`
   ADD CONSTRAINT `words_in_sentence_ibfk_1` FOREIGN KEY (`sentence_id`) REFERENCES `sentences` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
