@@ -1,8 +1,8 @@
 import { createContext, useCallback, useState } from "react";
 import { useRef } from "react";
-import lessonCompletedSound from "../components/Learn/Main/Practice/Lesson/sounds/fanfare.mp3"
-import nextChallengeSound from "../components/Learn/Main/Practice/Lesson/sounds/short-fanfare.wav";
-import wrongAnswerSound from "../components/Learn/Main/Practice/Lesson/sounds/wrong-answer.wav";
+// import lessonCompletedSound from "../components/Learn/Main/Practice/Lesson-old/sounds/fanfare.mp3"
+// import nextChallengeSound from "../components/Learn/Main/Practice/Lesson-old/sounds/short-fanfare.wav";
+// import wrongAnswerSound from "../components/Learn/Main/Practice/Lesson-old/sounds/wrong-answer.wav";
 
 const LessonContext = createContext({});
 
@@ -70,10 +70,10 @@ export const LessonProvider = ({ children }) => {
       answerText,
       setAnswerText,
       playSound,
-      nextChallengeSound,
-      wrongAnswerSound,
+      // nextChallengeSound,
+      // wrongAnswerSound,
+      // lessonCompletedSound,
       fisher_yates_shuffle,
-      lessonCompletedSound,
       hasSwiped,
       setHasSwiped,
       selectedOption,

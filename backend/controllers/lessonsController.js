@@ -18,7 +18,8 @@ export const getLessonsOfSection = async (req, res) => {
     const unitsMap = lessons.reduce((acc, lesson) => {
       const uOrder = lesson.unit_order;
       const uId = lesson.unit_id;
-      const rOrder = lesson.repetition_order;
+      const rep_Order = lesson.repetition_order;
+      const rep_type = lesson.repetition_type;
 
       if (!acc[uOrder]) {
         acc[uOrder] = {
@@ -29,14 +30,15 @@ export const getLessonsOfSection = async (req, res) => {
         };
       }
 
-      if (!acc[uOrder].repetitions[rOrder]) {
-        acc[uOrder].repetitions[rOrder] = {
-          repetition_order: rOrder,
+      if (!acc[uOrder].repetitions[rep_Order]) {
+        acc[uOrder].repetitions[rep_Order] = {
+          repetition_type: rep_type,
+          repetition_order: rep_Order,
           lessons: []
         };
       }
 
-      acc[uOrder].repetitions[rOrder].lessons.push(lesson);
+      acc[uOrder].repetitions[rep_Order].lessons.push(lesson);
       return acc;
     }, {});
 

@@ -3,7 +3,7 @@ import db from '../config/db.js'
 export const getLessonsOfSectionFromDB = async (req, res) => {
     const query_parameters = [req.query.section_id];
     const sql_query = `
-        SELECT lessons.*, units.id as unit_id, units.title as unit_title, units.unit_order, repetitions.repetition_order
+        SELECT lessons.*, units.id as unit_id, units.title as unit_title, units.unit_order, repetitions.repetition_type, repetitions.repetition_order
         FROM lessons
         JOIN repetitions ON lessons.repetition_id = repetitions.id
         JOIN units ON repetitions.unit_id = units.id
@@ -246,13 +246,14 @@ export const getLessonFromDB = async (req, res) => {
 
             // --------------------Default: Unknown type--------------------
             default:
-                // return { ...challenge, content: [] };
-                return {}
+                return { ...challenge, content: [] };
         }
     }));
     return enrichedChallenges;
 }
+
 // FETCHING CHALLENGES IN A LESSON WITH ONLY ONE QUERY:
+
 // SELECT challenges.*,
 //        challenge_match.id as match_id, 
 //        challenge_match.match_type,

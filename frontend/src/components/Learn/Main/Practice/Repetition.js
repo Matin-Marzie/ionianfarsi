@@ -48,6 +48,7 @@ const Repetition = ({ unit, repetition }) => {
         <div className="">
 
             <Drop
+                repetition_type={repetition.repetition_type}
                 lesson={lesson}
                 percentage={percentage}
             />
