@@ -8,10 +8,17 @@ const LessonContext = createContext({});
 
 export const LessonProvider = ({ children }) => {
   // Shared states
-  const [correctAnswer, setCorrectAnswer] = useState(null);
+  const [currentUnit, setCurrentUnit] = useState(1);
+  const [currentRepetition, setCurrentRepetition] = useState(1);
+  const [currentLesson, setCurrentLesson] = useState(1);
   const [challengeIndex, setChallengeIndex] = useState(0);
-  const [challenge, setChallenge] = useState();
-  const [challenges, setChallenges] = useState([]);
+
+  
+  
+
+
+
+  const [correctAnswer, setCorrectAnswer] = useState(null);
 
   const [displayAnswer, setDisplayAnswer] = useState(false);
   const [answerText, setAnswerText] = useState('');
@@ -57,29 +64,22 @@ export const LessonProvider = ({ children }) => {
 
   return (
     <LessonContext.Provider value={{
-      correctAnswer,
-      setCorrectAnswer,
-      challengeIndex,
-      setChallengeIndex,
-      challenge,
-      setChallenge,
-      challenges,
-      setChallenges,
-      displayAnswer,
-      setDisplayAnswer,
-      answerText,
-      setAnswerText,
+      currentUnit, setCurrentUnit,
+      currentRepetition, setCurrentRepetition,
+      currentLesson, setCurrentLesson,
+      challengeIndex,setChallengeIndex,
+
+      correctAnswer, setCorrectAnswer,
+      displayAnswer, setDisplayAnswer,
+      answerText, setAnswerText,
+      selectedOption, setSelectedOption,
       playSound,
+      fisher_yates_shuffle,
+      hasSwiped, setHasSwiped,
+      destinationItems, setDestinationItems
       // nextChallengeSound,
       // wrongAnswerSound,
       // lessonCompletedSound,
-      fisher_yates_shuffle,
-      hasSwiped,
-      setHasSwiped,
-      selectedOption,
-      setSelectedOption,
-      destinationItems,
-      setDestinationItems
     }}>
       {children}
     </LessonContext.Provider>

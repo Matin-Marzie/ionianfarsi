@@ -6,9 +6,10 @@ import { useNavigate } from 'react-router-dom';
 const ProfileInfo = ({ PublicUser }) => {
     const { user: authUser } = useAuth();
 
+    // For navigating to the previous page 
     const navigate = useNavigate();
 
-    // pick PublicUser if defined, otherwise fallback to auth user
+    // Pick PublicUser if defined, otherwise fallback to auth user
     const user = PublicUser ?? authUser;
 
     return (
@@ -31,7 +32,7 @@ const ProfileInfo = ({ PublicUser }) => {
                         <h3 className="">Experience</h3>
                     </li>
                     <li className="flex flex-col">
-                        <span className='flex items-center gap-1'>{user?.current_unit ?? 1} <FaBook className='text-red-500' /></span>
+                        <span className='flex items-center gap-1'>{user?.unit_id ?? 1} <FaBook className='text-red-500' /></span>
                         <h3 className="">Unit</h3>
                     </li>
                 </ul>

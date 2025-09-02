@@ -1,11 +1,11 @@
 import { Link } from "react-router-dom"
 import Repetition from "./Repetition"
 
-const Unit = ({ unit, currentSection, id }) => {
+const Unit = ({ unit, currentSection}) => {
 
     return (
         <article
-            id={id}
+            id={`unit-${unit.unit_id}`}
             className="px-2 flex flex-col bg-white"
         >
             <Link to='sections' className='bg-bluesea io-button p-4 sticky top-0 z-20'>
@@ -32,7 +32,7 @@ const Unit = ({ unit, currentSection, id }) => {
                     }
 
                     return (
-                        <div key={rep.repetition_order} className={`${colClass}`}>
+                        <div key={rep.repetition_id} className={`${colClass}`}>
                             <Repetition unit={unit} repetition={rep} unit_order={unit.unit_order} />
                         </div>
                     );

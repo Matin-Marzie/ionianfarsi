@@ -2,15 +2,19 @@ import db from '../config/db.js'
 
 export const getLessonsOfSectionFromDB = async (req, res) => {
     const query_parameters = [req.query.section_id];
-    const sql_query = `
-        SELECT lessons.*, units.id as unit_id, units.title as unit_title, units.unit_order, repetitions.repetition_type, repetitions.repetition_order
+    const get_lessons_query = `
+        SELECT  units.section_id as section_id,
+		units.id as unit_id, units.title as unit_title, units.description as unit_description, units.unit_order,
+        repetitions.id as repetition_id, repetitions.titile as repetition_title, repetitions.repetition_type, repetitions.repetition_order,
+        lessons.id as lesson_id, lessons.title as lesson_title, lessons.lesson_order
+        
         FROM lessons
         JOIN repetitions ON lessons.repetition_id = repetitions.id
         JOIN units ON repetitions.unit_id = units.id
         WHERE units.section_id = ?
-        ORDER BY repetitions.unit_id, lessons.repetition_id, lessons.lesson_order;
+        ORDER BY units.unit_order, repetitions.repetition_order, lessons.lesson_order;
     `;
-    const [lessons] = await db.execute(sql_query, query_parameters);
+    const [lessons] = await db.execute(get_lessons_query, query_parameters);
     return lessons;
 }
 
@@ -240,7 +244,6 @@ export const getLessonFromDB = async (req, res) => {
                     res.content.sentence_words = sentenceWords;
                 }
 
-                console.log(res);
                 return res;
             }
 

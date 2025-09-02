@@ -1,12 +1,16 @@
 import { Link } from "react-router-dom";
 import { IoVideocam } from "react-icons/io5";
 import { TbPlaystationTriangle, TbPlaystationCircle, TbPlaystationX, TbPlaystationSquare } from "react-icons/tb";
+import { useContext } from "react";
+import LessonContext from "../../../../context/LessonContext";
 
-const Drop = ({ repetition_type, lesson, percentage }) => {
+const Drop = ({ repetition_type, percentage }) => {
+    const { currentLesson } = useContext(LessonContext);
+
     return (
         <div className="relative flex justify-center">
             <Link className="io-drop flex rounded-[5%_50%_50%_50%] rotate-45 w-[80px] h-[80px] border-[3px] border-bluesea shadow-[4px_4px_0_0_#094c66] overflow-hidden"
-                to={`/learn/lesson/${lesson?.id}`}>
+                to={`/learn/lesson/${currentLesson?.lesson_id}`}>
 
                 {/* the percentage is ranged from  0 to 135*/}
                 <div className={`absolute left-[-7px] bottom-[0px] w-[150%] rotate-[-45deg] bg-[url('../images/water.png')] bg-repeat-x bg-top animate-wave`}
@@ -16,6 +20,7 @@ const Drop = ({ repetition_type, lesson, percentage }) => {
                     }}
                 ></div>
                 <div className="text-[55px] rotate-[-45deg] absolute left-3 bottom-1.5">
+                    {/* Depending on repetition_type display appropriate icon */}
                     {repetition_type === 'watch_video' ? (<IoVideocam className="text-[46px] ml-1.5 mb-1.5"/>) :
                         repetition_type === 'challenges_repetition_1' ? (<TbPlaystationTriangle className="text-green-800"/>) :
                         repetition_type === 'challenges_repetition_2' ? (<TbPlaystationCircle className="text-red-600"/>) :

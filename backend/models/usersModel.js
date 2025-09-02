@@ -27,14 +27,14 @@ export const findUserByUsername = async (username) => {
 };
 
 export const getAllUsersPublicProfileFromDB = async () => {
-  const sql_query = `SELECT id, name, username, experience, level, profile_picture_url, current_section, current_unit, joined_date FROM users ORDER BY experience DESC`;
+  const sql_query = `SELECT id, name, username, experience, level, profile_picture_url, section_id, unit_id, joined_date FROM users ORDER BY experience DESC`;
   const [rows] = await db.execute(sql_query);
   return rows;
 }
 
 export const getUserPublicProfileFromDB = async (username) => {
   const sql_query = `
-    SELECT id, name, username, experience, level, profile_picture_url, current_unit, joined_date 
+    SELECT id, name, username, experience, level, profile_picture_url, unit_id, joined_date 
     FROM users 
     WHERE username = ?
   `;
@@ -48,10 +48,10 @@ export const updateUserByUsernameInDB = async (username, updates) => {
   if (updates.name !== undefined) fields.push(`name = '${updates.name}'`);
   if (updates.email !== undefined) fields.push(`email = '${updates.email}'`);
   if (updates.experience !== undefined) fields.push(`experience = ${updates.experience}`);
-  if (updates.current_section !== undefined) fields.push(`current_section = ${updates.current_section}`);
-  if (updates.current_unit !== undefined) fields.push(`current_unit = ${updates.current_unit}`);
-  if (updates.current_repetition !== undefined) fields.push(`current_repetition = ${updates.current_repetition}`);
-  if (updates.current_lesson !== undefined) fields.push(`current_lesson = ${updates.current_lesson}`);
+  if (updates.section_id !== undefined) fields.push(`section_id = ${updates.section_id}`);
+  if (updates.unit_id !== undefined) fields.push(`unit_id = ${updates.unit_id}`);
+  if (updates.repetition_id !== undefined) fields.push(`repetition_id = ${updates.repetition_id}`);
+  if (updates.lesson_id !== undefined) fields.push(`lesson_id = ${updates.lesson_id}`);
 
   if (fields.length === 0) {
     throw new Error("No fields provided for update.");

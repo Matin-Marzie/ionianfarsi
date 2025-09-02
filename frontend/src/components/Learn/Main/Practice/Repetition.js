@@ -1,38 +1,28 @@
-import useAuth from "../../../../hooks/UseAuth"
+import { useContext } from "react";
 import Drop from "./Drop"
+import LessonContext from "../../../../context/LessonContext";
 
 const Repetition = ({ unit, repetition }) => {
-    const { user } = useAuth();
-
-    const lesson = repetition.lessons.find(
-        (lesson) => lesson.lesson_order === user.current_lesson
-    ) || {
-        id: 1,
-        title: "lesson 2",
-        lesson_order: 1,
-        repetition_id: 1,
-        unit_id: 1,
-        unit_title: "Get Started",
-        unit_order: 1,
-        repetition_order: 1
-    };
+    const {
+        currentUnit, currentRepetition, currentLesson
+    } = useContext(LessonContext);
 
     let percentage;
 
-    // Previous units
-    if (unit.unit_order < user.current_unit) {
+    // Previous units (to change their color to bluasea)
+    if (unit.unit_order < currentUnit.unit_order) {
         percentage = 100
 
         // Current unit
-    } else if (unit.unit_order === user.current_unit) {
+    } else if (unit.unit_id === currentUnit.unit_id) {
 
         // Previous repetitions
-        if (repetition.repetition_order < user.current_repetition) {
+        if (repetition.repetition_order < currentRepetition.repetition_order) {
             percentage = 100
 
             // Current repetition
-        } else if (repetition.repetition_order === user.current_repetition) {
-            percentage = ((lesson.lesson_order - 1) / repetition.lessons.length) * 100
+        } else if (repetition.repetition_id === currentRepetition.repetition_id) {
+            percentage = ((currentLesson.lesson_order - 1) / repetition.lessons.length) * 100
 
             // Next repetitions
         } else {
@@ -45,14 +35,12 @@ const Repetition = ({ unit, repetition }) => {
     }
 
     return (
-        <div className="">
+        <div >
 
             <Drop
                 repetition_type={repetition.repetition_type}
-                lesson={lesson}
                 percentage={percentage}
             />
-            {/*  */}
         </div>
     )
 }

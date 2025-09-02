@@ -45,10 +45,10 @@ export const AuthProvider = ({ children }) => {
     coin: 0,
     energy: 5,
     profile_picture_url: "/profile.png",
-    current_section: 1,
-    current_unit: 1,
-    current_repetition: 1,
-    current_lesson: 1,
+    section_id: 1,
+    unit_id: 1,
+    repetition_id: 1,
+    lesson_id: 1,
     joined_date: new Date().toISOString()
   };
 

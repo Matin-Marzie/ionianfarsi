@@ -5,8 +5,10 @@ import ProfileInfo from "./ProfileInfo";
 import Leaderboard from "./Leaderboard";
 
 const PublicProfile = () => {
+  //  /profile/:username
   const { username } = useParams();
 
+  // fetch public user data
   const {
     data: publicUser,
     isLoading,

@@ -8,8 +8,11 @@ import { Link } from "react-router-dom";
 const Leaderboard = ({ publicUser }) => {
   const { isLoggedIn, user } = useAuth();
   const axiosPrivate = useAxiosPrivate();
+
+  // Scroll to user in leaderBoard
   const userRef = useRef(null);
 
+  // Fetch all users
   const { data: allUsers, isLoading, error } = useQuery({
     queryKey: ["users"],
     queryFn: () => getUsers(axiosPrivate),
@@ -19,16 +22,18 @@ const Leaderboard = ({ publicUser }) => {
     cacheTime: 1000 * 60 * 60 * 24 * 2,
   });
 
-  // derive the "users" list depending on mode
+  // derive the "users" list depending on mode(me or publichUser)
   const users = useMemo(() => {
     if (publicUser) {
       // deduplicate: if publicUser === user, only keep one
+      // current user watching it's publicUser
       if (publicUser.id === user?.id) return [user];
       return [user, publicUser].filter(Boolean);
     }
     return allUsers || [];
   }, [allUsers, publicUser, user]);
 
+  // Scroll to the current user
   useEffect(() => {
     if (userRef.current) {
       userRef.current.scrollIntoView({ behavior: "smooth", block: "center" });
@@ -54,6 +59,7 @@ const Leaderboard = ({ publicUser }) => {
                     : "bg-white"
                   }`}
               >
+                {/* Visit other users public page */}
                 <Link
                   className="flex justify-between p-4 items-center"
                   to={`/profile/${userInBoard.username}`}

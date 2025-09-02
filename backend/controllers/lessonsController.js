@@ -14,42 +14,48 @@ export const getLessonsOfSection = async (req, res) => {
   try {
     const lessons = await getLessonsOfSectionFromDB(req, res);
 
-    // Group by unit → repetition → lessons
-    const unitsMap = lessons.reduce((acc, lesson) => {
-      const uOrder = lesson.unit_order;
-      const uId = lesson.unit_id;
-      const rep_Order = lesson.repetition_order;
-      const rep_type = lesson.repetition_type;
-
-      if (!acc[uOrder]) {
-        acc[uOrder] = {
-          unit_id: uId, 
-          unit_order: uOrder,
-          unit_title: lesson.unit_title || `Unit ${uOrder}`,
-          repetitions: {}
+    // Group by unit -> repetition -> lessons as arrays
+    const units = lessons.reduce((unitsAcc, row) => {
+      // Find or create unit
+      let unit = unitsAcc.find(u => u.unit_id === row.unit_id);
+      if (!unit) {
+        unit = {
+          unit_id: row.unit_id,
+          unit_title: row.unit_title,
+          unit_description: row.unit_description,
+          unit_order: row.unit_order,
+          repetitions: []
         };
+        unitsAcc.push(unit);
       }
 
-      if (!acc[uOrder].repetitions[rep_Order]) {
-        acc[uOrder].repetitions[rep_Order] = {
-          repetition_type: rep_type,
-          repetition_order: rep_Order,
+      // Find or create repetition inside unit
+      let repetition = unit.repetitions.find(r => r.repetition_id === row.repetition_id);
+      if (!repetition) {
+        repetition = {
+          repetition_id: row.repetition_id,
+          repetition_title: row.repetition_title,
+          repetition_type: row.repetition_type,
+          repetition_order: row.repetition_order,
           lessons: []
         };
+        unit.repetitions.push(repetition);
       }
 
-      acc[uOrder].repetitions[rep_Order].lessons.push(lesson);
-      return acc;
-    }, {});
+      // Find or create lesson inside repetition
+      let lesson = repetition.lessons.find(l => l.lesson_id === row.lesson_id);
+      if (!lesson) {
+        lesson = {
+          lesson_id: row.lesson_id,
+          lesson_title: row.lesson_title,
+          lesson_order: row.lesson_order
+        };
+        repetition.lessons.push(lesson);
+      }
 
-    // Convert to sorted array
-    const units = Object.values(unitsMap)
-      .sort((a, b) => a.unit_order - b.unit_order)
-      .map(unit => ({
-        ...unit,
-        repetitions: Object.values(unit.repetitions)
-          .sort((a, b) => a.repetition_order - b.repetition_order)
-      }));
+      return unitsAcc;
+    }, []);
+
 
     res.json(units);
   } catch (err) {
@@ -59,21 +65,19 @@ export const getLessonsOfSection = async (req, res) => {
 };
 
 
-
-
 export const getLesson = async (req, res) => {
-    // Parameters validation
-    const schema = Joi.object({
-        lesson_id: Joi.number().integer().min(1).max(500).required()
-    });
-    const { error } = schema.validate({ lesson_id: req.query.lesson_id });
+  // Parameters validation
+  const schema = Joi.object({
+    lesson_id: Joi.number().integer().min(1).max(500).required()
+  });
+  const { error } = schema.validate({ lesson_id: req.query.lesson_id });
 
-    if (error) return res.status(400).send(error.details[0].message);
-    try {
-        const lesson = await getLessonFromDB(req, res);
-        res.json(lesson);
-    } catch (err) {
-        console.error("Error in /lesson:", err);
-        res.status(500).json({ error: "Error fetching lesson data" });
-    }
+  if (error) return res.status(400).send(error.details[0].message);
+  try {
+    const lesson = await getLessonFromDB(req, res);
+    res.json(lesson);
+  } catch (err) {
+    console.error("Error in /lesson:", err);
+    res.status(500).json({ error: "Error fetching lesson data" });
+  }
 };
