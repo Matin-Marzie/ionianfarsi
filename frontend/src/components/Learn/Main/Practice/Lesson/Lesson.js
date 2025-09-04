@@ -1,21 +1,29 @@
 import { useQuery } from "@tanstack/react-query";
 import { fetchLessonChallenges } from "../../../../../api/LearnApi";
+import { useParams } from "react-router-dom";
 
-const Lesson = ({ lessonId }) => {
+const Lesson = ({ }) => {
+
+  const { id } = useParams();
+
   const { data: lessonChallenges, isLoading } = useQuery({
-    queryKey: ["challenges", lessonId],
-    queryFn: ({ signal }) => fetchLessonChallenges({ lessonId, signal }),
+    queryKey: ["challenges", id],
+    queryFn: ({ signal }) => fetchLessonChallenges({ lessonId: id, signal }),
     staleTime: Infinity,
   });
 
 
-  if (isLoading) return <p>Loading...</p>;
+  if (isLoading) return (
+    <p>Loading</p>
+  );
+
+  console.log(lessonChallenges)
 
   return (
     <div>
       <h1>Lesson page</h1>
-      {lessonChallenges?.map((c, i) => (
-        <div key={c.id || i}>{c.title}</div>
+      {lessonChallenges?.map((chal) => (
+        <div key={chal.challenge_order}>{chal.id} {chal.challenge_order}</div>
       ))}
     </div>
   );

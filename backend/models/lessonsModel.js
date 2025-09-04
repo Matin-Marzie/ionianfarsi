@@ -24,7 +24,7 @@ export const getLessonFromDB = async (req, res) => {
 
     // Get all the challenges in the lesson
     const queryChallenges = `
-        SELECT challenges.*
+        SELECT challenges.*, challenges_in_lesson.challenge_order
         FROM lessons
         JOIN challenges_in_lesson ON challenges_in_lesson.lesson_id = lessons.id
         JOIN challenges ON challenges_in_lesson.challenge_id = challenges.id

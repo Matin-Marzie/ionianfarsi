@@ -20,7 +20,6 @@ const Practice = () => {
 
   // Current section(section user viewing or user section)
   const currentSection = location.state?.currentSection || user.section_id;
-  console.log(currentSection)
 
   // Fetch all units in a section with repetitions and lessons inside of unit
   const {
