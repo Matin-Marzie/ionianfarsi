@@ -48,7 +48,7 @@ function App() {
               <Route path="learn" element={<LessonProvider><Outlet /></LessonProvider>}>
                 <Route index element={<Learn />} />
                 <Route path="sections" element={<Sections />} />
-                <Route path="lesson/:id" element={<Lesson />} />
+                <Route path="lesson/:lesson_id" element={<Lesson />} />
               </Route>
 
               <Route path="profile">

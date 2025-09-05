@@ -8,9 +8,9 @@ const LessonContext = createContext({});
 
 export const LessonProvider = ({ children }) => {
   // Shared states
-  const [currentUnit, setCurrentUnit] = useState(1);
-  const [currentRepetition, setCurrentRepetition] = useState(1);
-  const [currentLesson, setCurrentLesson] = useState(1);
+  const [currentUnit, setCurrentUnit] = useState({});
+  const [currentRepetition, setCurrentRepetition] = useState({});
+  const [currentLesson, setCurrentLesson] = useState({});
   const [challengeIndex, setChallengeIndex] = useState(0);
 
   

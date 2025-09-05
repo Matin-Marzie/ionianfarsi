@@ -22,6 +22,14 @@ export const getLessonsOfSectionFromDB = async (req, res) => {
 export const getLessonFromDB = async (req, res) => {
     const lessonId = req.query.lesson_id;
 
+    // get lesson data
+    const lessonQuery = `
+        SELECT lessons.id AS lesson_id, lessons.title AS lesson_title, lessons.type as lesson_type, lessons.lesson_order
+        FROM lessons
+        WHERE lessons.id = ?
+    `
+    const [lessonData] = await db.execute(lessonQuery, [lessonId]);
+
     // Get all the challenges in the lesson
     const queryChallenges = `
         SELECT challenges.*, challenges_in_lesson.challenge_order
@@ -252,7 +260,7 @@ export const getLessonFromDB = async (req, res) => {
                 return { ...challenge, content: [] };
         }
     }));
-    return enrichedChallenges;
+    return { ...lessonData[0], challenges: enrichedChallenges};
 }
 
 // FETCHING CHALLENGES IN A LESSON WITH ONLY ONE QUERY:

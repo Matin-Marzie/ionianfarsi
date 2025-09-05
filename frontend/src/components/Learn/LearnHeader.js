@@ -1,6 +1,6 @@
 import useAuth from '../../hooks/UseAuth'
 
-const Header = () => {
+const LearnHeader = () => {
   const { user } = useAuth();
 
   return (
@@ -28,4 +28,4 @@ const Header = () => {
 };
 
 
-export default Header
+export default LearnHeader
