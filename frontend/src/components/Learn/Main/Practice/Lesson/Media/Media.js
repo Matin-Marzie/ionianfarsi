@@ -1,17 +1,17 @@
+import MediaDialogue from "./MediaDialogue.js"
+import MediaWordSentence from "./MediaWordSentence.js"
 
-const Media = ({challenge}) => {
-    const current_challenge_media_type = challenge?.media_type;
+const Media = ({ challenge }) => {
 
-    return (
-        <div>
-            {/* If there is no media, we don't display <Media /> compoentn */}
-            {current_challenge_media_type ? (
-                <div>Media-{current_challenge_media_type}</div>
-            ) : (
-                <div></div>
-            )}
-        </div>
-    )
+  return (
+    <div className="grow">
+      {challenge?.word || challenge?.sentence ?
+        <MediaWordSentence />
+        :
+        <MediaDialogue dialogue={challenge?.dialogue} />
+      }
+    </div>
+  );
 }
 
-export default Media
+export default Media;

@@ -1,8 +1,8 @@
 import { createContext, useCallback, useState } from "react";
 import { useRef } from "react";
-// import lessonCompletedSound from "../components/Learn/Main/Practice/Lesson-old/sounds/fanfare.mp3"
-// import nextChallengeSound from "../components/Learn/Main/Practice/Lesson-old/sounds/short-fanfare.wav";
-// import wrongAnswerSound from "../components/Learn/Main/Practice/Lesson-old/sounds/wrong-answer.wav";
+import lessonCompletedSound from "../components/Learn/Main/Practice/Lesson/sounds/fanfare.mp3"
+import nextChallengeSound from "../components/Learn/Main/Practice/Lesson/sounds/short-fanfare.wav";
+import wrongAnswerSound from "../components/Learn/Main/Practice/Lesson/sounds/wrong-answer.wav";
 
 const LessonContext = createContext({});
 
@@ -12,10 +12,7 @@ export const LessonProvider = ({ children }) => {
   const [currentRepetition, setCurrentRepetition] = useState({});
   const [currentLesson, setCurrentLesson] = useState({});
   const [challengeIndex, setChallengeIndex] = useState(0);
-
-  
-  
-
+  const [challenge, setChallenge] = useState({});
 
 
   const [correctAnswer, setCorrectAnswer] = useState(null);
@@ -49,6 +46,7 @@ export const LessonProvider = ({ children }) => {
   }, []);
 
 
+  const [isLessonCompleted, setIsLessonCompleted] = useState(false);
 
 
   // ----------Fisher-Yates_Algorithm----------
@@ -68,6 +66,7 @@ export const LessonProvider = ({ children }) => {
       currentRepetition, setCurrentRepetition,
       currentLesson, setCurrentLesson,
       challengeIndex,setChallengeIndex,
+      challenge, setChallenge,
 
       correctAnswer, setCorrectAnswer,
       displayAnswer, setDisplayAnswer,
@@ -76,10 +75,11 @@ export const LessonProvider = ({ children }) => {
       playSound,
       fisher_yates_shuffle,
       hasSwiped, setHasSwiped,
-      destinationItems, setDestinationItems
-      // nextChallengeSound,
-      // wrongAnswerSound,
-      // lessonCompletedSound,
+      destinationItems, setDestinationItems,
+      nextChallengeSound,
+      wrongAnswerSound,
+      lessonCompletedSound,
+      isLessonCompleted, setIsLessonCompleted,
     }}>
       {children}
     </LessonContext.Provider>

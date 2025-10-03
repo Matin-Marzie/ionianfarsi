@@ -5,7 +5,7 @@ import { useParams } from "react-router-dom";
 // Type-specific components
 import LessonChallenges from "./types/LessonChallenges.js";
 import LessonWatchVideo from "./types/LessonWatchVideo.js";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import LessonContext from "../../../../../context/LessonContext.js";
 import Header from "./Header.js"
 import EndOfLesson from "./EndOfLesson.js";
@@ -13,7 +13,7 @@ import EndOfLesson from "./EndOfLesson.js";
 
 const Lesson = () => {
 
-  const { challengeIndex } = useContext(LessonContext);
+  const { challengeIndex, setCurrentLesson, isLessonCompleted } = useContext(LessonContext);
 
   //  /learn/:lesson_id
   const { lesson_id } = useParams();
@@ -24,6 +24,10 @@ const Lesson = () => {
     queryFn: ({ signal }) => fetchLessonChallenges({ lessonId: lesson_id, signal }),
     staleTime: Infinity,
   });
+
+  useEffect(()=>{
+    setCurrentLesson(lessonData);
+  },[setCurrentLesson, lessonData])
 
 
   // Map lesson_type to component
@@ -45,9 +49,9 @@ const Lesson = () => {
     <div className="m-auto flex flex-col h-full w-full max-w-screen-md bg-white">
       <Header challnegeIndex={challengeIndex}/>
 
-      {lessonData?.challenges[challengeIndex] ?
+      { !isLessonCompleted ?
       (
-        <LessonComponent lessonData={lessonData} challengeIndex={challengeIndex} lesson_id={lesson_id}/>
+        <LessonComponent challengeIndex={challengeIndex} lesson_id={lesson_id} lessonData={lessonData}/>
       )
       :
       (

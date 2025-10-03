@@ -1,7 +1,8 @@
-const LessonWatchVideo = () => {
+const LessonWatchVideo = ({ lessonData }) => {
+
   return (
     <div>
-      Lesson watch video
+      LessonWatchVideo Component
     </div>
   )
 }

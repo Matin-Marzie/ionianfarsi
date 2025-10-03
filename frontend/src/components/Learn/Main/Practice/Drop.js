@@ -4,16 +4,16 @@ import { TbPlaystationTriangle, TbPlaystationCircle, TbPlaystationX, TbPlaystati
 import { useContext } from "react";
 import LessonContext from "../../../../context/LessonContext";
 
-const Drop = ({ repetition_type, percentage }) => {
+const Drop = ({ repetition_type, percentage, isCurrentRepetition }) => {
     const { currentLesson } = useContext(LessonContext);
 
     return (
         <div className="relative flex justify-center">
-            <Link className="io-drop flex rounded-[5%_50%_50%_50%] rotate-45 w-[80px] h-[80px] border-[3px] border-bluesea shadow-[4px_4px_0_0_#094c66] overflow-hidden"
+            <Link className={`${isCurrentRepetition ? 'io-drop' : ''} io-button-float flex rounded-[5%_50%_50%_50%] rotate-45 w-[80px] h-[80px] border-[3px] border-bluesea shadow-[4px_4px_0_0_#094c66] overflow-hidden`}
                 to={`/learn/lesson/${currentLesson?.lesson_id}`}>
 
                 {/* the percentage is ranged from  0 to 135*/}
-                <div className={`absolute left-[-7px] bottom-[0px] w-[150%] rotate-[-45deg] bg-[url('../images/water.png')] bg-repeat-x bg-top animate-wave`}
+                <div className={`absolute left-[-7px] bottom-[0px] w-[150%] rotate-[-45deg] ${percentage !== -1 ? "bg-[url('../images/water.png')] bg-repeat-x bg-top animate-wave" : ''}`}
                     style={{
                         height: `${20 + (115 * percentage) / 100}%`,
                         transition: 'height 0.5s ease-in'
@@ -31,7 +31,7 @@ const Drop = ({ repetition_type, percentage }) => {
 
             </Link>
 
-            <span className="io-drop-shadow"></span>
+            <span className={`${isCurrentRepetition ? 'io-drop-shadow' : ''}`}></span>
         </div>
     )
 }

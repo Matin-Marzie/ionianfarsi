@@ -14,7 +14,7 @@ module.exports = {
 
         DisplayAnswer: {
           '0%': { height: '0px' },
-          '95%' : {height: '120px'},
+          '95%': { height: '120px' },
           '100%': { minHeight: '20dvh', height: 'content' },
         },
 
@@ -32,7 +32,7 @@ module.exports = {
       screens: {
         'xs': '480px',
       },
-      
+
     },
   },
   plugins: [],

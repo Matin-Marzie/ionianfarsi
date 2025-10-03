@@ -1,10 +1,24 @@
 import '../../../../../css/car.css'
 import { Link } from 'react-router-dom'
 import useAuth from '../../../../../hooks/UseAuth';
+import { useContext, useEffect } from 'react';
+import LessonContext from '../../../../../context/LessonContext';
 
 const EndOfLesson = () => {
   const {user} = useAuth();
+  const {playSound, lessonCompletedSound} = useContext(LessonContext);
 
+  // tasks:
+  // update user:
+  // set current lesson, current repetition, current
+  
+
+  // Play lesson completed sound on component mount
+  useEffect(() => {
+    playSound(lessonCompletedSound);
+  }, [playSound, lessonCompletedSound]);
+
+  // Random congratulations message
   const congratulationsMessages = [
     "🎉 Great job! You just unlocked a new level of Persian skills! 🚀",
     "👏 عالی! (Ali!) – That means 'Great!' in Persian, just like your progress! 🤩",

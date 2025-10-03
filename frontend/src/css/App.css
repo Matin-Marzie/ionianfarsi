@@ -91,18 +91,22 @@ img {
 
 
 /* --------------------|| PRACTICE-LESSON --------------------*/
+.io-button-float{
+  box-shadow: #094c66 4px 4px 0 0;
+  transition: transform 0.5s, box-shadow 0.5s;
+}
+.io-button-float:active {
+  transform: rotate(45deg) translateY(4px) translateX(4px);
+  box-shadow: #094c66 0px 0px 0px 0px;
+}
+
 .io-drop {
-  transition: transform 200ms, box-shadow 200ms;
   animation: io-drop-float 2s ease-in-out infinite;
 }
 @keyframes io-drop-float {
   50% {
     transform: translateY(15px) rotate(45deg);
   }
-}
-.io-drop:active {
-  transform: rotate(45deg) translateY(4px) translateX(4px);
-  box-shadow: #094c66 0px 0px 0px 0px;
 }
 .io-drop-shadow {
   position: absolute;
@@ -118,12 +122,12 @@ img {
 }
 @keyframes io-drop-shadow-shrink {
 0%{
-  width: 45%;
+  width: 35%;
 }50%{
 width: 25%;
 }
 100%{
-  width: 45%;
+  width: 35%;
 }
 }
 
@@ -259,8 +263,8 @@ width: 25%;
   display: flex;
   flex-grow: 1;
   justify-content: space-evenly;
-  gap: 1rem;
-  margin: 2vh;
+  gap: 0.5rem;
+  margin: 1vh;
   max-height: 20px;
 }
 
@@ -365,10 +369,6 @@ width: 25%;
 @media (min-width: 768px) {
   .Match-container {
     max-height: none;
-  }
-  /* Practice */
-  .practice-header-container {
-    max-height: 24px;
   }
   .continue-container {
     bottom: 0;

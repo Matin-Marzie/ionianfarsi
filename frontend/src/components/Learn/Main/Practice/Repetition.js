@@ -22,11 +22,11 @@ const Repetition = ({ unit, repetition }) => {
 
             // Current repetition
         } else if (repetition.repetition_id === currentRepetition.repetition_id) {
-            percentage = ((currentLesson.lesson_order - 1) / repetition.lessons.length) * 100
+            percentage = ((currentLesson?.lesson_order - 1) / repetition.lessons.length) * 100
 
             // Next repetitions
         } else {
-            percentage = 0
+            percentage = -1
         }
 
         // Next units
@@ -40,6 +40,7 @@ const Repetition = ({ unit, repetition }) => {
             <Drop
                 repetition_type={repetition.repetition_type}
                 percentage={percentage}
+                isCurrentRepetition={repetition.repetition_id === currentRepetition.repetition_id}
             />
         </div>
     )
