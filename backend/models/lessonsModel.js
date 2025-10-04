@@ -37,8 +37,6 @@ async function fetchChallengeMatch(challenge_id) {
 
             sentences.id AS sentence_id,
             sentences.written_form AS sentence_written_form,
-            sentences.written_form2 AS sentence_written_form2,
-            sentences.written_form3 AS sentence_written_form3,
             sentences.english_equivalent AS sentence_english_equivalent,
             sentences.image_url AS sentence_image_url,
             sentences.audio_url AS sentence_audio_url
@@ -74,8 +72,6 @@ async function fetchChallengeMatch(challenge_id) {
             content.sentences.push({
                 id: row.sentence_id,
                 written_form: row.sentence_written_form,
-                written_form2: row.sentence_written_form2,
-                written_form3: row.sentence_written_form3,
                 english_equivalent: row.sentence_english_equivalent,
                 image_url: row.sentence_image_url,
                 audio_url: row.sentence_audio_url
@@ -103,8 +99,6 @@ async function fetchChallengeSelect(challenge_id) {
 
             sentences.id AS sentence_id,
             sentences.written_form AS sentence_written_form,
-            sentences.written_form2 AS sentence_written_form2,
-            sentences.written_form3 AS sentence_written_form3,
             sentences.english_equivalent AS sentence_english_equivalent,
             sentences.transliteration AS sentence_transliteration,
             sentences.image_url AS sentence_image_url,
@@ -146,8 +140,6 @@ async function fetchChallengeSelect(challenge_id) {
                 correct: row.correct,
                 id: row.sentence_id,
                 written_form: row.sentence_written_form,
-                written_form2: row.sentence_written_form2,
-                written_form3: row.sentence_written_form3,
                 english_equivalent: row.sentence_english_equivalent,
                 transliteration: row.sentence_transliteration,
                 image_url: row.sentence_image_url,
@@ -166,8 +158,6 @@ async function fetchChallengeSort(challenge_id) {
 
             sentences.id AS sentence_id,
             sentences.written_form AS sentence_written_form,
-            sentences.written_form2 AS sentence_written_form2,
-            sentences.written_form3 AS sentence_written_form3,
             sentences.english_equivalent AS sentence_english_equivalent,
             sentences.transliteration AS sentence_transliteration,
             sentences.image_url AS sentence_image_url, 
@@ -197,8 +187,6 @@ async function fetchChallengeSort(challenge_id) {
         content.sentence = {
             id: rows[0].sentence_id,
             written_form: rows[0].sentence_written_form,
-            written_form2: rows[0].sentence_written_form2,
-            written_form3: rows[0].sentence_written_form3,
             english_equivalent: rows[0].sentence_english_equivalent,
             transliteration: rows[0].sentence_transliteration,
             image_url: rows[0].sentence_image_url,
@@ -373,8 +361,6 @@ export const getLessonFromDB = async (req, res) => {
             -- sentence fields
             sentences.id AS sentence_id,
             sentences.written_form AS sentence_written_form,
-            sentences.written_form2 AS sentence_written_form2,
-            sentences.written_form3 AS sentence_written_form3,
             sentences.english_equivalent AS sentence_english_equivalent,
             sentences.transliteration AS sentence_transliteration,
             sentences.image_url AS sentence_image_url,
@@ -417,8 +403,6 @@ export const getLessonFromDB = async (req, res) => {
                 sentence: row.sentence_id ? {
                     id: row.sentence_id,
                     written_form: row.sentence_written_form,
-                    written_form2: row.sentence_written_form2,
-                    written_form3: row.sentence_written_form3,
                     english_equivalent: row.sentence_english_equivalent,
                     transliteration: row.sentence_transliteration,
                     image_url: row.sentence_image_url,

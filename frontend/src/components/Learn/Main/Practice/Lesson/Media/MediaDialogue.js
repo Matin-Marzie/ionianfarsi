@@ -6,6 +6,7 @@ import WordMeaningPopUp from "./WordMeaningPopUp.js";
 const MediaDialogue = ({ dialogue }) => {
   const { playSound } = useContext(LessonContext);
   const videoRef = useRef(null);
+  const containerRef = useRef(null);
   const [currentLineIndex, setCurrentLineIndex] = useState(0);
 
   const lines = useMemo(() => dialogue?.lines || [], [dialogue]);
@@ -103,7 +104,7 @@ const MediaDialogue = ({ dialogue }) => {
   }, [popupWord]);
 
   return (
-    <div className="relative">
+    <div className="relative" ref={containerRef}>
       <div>
         {/* Title */}
         <h3 className="px-1 font-bold">{dialogue?.video?.title}</h3>
@@ -137,12 +138,13 @@ const MediaDialogue = ({ dialogue }) => {
                     onClick={e => {
                       if (word.audio_url) playSound(word.audio_url);
                       e.stopPropagation();
-                      // Get bounding rect for positioning
                       const rect = e.target.getBoundingClientRect();
+                      const containerRect = containerRef.current.getBoundingClientRect();
                       setPopupWord(word);
                       setPopupPos({
-                        top: rect.bottom,
-                        left: rect.left - ((popupWord?.written_form?.length || 6) * 5) / 2,
+                        top: rect.bottom, // relative to container
+                        left: rect.left - containerRect.left - ((popupWord?.written_form?.length || 6) * 5) / 2, // relative to container
+                        width: rect.width,
                       });
                     }}
                   >
