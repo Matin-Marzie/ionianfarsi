@@ -1,8 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
-import { fetchLessonChallenges } from "../../../../../api/LearnApi";
 import { useParams } from "react-router-dom";
+import { fetchLessonChallenges } from "../../../../../api/LearnApi.js";
 
-// Type-specific components
 import LessonChallenges from "./types/LessonChallenges.js";
 import LessonWatchVideo from "./types/LessonWatchVideo.js";
 import { useContext, useEffect } from "react";
