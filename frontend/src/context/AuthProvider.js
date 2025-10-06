@@ -36,6 +36,8 @@ export const AuthProvider = ({ children }) => {
     },
   });
 
+
+  // Default user for guests
   const defaultUser = {
     name: "guest user",
     username: "Guest",
@@ -45,11 +47,34 @@ export const AuthProvider = ({ children }) => {
     coin: 0,
     energy: 5,
     profile_picture_url: "/profile.png",
-    section_id: 1,
-    unit_id: 1,
-    repetition_id: 1,
-    lesson_id: 1,
-    joined_date: new Date().toISOString()
+    joined_date: new Date().toISOString(),
+
+    section: {
+      section_id: 1,
+      title: 'Play with Letters, Dance with Words!',
+      description: 'Learn the Alphabet and many words.',
+      image_url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Farsi.svg/1280px-Farsi.svg.png',
+      level: 'N'
+    },
+
+    unit: {
+      unit_id: 1,
+      unit_order: 1,
+    },
+
+    repetition: {
+      repetition_id: 1,
+      repetition_order: 1,
+    },
+
+    lesson: {
+      lesson_id: 1,
+      lesson_order: 1,
+      lesson_title: "lesson with challenges",
+    },
+
+    // Flag to indicate this is a default user, not fetched from backend
+    default_user: true,
   };
 
   return (
@@ -62,11 +87,14 @@ export const AuthProvider = ({ children }) => {
         isLoading,
         error,
         updateUser: updateUserMutation.mutate,
+        setUser: (newUser) => {
+          queryClient.setQueryData(["user"], () => newUser);
+        },
       }}
     >
       {children}
     </AuthContext.Provider>
   );
-};
+}; // <-- close the AuthProvider function properly
 
 export default AuthContext;

@@ -20,7 +20,7 @@ const handleRefreshToken = async (req, res) => {
     }
 
 
-    const { password: pass, refresh_token, ...safeUserInfo } = foundUser;
+    const { password, refresh_token, section_id, unit_id, repetition_id, lesson_id, ...safeUserInfo } = foundUser;
 
     jwt.verify(
       refreshToken,
@@ -43,7 +43,15 @@ const handleRefreshToken = async (req, res) => {
           { expiresIn: '1h' }
         );
 
-        res.json({ accessToken, user: safeUserInfo });
+        res.json({
+           accessToken, 
+           user: {
+            ...safeUserInfo,
+            section: {section_id},
+            unit: {unit_id},
+            repetition: {repetition_id},
+            lesson: {lesson_id}
+          }});
       }
     );
   } catch (err) {

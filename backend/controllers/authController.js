@@ -15,7 +15,7 @@ const handleLogin = async (req, res) => {
   const match = await comparePassword(password, foundUser.password);
   if (!match) return res.status(401).json({ message: 'Incorrect password.' });
 
-  const { password:pass, refresh_token, ...safeUserInfo } = foundUser;
+  const { password: pass, refresh_token, section_id, unit_id, repetition_id, lesson_id, ...safeUserInfo } = foundUser;
 
   const accessToken = jwt.sign(
     { username: foundUser.username },
@@ -34,10 +34,19 @@ const handleLogin = async (req, res) => {
     httpOnly: true,
     secure: true, // required if sameSite=None
     sameSite: 'None',
-    maxAge:  30 * 24*60*60*1000 // 30 days
+    maxAge: 30 * 24 * 60 * 60 * 1000 // 30 days
   });
 
-  res.json({ accessToken, user:safeUserInfo });
+  res.json({
+    accessToken,
+    user: {
+      ...safeUserInfo,
+      section: { section_id },
+      unit: { unit_id },
+      repetition: { repetition_id },
+      lesson: { lesson_id }
+    }
+  });
 };
 
 export default { handleLogin };

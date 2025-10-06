@@ -3,23 +3,15 @@ import { useContext, useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import Unit from './Unit';
 import { fetchLessons, fetchLessonChallenges } from '../../../../api/LearnApi';
-import useAuth from '../../../../hooks/UseAuth';
-import LessonContext from '../../../../context/LessonContext';
+import AuthContext from '../../../../context/AuthProvider';
 
 const Practice = () => {
 
   const location = useLocation();
-  const { user } = useAuth();
-
-  // LessonContext values
-  const {
-    setCurrentUnit,
-    setCurrentRepetition,
-    setCurrentLesson,
-  } = useContext(LessonContext);
-
-  // Current section(section user viewing or user section)
-  const currentSection = location.state?.currentSection || user.section_id;
+  const { user, setUser } = useContext(AuthContext);
+  
+  // Current section (section user viewing or user section)
+  const currentSection = location.state?.currentSection || user?.section?.section_id;
 
   // Fetch all units in a section with repetitions and lessons inside of unit
   const {
@@ -35,45 +27,49 @@ const Practice = () => {
   });
 
   // Find current unit
-  const currentUnit = units?.find(u => u.unit_id === user.unit_id);
+  const currentUnit = units?.find(u => u.unit_id === user.unit.unit_id);
 
   // Find current repetition inside that unit
   const currentRepetition = currentUnit?.repetitions?.find(
-    r => r.repetition_id === user.repetition_id
+    r => r.repetition_id === user.repetition.repetition_id
   );
 
   // Find current lesson inside that repetition
   const currentLesson = currentRepetition?.lessons?.find(
-    l => l.lesson_id === user.lesson_id
+    l => l.lesson_id === user.lesson.lesson_id
   );
+
+  useEffect(() => {
+    if(user.default_user){
+      if (currentUnit && currentRepetition && currentLesson) {
+        setUser({
+          ...user,
+          unit: currentUnit,
+          repetition: currentRepetition,
+          lesson: currentLesson,
+          default_user: false,
+        });
+      }
+    }
+  }, [currentUnit, currentRepetition, currentLesson, setUser, user.default_user, user]);
+
 
   // Fetch user's current lesson data
   useQuery({
-    queryKey: ['challenges', user.lesson_id],
-    queryFn: ({ signal }) => fetchLessonChallenges({ lessonId: user.lesson_id, signal }),
+    queryKey: ['challenges', user.lesson.lesson_id],
+    queryFn: ({ signal }) => fetchLessonChallenges({ lessonId: user.lesson.lesson_id, signal }),
     staleTime: Infinity,
   });
-  
-  // After queries and derivations, set LessonContext
-  useEffect(() => {
-    if (currentUnit) setCurrentUnit(currentUnit);
-    if (currentRepetition) setCurrentRepetition(currentRepetition);
-    if (currentLesson) setCurrentLesson(currentLesson);
-  }, [currentUnit, currentRepetition, currentLesson, setCurrentUnit, setCurrentRepetition, setCurrentLesson]);
+
 
 
   // Scroll to user's current unit
   useEffect(() => {
-    if (user.current_unit) {
-      const el = document.getElementById(`unit-${user.unit_id}`);
-      if (el) {
-        el.scrollIntoView({ behavior: 'instant', block: 'start' });
-      }
+    const el = document.getElementById(`unit-${user.unit.unit_id}`);
+    if (el) {
+      el.scrollIntoView({ behavior: 'instant', block: 'start' });
     }
   }, [units, user]);
-
-
-
 
   if (loading) {
     return <p className='w-full text-center text-2xl'>We're using Free plan of Render: Free instances spin down after inactivity (50s loading time).</p>;
@@ -85,14 +81,16 @@ const Practice = () => {
 
   return (
     <div className='flex flex-col flex-grow'>
+
       {/* Units */}
       {units?.map(unit => (
         <Unit
           key={unit.unit_order}
           unit={unit}
-          currentSection={currentSection}
         />
       ))}
+
+      {/* footer */}
       <div className='flex items-center justify-center py-1'>
         ionianfarsi - ایونیان فارسی
       </div>

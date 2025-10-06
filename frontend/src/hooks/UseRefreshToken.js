@@ -12,15 +12,15 @@ const UseRefreshToken = () => {
         withCredentials: true
       });
 
-      setAuth(prev => {
-        return { ...prev, accessToken: response.data.accessToken }
-      });
+        setAuth(prev => {
+          return { ...prev, accessToken: response.data.accessToken }
+        });
 
-      queryClient.setQueryData(["user"], response.data.user);
+        queryClient.setQueryData(["user"], response.data.user);
 
-      return response.data.accessToken;
+        return response.data.accessToken;
 
-    } catch (err) {
+      } catch (err) {
       const status = err.response?.status;
       const message = err.response?.data?.message;
       
