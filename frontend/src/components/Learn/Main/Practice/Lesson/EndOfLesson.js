@@ -93,6 +93,7 @@ const EndOfLesson = () => {
       lesson: nextLesson,
     });
 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLoading]);
 
 
