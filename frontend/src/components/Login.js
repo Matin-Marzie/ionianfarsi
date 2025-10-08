@@ -38,12 +38,19 @@ const Login = () => {
   const { mutate } = useMutation({
     mutationFn: loginUser,
     onSuccess: (data) => {
+      // Add reset flag to user
+      const userWithResetFlag = {
+        ...data.user,
+        reset_data: true, // <-- triggers sync in Practice
+      };
+
       setAuth(prev => ({
         ...prev,
         accessToken: data?.accessToken
       }));
 
-      queryClient.setQueryData(["user"], data.user);
+      // Store user with reset flag
+      queryClient.setQueryData(["user"], userWithResetFlag);
 
       setUsername('');
       setPassword('');

@@ -11,12 +11,12 @@ export const LessonProvider = ({ children }) => {
   const [currentUnit, setCurrentUnit] = useState({});
   const [currentRepetition, setCurrentRepetition] = useState({});
   const [currentLesson, setCurrentLesson] = useState({});
+
   const [challengeIndex, setChallengeIndex] = useState(0);
   const [challenge, setChallenge] = useState({});
-
+  const [isLessonCompleted, setIsLessonCompleted] = useState(false);
 
   const [correctAnswer, setCorrectAnswer] = useState(null);
-
   const [displayAnswer, setDisplayAnswer] = useState(false);
   const [answerText, setAnswerText] = useState('');
 
@@ -46,9 +46,6 @@ export const LessonProvider = ({ children }) => {
   }, []);
 
 
-  const [isLessonCompleted, setIsLessonCompleted] = useState(false);
-
-
   // ----------Fisher-Yates_Algorithm----------
   const fisher_yates_shuffle = useCallback((array) => {
     for (let i = array.length - 1; i > 0; i--) {
@@ -65,7 +62,7 @@ export const LessonProvider = ({ children }) => {
       currentUnit, setCurrentUnit,
       currentRepetition, setCurrentRepetition,
       currentLesson, setCurrentLesson,
-      challengeIndex,setChallengeIndex,
+      challengeIndex, setChallengeIndex,
       challenge, setChallenge,
 
       correctAnswer, setCorrectAnswer,

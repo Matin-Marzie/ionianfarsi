@@ -5,7 +5,6 @@ import AuthContext from "../../../../context/AuthProvider";
 const Repetition = ({ unit, repetition }) => {
 
     const { user } = useContext(AuthContext);
-    console.log('user in Repetition:', user);
 
     let percentage;
 
@@ -26,7 +25,7 @@ const Repetition = ({ unit, repetition }) => {
 
             // Next repetitions
         } else {
-            percentage = -1
+            percentage = 0
         }
 
         // Next units

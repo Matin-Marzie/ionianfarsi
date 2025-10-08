@@ -12,18 +12,26 @@ const UseRefreshToken = () => {
         withCredentials: true
       });
 
-        setAuth(prev => {
-          return { ...prev, accessToken: response.data.accessToken }
-        });
+      // Add reset flag here
+      const userWithResetFlag = {
+        ...response.data.user,
+        reset_data: true, // <--- trigger user refresh logic in Practice
+      };
 
-        queryClient.setQueryData(["user"], response.data.user);
+      setAuth(prev => ({
+        ...prev,
+        accessToken: response.data.accessToken,
+      }));
 
-        return response.data.accessToken;
+      // Save modified user to React Query cache
+      queryClient.setQueryData(["user"], userWithResetFlag);
 
-      } catch (err) {
+      return response.data.accessToken;
+
+    } catch (err) {
       const status = err.response?.status;
       const message = err.response?.data?.message;
-      
+
       // Case 1: no JWT cookie = user is not logged in, just clear auth and return null
       if (status === 401 && message === "No jwt cookie") {
         setAuth({});

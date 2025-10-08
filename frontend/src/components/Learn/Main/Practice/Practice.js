@@ -9,7 +9,7 @@ const Practice = () => {
 
   const location = useLocation();
   const { user, setUser } = useContext(AuthContext);
-  
+
   // Current section (section user viewing or user section)
   const currentSection = location.state?.currentSection || user?.section?.section_id;
 
@@ -26,32 +26,38 @@ const Practice = () => {
     keepPreviousData: true
   });
 
-  // Find current unit
-  const currentUnit = units?.find(u => u.unit_id === user.unit.unit_id);
-
-  // Find current repetition inside that unit
-  const currentRepetition = currentUnit?.repetitions?.find(
-    r => r.repetition_id === user.repetition.repetition_id
-  );
-
-  // Find current lesson inside that repetition
-  const currentLesson = currentRepetition?.lessons?.find(
-    l => l.lesson_id === user.lesson.lesson_id
-  );
 
   useEffect(() => {
-    if(user.default_user){
+    // wait until units are fetched
+    if (loading || !units) return;
+
+    if (user.reset_data) {
+      // Find current unit
+      const currentUnit = units.find(
+        u => u.unit_id === user.unit.unit_id
+      );
+
+      // Find current repetition inside that unit
+      const currentRepetition = currentUnit?.repetitions?.find(
+        r => r.repetition_id === user.repetition.repetition_id
+      );
+
+      // Find current lesson inside that repetition
+      const currentLesson = currentRepetition?.lessons?.find(
+        l => l.lesson_id === user.lesson.lesson_id
+      );
+
       if (currentUnit && currentRepetition && currentLesson) {
         setUser({
           ...user,
           unit: currentUnit,
           repetition: currentRepetition,
           lesson: currentLesson,
-          default_user: false,
+          reset_data: false,
         });
       }
     }
-  }, [currentUnit, currentRepetition, currentLesson, setUser, user.default_user, user]);
+  }, [loading, units, user, setUser]);
 
 
   // Fetch user's current lesson data

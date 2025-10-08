@@ -1,22 +1,101 @@
 import '../../../../../css/car.css'
-import { Link } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import useAuth from '../../../../../hooks/UseAuth';
 import { useContext, useEffect } from 'react';
 import LessonContext from '../../../../../context/LessonContext';
+import { useQuery } from '@tanstack/react-query';
+import { fetchLessons } from '../../../../../api/LearnApi';
 
 const EndOfLesson = () => {
-  const {user} = useAuth();
-  const {playSound, lessonCompletedSound} = useContext(LessonContext);
+  const { user, setUser } = useAuth();
+  const { playSound, lessonCompletedSound, setChallengeIndex, setIsLessonCompleted } = useContext(LessonContext);
+  const navigate = useNavigate();
+  const { lesson_id } = useParams();
 
-  // tasks:
-  // update user:
-  // set current lesson, current repetition, current
-  
+  const currentSection = user.section.section_id;
+
+
+  // Fetch all units in a section with repetitions and lessons inside of unit
+  const {
+    data: units,
+    isLoading
+  } = useQuery({
+    queryKey: ['section', currentSection],
+    queryFn: () => fetchLessons({ sectionId: currentSection }),
+    staleTime: Infinity,
+    cacheTime: Infinity,
+    keepPreviousData: true
+  });
 
   // Play lesson completed sound on component mount
   useEffect(() => {
     playSound(lessonCompletedSound);
   }, [playSound, lessonCompletedSound]);
+
+  // reset challenges for next session
+  setChallengeIndex(0);
+
+  // 🔁 Update user to the next lesson
+  useEffect(() => {
+    // If practicing old lessons don't update User
+    if (lesson_id !== user.lesson.lesson_id) return;
+    if (!units || !user?.unit || !user?.lesson || !user?.repetition) return;
+
+    const currentUnit = user.unit;
+    const currentRepetition = user.repetition;
+    const currentLesson = user.lesson;
+
+    const repetitions = currentUnit.repetitions;
+    const currentRepIndex = repetitions.findIndex(r => r.repetition_id === currentRepetition.repetition_id);
+    const currentLessonIndex = currentRepetition.lessons.findIndex(l => l.lesson_id === currentLesson.lesson_id);
+
+    let nextLesson = null;
+    let nextRepetition = null;
+    let nextUnit = null;
+
+    // 1️⃣ Try next lesson in same repetition
+    if (currentLessonIndex + 1 < currentRepetition.lessons.length) {
+      nextLesson = currentRepetition.lessons[currentLessonIndex + 1];
+      nextRepetition = currentRepetition;
+      nextUnit = currentUnit;
+    }
+    // 2️⃣ Otherwise, try first lesson of next repetition in current unit
+    else if (currentRepIndex + 1 < repetitions.length) {
+      nextRepetition = repetitions[currentRepIndex + 1];
+      nextLesson = nextRepetition.lessons[0];
+      nextUnit = currentUnit;
+    }
+    // 3️⃣ Otherwise, go to the first repetition of the next unit
+    else {
+      const nextUnitIndex = units.findIndex(u => u.unit_id === currentUnit.unit_id) + 1;
+      if (nextUnitIndex < units.length) {
+        nextUnit = units[nextUnitIndex];
+        nextRepetition = nextUnit.repetitions[0];
+        nextLesson = nextRepetition.lessons[0];
+      }
+    }
+
+    // 4️⃣ If no next lesson/unit → move to next section
+    if (!nextLesson) {
+      setUser({
+        ...user,
+        section: { section_id: user.section.section_id + 1 },
+        reset_data: true,
+      });
+      return;
+    }
+
+    // ✅ Save updated user progress
+    setUser({
+      ...user,
+      unit: nextUnit,
+      repetition: nextRepetition,
+      lesson: nextLesson,
+    });
+
+  }, [isLoading]);
+
+
 
   // Random congratulations message
   const congratulationsMessages = [
@@ -33,6 +112,15 @@ const EndOfLesson = () => {
   ];
 
   const randomMessage = congratulationsMessages[Math.floor(Math.random() * congratulationsMessages.length)];
+
+
+
+  const handleGoToLessons = () => {
+    // reset flags before navigating
+    setIsLessonCompleted(false);
+    setChallengeIndex(0);
+    navigate('/learn', { state: { currentSection: user.section_id } });
+  };
 
   return (
     <div className='flex flex-col justify-between h-full text-2xl text-center'>
@@ -60,9 +148,12 @@ const EndOfLesson = () => {
       </p>
 
       {/* Button to Lessons */}
-      <Link to="/learn" className='io-button w-11/12 p-2 bg-[#0ca00c] mx-auto mb-6' state={{currentSection:user.section_id}}>
+      <button
+        onClick={handleGoToLessons}
+        className='io-button w-11/12 p-2 bg-[#0ca00c] mx-auto mb-6'
+      >
         Go to Lessons
-      </Link>
+      </button>
     </div>
   )
 }

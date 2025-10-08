@@ -74,7 +74,7 @@ export const AuthProvider = ({ children }) => {
     },
 
     // Flag to indicate this is a default user, not fetched from backend
-    default_user: true,
+    reset_data: true,
   };
 
   return (

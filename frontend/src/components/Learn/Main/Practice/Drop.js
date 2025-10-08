@@ -10,11 +10,10 @@ const Drop = ({ repetition, repetition_type, percentage, isCurrentRepetition }) 
                 to={`/learn/lesson/${repetition.lessons[0].lesson_id}`}>
 
                 {/* the percentage is ranged from  0 to 135*/}
-                <div className={`absolute left-[-7px] bottom-[0px] w-[150%] rotate-[-45deg] ${percentage !== -1 ? "bg-[url('../images/water.png')] bg-repeat-x bg-top animate-wave" : ''}`}
+                <div className={`absolute left-[-7px] bottom-[0px] w-[150%] rotate-[-45deg] bg-[url('../images/water.png')] bg-repeat-x bg-top animate-wave`}
                     style={{
                         height: `${20 + (115 * percentage) / 100}%`,
-                        // height: `${20 + (115 * 100) / 100}%`,
-                        transition: 'height 0.5s ease-in'
+                        transition: isCurrentRepetition ? 'height 1s ease-in' : '',
                     }}
                 ></div>
                 <div className="text-[55px] rotate-[-45deg] absolute left-3 bottom-1.5">
