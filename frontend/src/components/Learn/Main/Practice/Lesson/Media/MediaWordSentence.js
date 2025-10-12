@@ -42,7 +42,7 @@ const MediaWordSentence = () => {
   const media = challenge.word || challenge.sentence;
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col min-h-[40dvh] justify-center">
 
       {/* Media question */}
       {challenge.media_question && (

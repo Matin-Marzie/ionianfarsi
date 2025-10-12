@@ -24,8 +24,21 @@ const Challenge_match = () => {
   const [rightSideWords, setRightSideWords] = useState([]);
 
   useEffect(() => {
-    setLeftSideWords(fisher_yates_shuffle([...challenge.content.words]));
-    setRightSideWords(fisher_yates_shuffle([...challenge.content.words]));
+
+      // combine words + sentences in one unified array
+    const Items = [
+      ...(challenge.content.words || []),
+      ...(challenge.content.sentences || [])
+    ];
+
+    // shuffle for both sides
+    const shuffledLeft = fisher_yates_shuffle([...Items]);
+    const shuffledRight = fisher_yates_shuffle([...Items]);
+
+
+    setLeftSideWords(shuffledLeft);
+    setRightSideWords(shuffledRight);
+    
   }, [challenge, fisher_yates_shuffle]);
 
   const handleLeftSelect = (word) => {

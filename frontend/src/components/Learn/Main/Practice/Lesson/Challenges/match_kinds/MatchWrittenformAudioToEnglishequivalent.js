@@ -1,21 +1,19 @@
 import { useContext } from "react";
 import LessonContext from "../../../../../../../context/LessonContext";
+import { GiSoundWaves } from "react-icons/gi";
 
-function MatchWritten_formToEnglish_equivalent({
+function MatchWrittenformAudioToEnglishequivalent({
     handleLeftSelect,
     handleRightSelect,
     rightSelected,
     leftSelected,
     leftSideWords,
     rightSideWords,
-    matchType,
 }) {
-
     const { playSound } = useContext(LessonContext);
 
     return (
-        <div className="flex flex-row w-full h-full">
-
+        <div className="flex flex-grow w-full h-full">
             {/* Depict the left side words */}
             <ul className="w-6/12 flex flex-col items-center justify-center space-y-[4vh]">
                 {leftSideWords.map((word) => (
@@ -40,30 +38,25 @@ function MatchWritten_formToEnglish_equivalent({
                 ))}
             </ul>
 
-            {/* Depicting right side words */}
+            {/* 📝 RIGHT SIDE (written or english equivalent) */}
             <ul className="w-6/12 flex flex-col items-center justify-center space-y-[4vh]">
-                {rightSideWords.map((word) => (
-                    <li className="w-10/12" key={word.id + '-right'}>
+                {rightSideWords.map((item) => (
+                    <li className="w-10/12" key={item.id + "-right"}>
                         <button
-                            className={`w-full h-full py-[3vh] border-2 border-black rounded-[18px] text-2xl 
-                             ${word.disabled ? 'opacity-50 border-[1px]' : 'io-button'}
-                             ${word.id === rightSelected?.id ? 'io-selected' : ''}
-                             `}
-                            onClick={() => {
-                                handleRightSelect(word);
-                            }}
-                            disabled={word.disabled}
+                            className={`w-full h-full py-[3vh] border-2 border-black rounded-[18px] text-2xl
+                ${item.disabled ? "opacity-50 border-[1px]" : "io-button"}
+                ${item.id === rightSelected?.id ? "io-selected" : ""}`}
+                            onClick={() => handleRightSelect(item)}
+                            disabled={item.disabled}
                         >
-                            {/* ✅ handle both English equivalents and transliteration */}
-                            {matchType === 'writtenform_to_englishequivalent'
-                                ? word.english_equivalent || word.written_form || "—"
-                                : word.transliteration || word.written_form || "—"}
+                            {/* Prefer english_equivalent if available, otherwise fallback */}
+                            {item.english_equivalent || item.written_form || "—"}
                         </button>
                     </li>
                 ))}
-            </ul >
-        </div >
+            </ul>
+        </div>
     );
 }
 
-export default MatchWritten_formToEnglish_equivalent;
+export default MatchWrittenformAudioToEnglishequivalent;

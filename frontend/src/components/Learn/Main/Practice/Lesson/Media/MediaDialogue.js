@@ -104,7 +104,7 @@ const MediaDialogue = ({ dialogue }) => {
   }, [popupWord]);
 
   return (
-    <div className="relative" ref={containerRef}>
+    <div className={`relative ${dialogue ? '' : 'hidden'}`} ref={containerRef}>
       <div>
         {/* Title */}
         <h3 className="px-1 font-bold">{dialogue?.video?.title}</h3>
@@ -119,7 +119,7 @@ const MediaDialogue = ({ dialogue }) => {
         />
       </div>
       {/* DIALOGUE LINES */}
-      <div className="mt-2 space-y-2 overflow-y-auto h-[14dvh]">
+      <div className={`mt-2 space-y-2 overflow-y-auto h-[14dvh] ${lines.length === 0 ? "hidden" : ""}`}>
         {lines.map((line, i) => {
           const isFirstOfBlock =
             i === 0 || line.character?.id !== lines[i - 1].character?.id;

@@ -73,7 +73,7 @@ export const AuthProvider = ({ children }) => {
       lesson_title: "lesson with challenges",
     },
 
-    // Flag to indicate this is a default user, not fetched from backend
+    // Flag to reset user unit, repetition, lesson data on Practice page
     reset_data: true,
   };
 
@@ -86,15 +86,28 @@ export const AuthProvider = ({ children }) => {
         user: user ?? defaultUser,
         isLoading,
         error,
-        updateUser: updateUserMutation.mutate,
-        setUser: (newUser) => {
+        setUser: (newUser, syncBackend=false) => {
           queryClient.setQueryData(["user"], () => newUser);
+
+          // sync with backend if user logged in
+          if (!!auth?.accessToken && syncBackend) {
+            updateUserMutation.mutate({
+              experience: newUser.experience,
+              // level: newUser.level,
+              // coin: newUser.coin,
+              // energy: newUser.energy,
+              section_id: newUser.section?.section_id,
+              unit_id: newUser.unit?.unit_id,
+              repetition_id: newUser.repetition?.repetition_id,
+              lesson_id: newUser.lesson?.lesson_id,
+            });
+          }
         },
       }}
     >
       {children}
     </AuthContext.Provider>
   );
-}; // <-- close the AuthProvider function properly
+};
 
 export default AuthContext;

@@ -50,6 +50,7 @@ export const getUser = async (req, res) => {
 
 // Update user profile (non-password fields)
 export const updateUser = async (req, res) => {
+    
     // Validate request body strictly against schema
     const { error, value } = updateUserSchema.validate(req.body, { stripUnknown: true });
     if (error) {

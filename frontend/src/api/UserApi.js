@@ -47,9 +47,11 @@ export const getUser = async (axiosInstance) => {
 
 
 // Update User
-export const updateUser = async (id, newData) => {
-    return;
-}
+export const updateUser = async (axiosInstance, newData) => {
+  const response = await axiosInstance.put("/api/users/me", newData);
+  return response.data;
+};
+
 
 // Delete User
 export const deleteUser = async (id) => {

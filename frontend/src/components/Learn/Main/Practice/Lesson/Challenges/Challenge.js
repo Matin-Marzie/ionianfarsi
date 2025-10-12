@@ -22,7 +22,7 @@ const Challenge = () => {
     : null;
 
   return (
-    <div className=''>
+    <div className='grow flex'>
       {ChallengeComponent ?
         (
           <ChallengeComponent />

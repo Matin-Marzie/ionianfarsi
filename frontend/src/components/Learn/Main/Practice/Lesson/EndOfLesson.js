@@ -1,16 +1,27 @@
 import '../../../../../css/car.css'
 import { useNavigate, useParams } from 'react-router-dom'
 import useAuth from '../../../../../hooks/UseAuth';
-import { useContext, useEffect } from 'react';
+import { useCallback, useContext, useEffect } from 'react';
 import LessonContext from '../../../../../context/LessonContext';
-import { useQuery } from '@tanstack/react-query';
-import { fetchLessons } from '../../../../../api/LearnApi';
+import { useMutation, useQuery } from '@tanstack/react-query';
+import { fetchLessonChallenges, fetchLessons } from '../../../../../api/LearnApi';
+import useAxiosPrivate from '../../../../../hooks/useAxiosPrivate';
+import { updateUser } from '../../../../../api/UserApi';
+
+// Constants for XP and coins if practicing old lessons
+const LESSON_COIN = 4
+const OLD_LESSON_COIN = 1
+const OLD_LESSON_XP = 5
 
 const EndOfLesson = () => {
+  console.log("Rendering EndOfLesson component");
+
+  const axiosPrivate = useAxiosPrivate();
+
   const { user, setUser } = useAuth();
   const { playSound, lessonCompletedSound, setChallengeIndex, setIsLessonCompleted } = useContext(LessonContext);
   const navigate = useNavigate();
-  const { lesson_id } = useParams();
+  const { lesson_id: lesson_id_param } = useParams();
 
   const currentSection = user.section.section_id;
 
@@ -18,7 +29,7 @@ const EndOfLesson = () => {
   // Fetch all units in a section with repetitions and lessons inside of unit
   const {
     data: units,
-    isLoading
+    unitsLoading,
   } = useQuery({
     queryKey: ['section', currentSection],
     queryFn: () => fetchLessons({ sectionId: currentSection }),
@@ -27,74 +38,132 @@ const EndOfLesson = () => {
     keepPreviousData: true
   });
 
+  // Fetch user's current lesson data
+  const { data: lessonData, lessonLoading } = useQuery({
+    queryKey: ["lesson", lesson_id_param],
+    queryFn: ({ signal }) => fetchLessonChallenges({ lessonId: lesson_id_param, signal }),
+    staleTime: Infinity,
+  });
+
   // Play lesson completed sound on component mount
   useEffect(() => {
     playSound(lessonCompletedSound);
   }, [playSound, lessonCompletedSound]);
 
-  // reset challenges for next session
-  setChallengeIndex(0);
 
-  // 🔁 Update user to the next lesson
+  // ⚙️ Helper: Find next lesson path (unit/repetition/lesson)
+  const findNextLessonPath = useCallback(() => {
+    if (!units || !user?.unit || !user?.lesson || !user?.repetition) return null
+
+    const { unit, repetition, lesson } = user
+    const repetitions = unit.repetitions
+    const repIndex = repetitions.findIndex(r => r.repetition_id === repetition.repetition_id)
+    const lessonIndex = repetition.lessons.findIndex(l => l.lesson_id === lesson.lesson_id)
+
+    // 1️⃣ Next lesson in same repetition
+    if (lessonIndex + 1 < repetition.lessons.length) {
+      return { nextUnit: unit, nextRepetition: repetition, nextLesson: repetition.lessons[lessonIndex + 1] }
+    }
+    // 2️⃣ First lesson of next repetition
+    if (repIndex + 1 < repetitions.length) {
+      const nextRep = repetitions[repIndex + 1]
+      return { nextUnit: unit, nextRepetition: nextRep, nextLesson: nextRep.lessons[0] }
+    }
+    // 3️⃣ First lesson of next unit
+    const unitIndex = units.findIndex(u => u.unit_id === unit.unit_id)
+    if (unitIndex + 1 < units.length) {
+      const nextUnit = units[unitIndex + 1]
+      const nextRep = nextUnit.repetitions[0]
+      const nextLesson = nextRep.lessons[0]
+      return { nextUnit, nextRepetition: nextRep, nextLesson }
+    }
+    // 🛑 No more lessons in section
+    return null
+  }, [units, user])
+
+
+  // ✅ Use React Query mutation for backend sync
+  const updateUserMutation = useMutation({
+    mutationFn: (updates) => updateUser(axiosPrivate, updates)
+  })
+
+
+  // 🎵 Play completion sound when entering
   useEffect(() => {
-    // If practicing old lessons don't update User
-    if (lesson_id !== user.lesson.lesson_id) return;
-    if (!units || !user?.unit || !user?.lesson || !user?.repetition) return;
+    playSound(lessonCompletedSound)
+  }, [playSound, lessonCompletedSound])
 
-    const currentUnit = user.unit;
-    const currentRepetition = user.repetition;
-    const currentLesson = user.lesson;
 
-    const repetitions = currentUnit.repetitions;
-    const currentRepIndex = repetitions.findIndex(r => r.repetition_id === currentRepetition.repetition_id);
-    const currentLessonIndex = currentRepetition.lessons.findIndex(l => l.lesson_id === currentLesson.lesson_id);
 
-    let nextLesson = null;
-    let nextRepetition = null;
-    let nextUnit = null;
+  // 🎓 Main user progression logic
+  useEffect(() => {
+    if (unitsLoading || lessonLoading || !lessonData) return;
 
-    // 1️⃣ Try next lesson in same repetition
-    if (currentLessonIndex + 1 < currentRepetition.lessons.length) {
-      nextLesson = currentRepetition.lessons[currentLessonIndex + 1];
-      nextRepetition = currentRepetition;
-      nextUnit = currentUnit;
-    }
-    // 2️⃣ Otherwise, try first lesson of next repetition in current unit
-    else if (currentRepIndex + 1 < repetitions.length) {
-      nextRepetition = repetitions[currentRepIndex + 1];
-      nextLesson = nextRepetition.lessons[0];
-      nextUnit = currentUnit;
-    }
-    // 3️⃣ Otherwise, go to the first repetition of the next unit
-    else {
-      const nextUnitIndex = units.findIndex(u => u.unit_id === currentUnit.unit_id) + 1;
-      if (nextUnitIndex < units.length) {
-        nextUnit = units[nextUnitIndex];
-        nextRepetition = nextUnit.repetitions[0];
-        nextLesson = nextRepetition.lessons[0];
+    const { experience, coin, ...other } = user;
+    const xpGain = lessonData?.challenges?.length || OLD_LESSON_XP; // XP based on number of challenges
+
+    // Check if user is on the current lesson in their path
+    const isCurrentLessonInPath = Number(lesson_id_param) === user.lesson.lesson_id
+
+    if (isCurrentLessonInPath) {
+
+      const nextPath = findNextLessonPath()
+
+      if (!nextPath) {// Finished all lessons → next section
+
+        const updatedUser = {
+          ...other,
+          experience: experience + xpGain,
+          coin: coin + LESSON_COIN,
+          section: { section_id: user.section.section_id + 1 },
+          reset_data: true,
+        }
+        setUser(updatedUser)
+        updateUserMutation.mutate({
+          experience: updatedUser.experience,
+          coin: updatedUser.coin,
+          section_id: updatedUser.section.section_id
+        })
+        return
       }
-    }
 
-    // 4️⃣ If no next lesson/unit → move to next section
-    if (!nextLesson) {
-      setUser({
-        ...user,
-        section: { section_id: user.section.section_id + 1 },
-        reset_data: true,
-      });
-      return;
-    }
+      // Normal progress to next lesson in path
+      const { nextUnit, nextRepetition, nextLesson } = nextPath
+      const updatedUser = {
+        ...other,
+        experience: experience + xpGain,
+        coin: coin + LESSON_COIN,
+        unit: nextUnit,
+        repetition: nextRepetition,
+        lesson: nextLesson,
+      }
 
-    // ✅ Save updated user progress
-    setUser({
-      ...user,
-      unit: nextUnit,
-      repetition: nextRepetition,
-      lesson: nextLesson,
-    });
+      setUser(updatedUser) // update
+
+      updateUserMutation.mutate({ // Backend sync
+        experience: updatedUser.experience,
+        coin: updatedUser.coin,
+        unit_id: nextUnit.unit_id,
+        repetition_id: nextRepetition.repetition_id,
+        lesson_id: nextLesson.lesson_id,
+      })
+
+    } else {
+      // Practiced an old lesson
+      const updatedUser = {
+        ...other,
+        experience: experience + OLD_LESSON_XP,
+        coin: coin + OLD_LESSON_COIN,
+      }
+      setUser(updatedUser)
+      updateUserMutation.mutate({
+        experience: updatedUser.experience,
+        coin: updatedUser.coin,
+      })
+    }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isLoading]);
+  }, [unitsLoading, lessonLoading, lessonData, lesson_id_param]);
 
 
 
@@ -115,17 +184,15 @@ const EndOfLesson = () => {
   const randomMessage = congratulationsMessages[Math.floor(Math.random() * congratulationsMessages.length)];
 
 
-
+  // Button action
   const handleGoToLessons = () => {
-    // reset flags before navigating
     setIsLessonCompleted(false);
     setChallengeIndex(0);
-    navigate('/learn', { state: { currentSection: user.section_id } });
+    navigate('/learn', { state: { currentSection: user.section.section_id } });
   };
 
   return (
     <div className='flex flex-col justify-between h-full text-2xl text-center'>
-
       {/* Car Animation */}
       <div className="loop-wrapper">
         <div className="mountain"></div>
@@ -139,20 +206,11 @@ const EndOfLesson = () => {
       </div>
 
       {/* Finish Text */}
-      <p className="font-bold text-3xl mt-4">
-        🎉 Finish 🏁 🎉
-      </p>
+      <p className="font-bold text-3xl mt-4">🎉 Finish 🏁 🎉</p>
+      <p className="mt-3 px-6 text-xl text-gray-700">{randomMessage}</p>
 
-      {/* Congratulations Message */}
-      <p className="mt-3 px-6 text-xl text-gray-700">
-        {randomMessage}
-      </p>
-
-      {/* Button to Lessons */}
-      <button
-        onClick={handleGoToLessons}
-        className='io-button w-11/12 p-2 bg-[#0ca00c] mx-auto mb-6'
-      >
+      {/* Button */}
+      <button onClick={handleGoToLessons} className='io-button w-11/12 p-2 bg-[#0ca00c] mx-auto mb-6'>
         Go to Lessons
       </button>
     </div>

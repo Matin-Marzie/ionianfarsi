@@ -48,6 +48,9 @@ export const updateUserByUsernameInDB = async (username, updates) => {
   if (updates.name !== undefined) fields.push(`name = '${updates.name}'`);
   if (updates.email !== undefined) fields.push(`email = '${updates.email}'`);
   if (updates.experience !== undefined) fields.push(`experience = ${updates.experience}`);
+  if (updates.level !== undefined) fields.push(`level = ${updates.level}`);
+  if (updates.coin !== undefined) fields.push(`coin = ${updates.coin}`);
+  if (updates.energy !== undefined) fields.push(`energy = ${updates.energy}`);
   if (updates.section_id !== undefined) fields.push(`section_id = ${updates.section_id}`);
   if (updates.unit_id !== undefined) fields.push(`unit_id = ${updates.unit_id}`);
   if (updates.repetition_id !== undefined) fields.push(`repetition_id = ${updates.repetition_id}`);

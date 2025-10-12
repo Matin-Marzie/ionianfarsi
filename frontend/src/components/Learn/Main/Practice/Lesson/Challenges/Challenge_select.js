@@ -94,11 +94,11 @@ const ChallengeSelect = () => {
 
       {/* Card Options */}
       {select_type[0] === "card" &&
-        <div className="grid grid-cols-2 gap-4 text-xl">
+        <div className="grow grid grid-cols-2 gap-x-4 gap-y-[1.5dvh] text-xl">
           {shuffledOptions.map((option) => (
             <button
               key={option.id}
-              style={{ height: "18dvh", minHeight: 80, maxHeight: 220 }} // Responsive height using dvh
+              style={{ minHeight: 30, maxHeight: 220 }} // Responsive height using dvh
               className={`io-button border rounded-lg shadow-md transition active:bg-blue-300
               ${multipleChoise
                   ? (Array.isArray(selectedOption) && selectedOption.includes(option.id) ? "bg-blue-300" : "bg-white")
@@ -111,6 +111,7 @@ const ChallengeSelect = () => {
               {select_type[select_type.length - 1] === "writtenform" ? <div>{option.written_form}</div> :
                 select_type[select_type.length - 1] === "picture" ? <img src={option.image_url} alt={option.english_equivalent} /> :
                   select_type[select_type.length - 1] === "transliteration" ? <div>{option.transliteration}</div> :
+                  select_type[select_type.length -1 ] === "englishequivalent" ? <div>{option.english_equivalent}</div> :
                     <div>option 404</div>
               }
 
@@ -141,7 +142,7 @@ const ChallengeSelect = () => {
         </div>
       }
 
-      <p className='pt-4 pb-2 text-bluesea font-bold gap-x-4 flex  justify-center  items-center'>
+      <p className='pt-[1dvh] pb-1 text-bluesea font-bold gap-x-4 flex  justify-center  items-center'>
         <span>Swipe Up</span>
         <MdOutlineSwipeUp className="text-4xl" />
       </p>

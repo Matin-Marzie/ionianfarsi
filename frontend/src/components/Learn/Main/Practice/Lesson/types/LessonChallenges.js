@@ -87,10 +87,10 @@ const LessonChallenges = () => {
   };
   const handleTouchEnd = (e) => {
     const deltaY = e.changedTouches[0].clientY - touchStartY.current;
-    if (deltaY < -100) handleSwipe();
+    if (deltaY < -50) handleSwipe();
   };
   const handleWheel = (e) => {
-    if (e.deltaY > 100) handleSwipe();
+    if (e.deltaY > 50) handleSwipe();
   };
 
 

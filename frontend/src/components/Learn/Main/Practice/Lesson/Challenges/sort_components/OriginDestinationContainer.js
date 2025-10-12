@@ -90,11 +90,12 @@ const { data: lettersAudio } = useQuery({
 
               if(challenge?.content?.sort_type === "letters") return;
               
-              const word_pronounciation = challenge.contentn?.sentence_words?.find(
+              const word_pronounciation = challenge.content?.sentence_words?.find(
                 (word) => {
                   return word.audio_url && word.written_form === item.content;
                 }
               );
+
               if (word_pronounciation) {
                 playSound(word_pronounciation.audio_url);
               }

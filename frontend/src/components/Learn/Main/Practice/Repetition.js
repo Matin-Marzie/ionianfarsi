@@ -41,6 +41,7 @@ const Repetition = ({ unit, repetition }) => {
                 repetition_type={repetition.repetition_type}
                 percentage={percentage}
                 isCurrentRepetition={repetition.repetition_id === user.repetition.repetition_id}
+                user_lesson_id={user.lesson.lesson_id}
             />
         </div>
     )

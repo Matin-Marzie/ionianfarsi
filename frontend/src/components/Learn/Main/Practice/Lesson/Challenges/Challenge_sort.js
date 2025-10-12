@@ -140,7 +140,7 @@ const ChallengeSort = () => {
 
 
   return (
-    <div className="px-4 text-2xl h-full flex flex-col space-y-4">
+    <div className="px-4 text-2xl h-full flex flex-col space-y-4 w-full justify-end">
       
       {/* <h2 className="font-semibold">{challenge.question}</h2> */}
 

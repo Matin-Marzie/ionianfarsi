@@ -2,12 +2,12 @@ import { Link } from "react-router-dom";
 import { IoVideocam } from "react-icons/io5";
 import { TbPlaystationTriangle, TbPlaystationCircle, TbPlaystationX, TbPlaystationSquare } from "react-icons/tb";
 
-const Drop = ({ repetition, repetition_type, percentage, isCurrentRepetition }) => {
+const Drop = ({ repetition, repetition_type, percentage, isCurrentRepetition, user_lesson_id }) => {
 
     return (
         <div className="relative flex justify-center">
             <Link className={`${isCurrentRepetition ? 'io-drop' : ''} io-button-float flex rounded-[5%_50%_50%_50%] rotate-45 w-[80px] h-[80px] border-[3px] border-bluesea shadow-[4px_4px_0_0_#094c66] overflow-hidden`}
-                to={`/learn/lesson/${repetition.lessons[0].lesson_id}`}>
+                to={`/learn/lesson/${isCurrentRepetition ? user_lesson_id : repetition.lessons[0].lesson_id}`}>
 
                 {/* the percentage is ranged from  0 to 135*/}
                 <div className={`absolute left-[-7px] bottom-[0px] w-[150%] rotate-[-45deg] bg-[url('../images/water.png')] bg-repeat-x bg-top animate-wave`}
