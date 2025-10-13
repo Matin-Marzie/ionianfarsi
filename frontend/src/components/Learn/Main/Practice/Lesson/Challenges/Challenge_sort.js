@@ -26,17 +26,26 @@ const ChallengeSort = () => {
     // Set originItems based on the challenge type, shuffled
     if (challenge) {
       if (challenge.content.sort_type === "letters" || challenge.content.sort_type === "letters_with_audio") {
-        // split the word into letters and shuffle
-        setOriginItems(
-          fisher_yates_shuffle(
-            challenge.content.word.written_form.split("").map((letter, i) => ({
-              id: i,
-              content: letter
-            }))
-          )
-        );
-      }
-      else if (challenge.content.sort_type === "english_equivalent") {
+        const word = challenge.content.word.written_form;
+
+        // اَ اِ اُ
+        const combineDiacritics = ["َ", "ِ", "ُ"]; // only these three
+        const letters = [];
+
+        for (let i = 0; i < word.length; i++) {
+          let char = word[i];
+
+          // Combine if previous is ا and current is one of the three diacritics
+          if (char === "ا" && i + 1 < word.length && combineDiacritics.includes(word[i + 1])) {
+            char += word[i + 1];
+            i++; // skip the diacritic
+          }
+
+          letters.push({ id: letters.length, content: char });
+        }
+
+        setOriginItems(fisher_yates_shuffle(letters));
+      } else if (challenge.content.sort_type === "english_equivalent") {
         // split the english_equivalent into words and shuffle
         setOriginItems(
           fisher_yates_shuffle(
@@ -141,11 +150,11 @@ const ChallengeSort = () => {
 
   return (
     <div className="px-4 text-2xl h-full flex flex-col space-y-4 w-full justify-end">
-      
+
       {/* <h2 className="font-semibold">{challenge.question}</h2> */}
 
       {/* Display concatinated word */}
-      { ["letters", "letters_with_audio"].includes(challenge?.content?.sort_type) &&
+      {["letters", "letters_with_audio"].includes(challenge?.content?.sort_type) &&
         <div className="w-full text-center min-h-[dvh] grow flex items-end justify-center mb-">
           {destinationItems.map((item) => item.content).join("")}
         </div>

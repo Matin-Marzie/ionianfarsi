@@ -127,6 +127,7 @@ const MediaDialogue = ({ dialogue }) => {
           // --- Render sentence with clickable words ---
           let sentenceContent = line.sentence?.written_form;
           let words = line.sentence?.words || [];
+
           // If words exist, render each word as a span
           if (words.length > 0) {
             sentenceContent = (
@@ -202,6 +203,8 @@ const MediaDialogue = ({ dialogue }) => {
           );
         })}
       </div>
+
+      
       {/* WordMeaningPopUp */}
       {popupWord && (
         <WordMeaningPopUp

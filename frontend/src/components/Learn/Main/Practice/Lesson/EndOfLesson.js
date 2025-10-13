@@ -8,17 +8,16 @@ import { fetchLessonChallenges, fetchLessons } from '../../../../../api/LearnApi
 import useAxiosPrivate from '../../../../../hooks/useAxiosPrivate';
 import { updateUser } from '../../../../../api/UserApi';
 
+
 // Constants for XP and coins if practicing old lessons
 const LESSON_COIN = 4
 const OLD_LESSON_COIN = 1
 const OLD_LESSON_XP = 5
 
 const EndOfLesson = () => {
-  console.log("Rendering EndOfLesson component");
 
   const axiosPrivate = useAxiosPrivate();
-
-  const { user, setUser } = useAuth();
+  const { user, setUser, isLoggedIn } = useAuth();
   const { playSound, lessonCompletedSound, setChallengeIndex, setIsLessonCompleted } = useContext(LessonContext);
   const navigate = useNavigate();
   const { lesson_id: lesson_id_param } = useParams();
@@ -119,11 +118,15 @@ const EndOfLesson = () => {
           reset_data: true,
         }
         setUser(updatedUser)
-        updateUserMutation.mutate({
-          experience: updatedUser.experience,
-          coin: updatedUser.coin,
-          section_id: updatedUser.section.section_id
-        })
+
+        // sync backend
+        if (isLoggedIn) {
+          updateUserMutation.mutate({
+            experience: updatedUser.experience,
+            coin: updatedUser.coin,
+            section_id: updatedUser.section.section_id
+          })
+        }
         return
       }
 
@@ -140,13 +143,15 @@ const EndOfLesson = () => {
 
       setUser(updatedUser) // update
 
-      updateUserMutation.mutate({ // Backend sync
-        experience: updatedUser.experience,
-        coin: updatedUser.coin,
-        unit_id: nextUnit.unit_id,
-        repetition_id: nextRepetition.repetition_id,
-        lesson_id: nextLesson.lesson_id,
-      })
+      if (isLoggedIn) {
+        updateUserMutation.mutate({ // Backend sync
+          experience: updatedUser.experience,
+          coin: updatedUser.coin,
+          unit_id: nextUnit.unit_id,
+          repetition_id: nextRepetition.repetition_id,
+          lesson_id: nextLesson.lesson_id,
+        })
+      }
 
     } else {
       // Practiced an old lesson
@@ -155,11 +160,15 @@ const EndOfLesson = () => {
         experience: experience + OLD_LESSON_XP,
         coin: coin + OLD_LESSON_COIN,
       }
+
       setUser(updatedUser)
-      updateUserMutation.mutate({
-        experience: updatedUser.experience,
-        coin: updatedUser.coin,
-      })
+
+      if (isLoggedIn) {
+        updateUserMutation.mutate({
+          experience: updatedUser.experience,
+          coin: updatedUser.coin,
+        })
+      }
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -208,6 +217,10 @@ const EndOfLesson = () => {
       {/* Finish Text */}
       <p className="font-bold text-3xl mt-4">🎉 Finish 🏁 🎉</p>
       <p className="mt-3 px-6 text-xl text-gray-700">{randomMessage}</p>
+
+      {/* Gained */}
+      {/*||     XP     ||     COINS     ||*/}
+      {/* Under Developement */}
 
       {/* Button */}
       <button onClick={handleGoToLessons} className='io-button w-11/12 p-2 bg-[#0ca00c] mx-auto mb-6'>
