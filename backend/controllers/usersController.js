@@ -54,6 +54,7 @@ export const updateUser = async (req, res) => {
     // Validate request body strictly against schema
     const { error, value } = updateUserSchema.validate(req.body, { stripUnknown: true });
     if (error) {
+        console.log(error)
         return res.status(400).json({ message: error.details[0].message });
     }
 

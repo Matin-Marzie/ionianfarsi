@@ -19,7 +19,7 @@ const Lesson = () => {
 
   // Fetch user's current lesson data
   const { data: lessonData, isLoading } = useQuery({
-    queryKey: ["lessonData", lesson_id],
+    queryKey: ["lesson", lesson_id],
     queryFn: ({ signal }) => fetchLessonChallenges({ lessonId: lesson_id, signal }),
     staleTime: Infinity,
   });

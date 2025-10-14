@@ -11,7 +11,7 @@ export const updateUserSchema = Joi.object({
   energy: Joi.number().integer().min(0).max(5).optional(),
   section_id: Joi.number().integer().min(1).optional(),
   unit_id: Joi.number().integer().min(1).optional(),
-  repetition_id: Joi.number().integer().min(1).max(9).optional(),
+  repetition_id: Joi.number().integer().min(1).max(2147483647).optional(),
   lesson_id: Joi.number().integer().min(1).optional(),
 }).min(1); // require at least one field
 

@@ -115,9 +115,10 @@ const EndOfLesson = () => {
           ...other,
           experience: experience + xpGain,
           coin: coin + LESSON_COIN,
-          section: { section_id: user.section.section_id + 1 },
-          reset_data: true,
+          // section: { section_id: user.section.section_id + 1 }, // don't go to next section for now
+          // reset_data: true,
         }
+
         setUser(updatedUser)
 
         // sync backend
@@ -125,7 +126,7 @@ const EndOfLesson = () => {
           updateUserMutation.mutate({
             experience: updatedUser.experience,
             coin: updatedUser.coin,
-            section_id: updatedUser.section.section_id
+            // section_id: updatedUser.section.section_id
           })
         }
         return;
