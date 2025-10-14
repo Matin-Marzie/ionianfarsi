@@ -52,7 +52,7 @@ const EndOfLesson = () => {
 
   // ⚙️ Helper: Find next lesson path (unit/repetition/lesson)
   const findNextLessonPath = useCallback(() => {
-    if (!units || !user?.unit || !user?.lesson || !user?.repetition) return null
+    if (!units || !user?.unit || !user?.lesson || !user?.repetition) return;
 
     const { unit, repetition, lesson } = user
     const repetitions = unit.repetitions
@@ -77,7 +77,7 @@ const EndOfLesson = () => {
       return { nextUnit, nextRepetition: nextRep, nextLesson }
     }
     // 🛑 No more lessons in section
-    return null
+    return "next section"
   }, [units, user])
 
 
@@ -107,8 +107,9 @@ const EndOfLesson = () => {
     if (isCurrentLessonInPath) {
 
       const nextPath = findNextLessonPath()
+      if (!nextPath) return;
 
-      if (!nextPath) {// Finished all lessons → next section
+      if (nextPath && user.unit.unit_id === units[units.length - 1]) {// Finished all lessons → next section
 
         const updatedUser = {
           ...other,
@@ -127,11 +128,12 @@ const EndOfLesson = () => {
             section_id: updatedUser.section.section_id
           })
         }
-        return
+        return;
       }
 
       // Normal progress to next lesson in path
       const { nextUnit, nextRepetition, nextLesson } = nextPath
+
       const updatedUser = {
         ...other,
         experience: experience + xpGain,

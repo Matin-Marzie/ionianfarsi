@@ -7,9 +7,7 @@ import Challenge from "../Challenges/Challenge.js"
 import Answer from '../Answer.js';
 
 
-const LessonChallenges = () => {
-
-  const { currentLesson } = useContext(LessonContext);
+const LessonChallenges = ({ lessonData: currentLesson }) => {
 
   const {
     setChallengeIndex,
@@ -22,6 +20,9 @@ const LessonChallenges = () => {
     destinationItems,
     setChallenge,
     setIsLessonCompleted,
+    correctAnswer,
+    playSound,
+    nextChallengeSound,
   } = useContext(LessonContext);
 
   const isScrolling = useRef(false)
@@ -33,27 +34,27 @@ const LessonChallenges = () => {
   useEffect(() => {
     if (currentLesson) {
       setChallenge(currentLesson.challenges[0]);
+      setChallengeIndex(0)
     }
-  }, [setChallenge, currentLesson]);
+  }, [setChallenge, currentLesson, setChallengeIndex]);
 
 
   // --------------------Handle-when-current-challenge-finish--------------------
   const nextChallenge = () => {
+    if(correctAnswer) playSound(nextChallengeSound)
     // Reset all challenge-specific states
     setDisplayAnswer(false);
     setAnswerText('');
     setHasSwiped(false);
 
-    setTimeout(() => {
-      setChallengeIndex(prev => prev + 1);
-    }, 0);
+    setChallengeIndex(prev => prev + 1);
 
     if (challengeIndex < currentLesson?.challenges?.length - 1) {
 
       const nextChallenge = currentLesson?.challenges[challengeIndex + 1];
       setChallenge(nextChallenge);
     }
-    else{
+    else {
       setIsLessonCompleted(true);
     }
   };

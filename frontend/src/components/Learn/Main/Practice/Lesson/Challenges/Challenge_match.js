@@ -116,6 +116,7 @@ const Challenge_match = () => {
         setShuffledChallenge={setRightSideWords}
         fisher_yates_shuffle={fisher_yates_shuffle}
         matchType={matchType}
+        checkMatch={checkMatch}
       />
     </div>
   );

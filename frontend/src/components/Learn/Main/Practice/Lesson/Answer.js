@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { useContext } from "react"
 import LessonContext from "../../../../../context/LessonContext.js";
 
@@ -7,17 +6,8 @@ function Answer() {
     const {
         displayAnswer,
         answerText,
-        correctAnswer,
-        playSound,
-        nextChallengeSound
+        correctAnswer
     } = useContext(LessonContext);
-
-
-    useEffect(() => {
-        if (correctAnswer) {
-            playSound(nextChallengeSound);
-        }
-    }, [correctAnswer, playSound, nextChallengeSound]);
 
 
     return (

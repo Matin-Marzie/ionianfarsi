@@ -119,7 +119,13 @@ const MediaDialogue = ({ dialogue }) => {
         />
       </div>
       {/* DIALOGUE LINES */}
-      <div className={`mt-2 space-y-2 overflow-y-auto h-[14dvh] ${lines.length === 0 ? "hidden" : ""}`}>
+      <div // Prevent swiping and checking for answer
+        className={`mt-2 space-y-2 overflow-y-auto h-[14dvh] ${lines.length === 0 ? "hidden" : ""}`}
+        onWheel={(e) => e.stopPropagation()}
+        onTouchStart={(e) => e.stopPropagation()}
+        onTouchMove={(e) => e.stopPropagation()}
+        onTouchEnd={(e) => e.stopPropagation()}
+      >
         {lines.map((line, i) => {
           const isFirstOfBlock =
             i === 0 || line.character?.id !== lines[i - 1].character?.id;
@@ -156,6 +162,8 @@ const MediaDialogue = ({ dialogue }) => {
             );
           }
 
+
+          // dialogue lines sentences
           return (
             <div
               key={line.start_time_ms}
@@ -176,7 +184,9 @@ const MediaDialogue = ({ dialogue }) => {
               </strong>
 
               {/* Sentence (with clickable words if available) */}
-              <span className="flex-1">{sentenceContent}</span>
+              <span className="flex-1">
+                {sentenceContent}
+              </span>
 
               {/* English equivalent */}
               {line.sentence?.english_equivalent && (
@@ -204,7 +214,7 @@ const MediaDialogue = ({ dialogue }) => {
         })}
       </div>
 
-      
+
       {/* WordMeaningPopUp */}
       {popupWord && (
         <WordMeaningPopUp

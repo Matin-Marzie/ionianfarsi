@@ -46,7 +46,14 @@ img {
   caret-color: transparent;
 }
 
-.io-button:active {
+.io-button-not-rounded {
+  box-shadow: #094c66 4px 4px 0 0;
+  transition: transform 200ms, box-shadow 200ms;
+  caret-color: transparent;
+}
+
+.io-button:active,
+.io-button-not-rounded:active {
   transform: translateY(4px) translateX(4px);
   box-shadow: #094c66 0px 0px 0px 0px;
 }
@@ -135,7 +142,6 @@ width: 25%;
 /* ||----------Vocabulary--------- */
 .vocabulary-container {
   width: 100%;
-  padding: 2%;
   display: flex;
   flex-direction: column;
 }

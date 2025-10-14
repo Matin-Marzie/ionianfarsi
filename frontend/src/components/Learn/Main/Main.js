@@ -1,16 +1,20 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useContext } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 import Vocabulary from './Vocabulary/Vocabulary.js'
 import Practice from './Practice/Practice.js'
 import Grammer from './Grammer/Grammer.js'
+import LessonContext from "../../../context/LessonContext.js";
 
 const pageComponents = [<Vocabulary />, <Practice />, <Grammer />];
 
 const Main = () => {
 
-    const [index, setIndex] = useState(1); // Start at Practice
-    const [direction, setDirection] = useState(0);
+    const { 
+        learnPageIndex, setLearnPageIndex,
+        learnPageScrollDirection, setLearnPageScrollDirection,
+     } = useContext(LessonContext);
+    
     const [isFirstLoad, setIsFirstLoad] = useState(true);
     const pointerStartX = useRef(null);
     const isScrolling = useRef(false);
@@ -31,12 +35,12 @@ const Main = () => {
 
         isScrolling.current = true;
 
-        if (deltaX > 0 && index < pageComponents.length - 1) {
-            setDirection(1);
-            setIndex((prev) => prev + 1);
-        } else if (deltaX < 0 && index > 0) {
-            setDirection(-1);
-            setIndex((prev) => prev - 1);
+        if (deltaX > 0 && learnPageIndex < pageComponents.length - 1) {
+            setLearnPageScrollDirection(1);
+            setLearnPageIndex((prev) => prev + 1);
+        } else if (deltaX < 0 && learnPageIndex > 0) {
+            setLearnPageScrollDirection(-1);
+            setLearnPageIndex((prev) => prev - 1);
         }
 
         setTimeout(() => {
@@ -52,12 +56,12 @@ const Main = () => {
     const handleEnd = (x) => {
         const deltaX = x - pointerStartX.current;
 
-        if (deltaX > 100 && index > 0) {
-            setDirection(-1);
-            setIndex((prev) => prev - 1);
-        } else if (deltaX < -100 && index < pageComponents.length - 1) {
-            setDirection(1);
-            setIndex((prev) => prev + 1);
+        if (deltaX > 100 && learnPageIndex > 0) {
+            setLearnPageScrollDirection(-1);
+            setLearnPageIndex((prev) => prev - 1);
+        } else if (deltaX < -100 && learnPageIndex < pageComponents.length - 1) {
+            setLearnPageScrollDirection(1);
+            setLearnPageIndex((prev) => prev + 1);
         }
     };
 
@@ -90,10 +94,10 @@ const Main = () => {
             onMouseUp={(e) => handleEnd(e.clientX)}
         >
             <div className="relative w-full flex-grow">
-                <AnimatePresence custom={direction} mode="popLayout">
+                <AnimatePresence custom={learnPageScrollDirection} mode="popLayout">
                     <motion.div
-                        key={index}
-                        custom={direction}
+                        key={learnPageIndex}
+                        custom={learnPageScrollDirection}
                         variants={variants}
                         initial="enter"
                         animate="center"
@@ -101,7 +105,7 @@ const Main = () => {
                         transition={{ duration: isFirstLoad ? 1 : 0.5 }}
                         className="absolute inset-0 w-full h-full"
                     >
-                        {pageComponents[index]}
+                        {pageComponents[learnPageIndex]}
                     </motion.div>
                 </AnimatePresence>
             </div>

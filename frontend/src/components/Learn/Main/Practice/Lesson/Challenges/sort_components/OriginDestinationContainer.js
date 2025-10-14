@@ -60,7 +60,6 @@ const { data: lettersAudio } = useQuery({
                 });
               if (letter_pronounciation) {
                 playSound(letter_pronounciation.audio_url);
-                console.log(letter_pronounciation);
               }
 
             }}

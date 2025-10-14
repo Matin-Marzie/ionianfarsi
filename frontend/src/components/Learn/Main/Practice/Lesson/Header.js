@@ -5,7 +5,7 @@ import LessonContext from '../../../../../context/LessonContext';
 import { useQueryClient } from '@tanstack/react-query';
 
 function Header() {
-  const { challengeIndex } = useContext(LessonContext);
+  const { challengeIndex, setChallengeIndex } = useContext(LessonContext);
 
   // Show how many exercises(ex. 4/10)
   const done_exercise_count = challengeIndex
@@ -23,6 +23,7 @@ function Header() {
     e.preventDefault();
     const confirmed = window.confirm('Are you sure to end the Session?');
     if (confirmed) {
+      setChallengeIndex(0)
       navigate('./../..');
     }
   };

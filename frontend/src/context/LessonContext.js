@@ -7,10 +7,9 @@ import wrongAnswerSound from "../components/Learn/Main/Practice/Lesson/sounds/wr
 const LessonContext = createContext({});
 
 export const LessonProvider = ({ children }) => {
-  // Shared states
-  const [currentUnit, setCurrentUnit] = useState({});
-  const [currentRepetition, setCurrentRepetition] = useState({});
-  const [currentLesson, setCurrentLesson] = useState({});
+
+  const [learnPageIndex, setLearnPageIndex] = useState(1); // Start at Practice
+  const [learnPageScrollDirection, setLearnPageScrollDirection] = useState(0);
 
   const [challengeIndex, setChallengeIndex] = useState(0);
   const [challenge, setChallenge] = useState({});
@@ -59,9 +58,9 @@ export const LessonProvider = ({ children }) => {
 
   return (
     <LessonContext.Provider value={{
-      currentUnit, setCurrentUnit,
-      currentRepetition, setCurrentRepetition,
-      currentLesson, setCurrentLesson,
+      learnPageIndex, setLearnPageIndex,
+      learnPageScrollDirection, setLearnPageScrollDirection,
+      
       challengeIndex, setChallengeIndex,
       challenge, setChallenge,
 
