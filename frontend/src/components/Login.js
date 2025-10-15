@@ -1,8 +1,9 @@
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useState, useRef, useEffect } from 'react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { loginUser } from '../api/UserApi.js';
+import { loginUser, loginWithGoogle } from '../api/UserApi.js';
 import useAuth from '../hooks/UseAuth.js';
+import { GoogleLogin } from '@react-oauth/google';
 
 const USERNAME_REGEX = /^[a-zA-Z][a-zA-Z0-9-_]{3,23}$/;
 const PASSWORD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
@@ -75,6 +76,52 @@ const Login = () => {
     }
   });
 
+  // Google OAuth mutation
+  const { mutate: googleMutate } = useMutation({
+    mutationFn: loginWithGoogle,
+    onSuccess: (data) => {
+      // Add reset flag to user
+      const userWithResetFlag = {
+        ...data.user,
+        reset_data: true,
+      };
+
+      setAuth(prev => ({
+        ...prev,
+        accessToken: data?.accessToken
+      }));
+
+      // Store user with reset flag
+      queryClient.setQueryData(["user"], userWithResetFlag);
+
+      setErrorMsg('');
+
+      navigate(previous_route_location, { replace: true });
+    },
+    onError: (err) => {
+      if (!err?.response) {
+        setErrorMsg('No server response');
+      } else if (err.response?.status === 400) {
+        setErrorMsg('Invalid Google token');
+      } else if (err.response?.status === 401) {
+        setErrorMsg('Google authentication failed');
+      } else {
+        setErrorMsg('Google login failed. Please try again.');
+      }
+      errRef.current.focus();
+    }
+  });
+
+  const handleGoogleSuccess = (credentialResponse) => {
+    const credential = credentialResponse.credential;
+    googleMutate({ credential });
+  };
+
+  const handleGoogleError = () => {
+    setErrorMsg('Google login failed');
+    errRef.current.focus();
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     const v1 = USERNAME_REGEX.test(username);
@@ -140,10 +187,27 @@ const Login = () => {
           {/* Buttons */}
           <button type="submit" disabled={!username || !password} className={`w-100 mt-3 border w-full py-2 io-button`}>Login</button>
         </form>
+
         <p className='mt-6 text-center'>
           Don't have an accound?{' '}
           <Link to="/register" className="font-medium text-blue-900 hover:text-blue-700 underline">Sign Up</Link>
         </p>
+
+        {/* Divider */}
+        <div className='my-4 flex items-center'>
+          <div className='flex-grow border-t border-gray-400'></div>
+          <span className='mx-4 text-gray-600'>or</span>
+          <div className='flex-grow border-t border-gray-400'></div>
+        </div>
+
+        {/* Google Login Button */}
+        <div className='io-button-not-rounded'>
+          <GoogleLogin
+            onSuccess={handleGoogleSuccess}
+            onError={handleGoogleError}
+            text="signin_with"
+          />
+        </div>
       </div>
     </section>
   );

@@ -14,6 +14,20 @@ export const loginUser = async ({ username, password }) => {
 };
 
 
+// Google OAuth Login/Register
+export const loginWithGoogle = async ({ credential }) => {
+    const response = await api.post(
+        '/auth/google',
+        JSON.stringify({ credential }),
+        {
+            headers: { "Content-Type": "application/json" },
+            withCredentials: true
+        }
+    );
+    return response.data;
+};
+
+
 // Create User (registeration)
 export const createUser = async ({ name, username, password }) => {
     const response = await api.post(

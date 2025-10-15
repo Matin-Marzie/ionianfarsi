@@ -1,15 +1,22 @@
 import { useState, useRef, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { FaCheck, FaTimes, FaInfoCircle } from "react-icons/fa";
-import { createUser } from '../api/UserApi';
-import { useMutation } from '@tanstack/react-query';
+import { createUser, loginWithGoogle } from '../api/UserApi';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { GoogleLogin } from '@react-oauth/google';
+import useAuth from '../hooks/UseAuth.js';
 
 const NAME_REGEX = /^[a-zA-Z '-]{3,35}$/;
 const USERNAME_REGEX = /^[a-zA-Z][a-zA-Z0-9-_]{3,23}$/;
 const PASSWORD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
 
 function Registration() {
+    const queryClient = useQueryClient();
+    const { setAuth } = useAuth();
+    const location = useLocation();
+    const previous_route_location = location.state?.from?.pathname || '/learn';
 
+    const navigate = useNavigate();
 
     // When component loads, focus will be on user Input
     const nameRef = useRef();
@@ -103,6 +110,53 @@ function Registration() {
             errRef.current.focus();
         }
     })
+
+        // Google OAuth mutation
+        const { mutate: googleMutate } = useMutation({
+            mutationFn: loginWithGoogle,
+            onSuccess: (data) => {
+                // Add reset flag to user
+                const userWithResetFlag = {
+                    ...data.user,
+                    reset_data: true,
+                };
+
+                setAuth(prev => ({
+                    ...prev,
+                    accessToken: data?.accessToken
+                }));
+
+                // Store user with reset flag
+                queryClient.setQueryData(["user"], userWithResetFlag);
+
+                setErrorMsg('');
+
+                // Navigate to desired location
+                navigate(previous_route_location, { replace: true });
+            },
+            onError: (err) => {
+                if (!err?.response) {
+                    setErrorMsg('No server response');
+                } else if (err.response?.status === 400) {
+                    setErrorMsg('Invalid Google token');
+                } else if (err.response?.status === 401) {
+                    setErrorMsg('Google authentication failed');
+                } else {
+                    setErrorMsg('Google signup failed. Please try again.');
+                }
+                errRef.current.focus();
+            }
+        });
+
+        const handleGoogleSuccess = (credentialResponse) => {
+            const credential = credentialResponse.credential;
+            googleMutate({ credential });
+        };
+
+        const handleGoogleError = () => {
+            setErrorMsg('Google signup failed');
+            errRef.current.focus();
+        };
 
 
     const handleSubmit = async (e) => {
@@ -217,7 +271,7 @@ function Registration() {
                                 onFocus={() => setPasswordFocus(true)}
                                 onBlur={() => setPasswordFocus(false)}
                             />
-                            <p id="passwordnote" className={passwordFocus && password && !validPassword ? 'mt-2 text-white bg-gray-500 p-2 rounded-md shadow-lg' : 'absolute -left-[9999px]'}>
+                            <div id="passwordnote" className={passwordFocus && password && !validPassword ? 'mt-2 text-white bg-gray-500 p-2 rounded-md shadow-lg' : 'absolute -left-[9999px]'}>
                                 <FaInfoCircle className='inline-block mr-1' />
                                 Password must include:
                                 <ul className='list-disc ml-5'>
@@ -227,7 +281,7 @@ function Registration() {
                                     <li className={/[!@#$%]/.test(password) ? 'hidden' : ''}>One special character (!@#$%)</li>
                                     <li className={password.length >= 8 && password.length <= 24 ? 'hidden' : ''}>8 to 24 characters long</li>
                                 </ul>
-                            </p>
+                            </div>
 
                         </div>
 
@@ -262,6 +316,19 @@ function Registration() {
                     <p className="mt-6 text-center">
                         Already have an account? {' '} <Link to="/login" className="font-medium text-blue-900 hover:text-blue-700 underline">Login</Link>
                     </p>
+
+                    <p className='my-2 text-center'>
+                        or
+                    </p>
+
+                        <div className='io-button-not-rounded'>
+                        <GoogleLogin
+                                onSuccess={handleGoogleSuccess}
+                                onError={handleGoogleError}
+                            text="signup_with"
+                        />
+                    </div>
+
                 </section>
             )}</div >
     );

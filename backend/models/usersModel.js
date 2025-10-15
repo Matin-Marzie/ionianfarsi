@@ -81,3 +81,73 @@ export const deleteUserByUsernameFromDB = async (username) => {
   const [result] = await db.execute('DELETE FROM users WHERE username = ?', [username]);
   return result;
 }
+
+// ============================================
+// Google OAuth Related Functions
+// ============================================
+
+/**
+ * Find user by Google ID
+ */
+export const findUserByGoogleId = async (googleId) => {
+  const [rows] = await db.execute('SELECT * FROM users WHERE google_id = ?', [googleId]);
+  return rows[0];
+};
+
+/**
+ * Find user by email
+ */
+export const findUserByEmail = async (email) => {
+  const [rows] = await db.execute('SELECT * FROM users WHERE email = ?', [email]);
+  return rows[0];
+};
+
+/**
+ * Create user with Google OAuth data
+ */
+export const createGoogleUser = async (googleUserData) => {
+  const {
+    googleId,
+    email,
+    firstName,
+    lastName,
+    name,
+    username,
+    profilePicture
+  } = googleUserData;
+
+  const [result] = await db.execute(
+    `INSERT INTO users 
+    (google_id, email, first_name, last_name, name, username, profile_picture_url, last_login) 
+    VALUES (?, ?, ?, ?, ?, ?, ?, NOW())`,
+    [
+      googleId,
+      email,
+      firstName || null,
+      lastName || null,
+      name || null,
+      username,
+      profilePicture || null
+    ]
+  );
+  
+  return result.insertId;
+};
+
+/**
+ * Update user's last login time and refresh token
+ */
+export const updateUserLastLogin = async (username, refreshToken) => {
+  await db.execute(
+    'UPDATE users SET last_login = NOW(), refresh_token = ? WHERE username = ?',
+    [refreshToken, username]
+  );
+};
+
+/**
+ * Check if username exists
+ */
+export const usernameExists = async (username) => {
+  const [rows] = await db.execute('SELECT id FROM users WHERE username = ?', [username]);
+  return rows.length > 0;
+};

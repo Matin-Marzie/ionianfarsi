@@ -109,13 +109,13 @@ const EndOfLesson = () => {
       const nextPath = findNextLessonPath()
       if (!nextPath) return;
 
-      if (nextPath && user.unit.unit_id === units[units.length - 1]) {// Finished all lessons → next section
+      if (nextPath && user.unit.unit_id === units[units.length - 1].unit_id) {// Finished all lessons → next section
 
         const updatedUser = {
           ...other,
           experience: experience + xpGain,
           coin: coin + LESSON_COIN,
-          // section: { section_id: user.section.section_id + 1 }, // don't go to next section for now
+          // section: { section_id: user.section.section_id + 1 }, // TEMP
           // reset_data: true,
         }
 
@@ -126,7 +126,7 @@ const EndOfLesson = () => {
           updateUserMutation.mutate({
             experience: updatedUser.experience,
             coin: updatedUser.coin,
-            // section_id: updatedUser.section.section_id
+            // section_id: updatedUser.section.section_id // TEMP
           })
         }
         return;
