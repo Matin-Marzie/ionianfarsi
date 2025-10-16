@@ -11,6 +11,7 @@ import Home from './components/Home.js';
 import Register from './components/Register.js'
 import Login from './components/Login.js';
 import PrivacyPolicy from './components/PrivacyPolicy.js';
+import TermsOfService from './components/TermsOfService.js';
 
 import Learn from './components/Learn/Learn.js';
 import Sections from './components/Learn/Main/Practice/Sections.js';
@@ -46,6 +47,7 @@ function App() {
               <Route path="register" element={<Register />} />
               <Route path="login" element={<Login />} />
               <Route path="privacy-policy" element={<PrivacyPolicy />} />
+              <Route path="terms-of-service" element={<TermsOfService />} />
 
               <Route element={<PersisLogin />}>
 
