@@ -1,12 +1,12 @@
 import db from '../config/db.js';
 
 export const updateRefreshToken = async (username, refreshToken) => {
-  await db.execute('UPDATE users SET refresh_token = ? WHERE username = ?', [refreshToken, username]);
+  await db.execute('UPDATE users SET refresh_token = ?, last_login = NOW() WHERE username = ?', [refreshToken, username]);
 };
 
 export const createUser = async (name, username, passwordHash) => {
   const [result] = await db.execute(
-    'INSERT INTO users (name, username, password) VALUES (?, ?, ?)',
+    'INSERT INTO users (name, username, password, last_login, joined_date) VALUES (?, ?, ?, NOW(), NOW())',
     [name, username, passwordHash]
   );
   return result.insertId;
@@ -118,8 +118,8 @@ export const createGoogleUser = async (googleUserData) => {
 
   const [result] = await db.execute(
     `INSERT INTO users 
-    (google_id, email, first_name, last_name, name, username, profile_picture_url, last_login) 
-    VALUES (?, ?, ?, ?, ?, ?, ?, NOW())`,
+    (google_id, email, first_name, last_name, name, username, password, profile_picture_url, last_login, joined_date) 
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, NOW(), NOW())`,
     [
       googleId,
       email,
