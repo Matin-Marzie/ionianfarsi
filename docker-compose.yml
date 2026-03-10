@@ -1,0 +1,25 @@
+services:
+
+  backend:
+    build: ./backend
+    container_name: ionianfarsi-backend
+    restart: unless-stopped
+    ports:
+      - "3500:3500"
+    environment:
+      PORT: 3500
+      DATABASE_HOST: db
+      DATABASE_USER: ${DATABASE_USER:-ionianfarsi}
+      DATABASE_NAME: ${DATABASE_NAME:-sql7788068}
+      DATABASE_PASSWORD: ${DATABASE_PASSWORD:-ionianfarsi123}
+      ACCESS_TOKEN_SECRET: ${ACCESS_TOKEN_SECRET}
+      REFRESH_TOKEN_SECRET: ${REFRESH_TOKEN_SECRET}
+      GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID}
+    depends_on:
+      db:
+        condition: service_healthy
+    volumes:
+      - ./backend/public:/app/public
+
+volumes:
+  db_data:
